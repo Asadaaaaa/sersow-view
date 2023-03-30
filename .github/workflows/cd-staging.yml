@@ -19,4 +19,5 @@ jobs:
             cd sersow/staging/sersow-view
             git pull origin staging
             npm i
+            npm run build
             pm2 restart stg-sersow-view

@@ -19,4 +19,5 @@ jobs:
             cd sersow/main/sersow-view
             git pull origin main
             npm i
+            npm run build
             pm2 restart main-sersow-view
