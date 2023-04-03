@@ -8,7 +8,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html>
-      <body>{children}<p>test</p></body>
+      <body>{children}<p>test commit</p></body>
     </html>
   )
 }
