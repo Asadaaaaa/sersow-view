@@ -1,4 +1,4 @@
-name: Sersow Web CD Production
+name: CD
 
 on:
   push:

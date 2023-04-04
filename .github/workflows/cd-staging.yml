@@ -1,4 +1,4 @@
-name: Sersow Web CD Staging
+name: CD
 
 on:
   push:
