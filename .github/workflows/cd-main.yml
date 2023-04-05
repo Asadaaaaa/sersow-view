@@ -17,6 +17,7 @@ jobs:
           port: ${{ secrets.PORT }}
           script: |
             cd sersow/main/sersow-view
+            git fetch
             git pull origin main
             npm i
             npm run build
