@@ -1,4 +1,18 @@
-* {
-  margin: 0;
-  padding: 0;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-gradient {
+    width: 1713.02px;
+    height: 2314.51px;
+    position: absolute;
+    z-index: 1;
+    left: -700px;
+    top: -500px;
+
+    background: radial-gradient(34.08% 34.22% at 66% 27.65%, rgba(93, 170, 174, 0.8) 0%, rgba(72, 78, 183, 0) 100%, rgba(159, 167, 255, 0) 100%) /* warning: gradient uses a rotation that is not supported by CSS and may not behave as expected */;
+    mix-blend-mode: color-dodge;
+    filter: blur(60.323px);
+    border-radius: 241.292px;
+    transform: matrix(-0.1, -0.99, -0.99, 0.13, 0, 0);
 }
