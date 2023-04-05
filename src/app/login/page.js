@@ -1,13 +1,11 @@
-import { Lexend_Deca } from 'next/font/google'
-const lexen = Lexend_Deca({ subsets: ['latin'] })
+import font from '../font.module.css';
 
-export default function Home() {
+export default function Login() {
   return (
-    <main>
+		<main>
       <div>
-        <h1>Sersow</h1>
-        <p className={lexen.className}>Login.</p>
+        <h1 className={`${font.Clash_display_d6bold} text-red-500`}>Login Page Sersow</h1>
       </div>
     </main>
-  )
+	);
 }
