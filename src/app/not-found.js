@@ -18,8 +18,8 @@ export default function NotFound() {
               <Image src={LGradient} className=" mt-24 z-[1]"/>
             </div>
             <div className="absolute w-full py-24 mt-2">
-              <div className="flex flex-col gap-12  items-center relative z-[2]">
-                <h1 className={`${font.Clash_display_d1bold} text-white flex items-center text-center`}> 4 <Image src={IconNol}/> 4</h1>
+              <div className="flex flex-col gap-y-16 -gap-x-8  items-center z-[2]">
+                <h1 className={`${font.Clash_display_d1bold} text-white flex items-center text-center`}><h1 className='text-cyan-500'>4</h1> <Image src={IconNol}/> <h1>4</h1></h1>
                 <div className="flex flex-col gap-4 item-center relative z-[3]">
                   <h2 className={`${font.Clash_display_h1medium} text-center text-white`}>Congrats! You just find an easter egg</h2>
                   <p className={`${font.Clash_display_h5medium} text-center text-gray-500`}>Nah, just kidding. You're lost within the mist.</p>
