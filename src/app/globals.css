@@ -21,3 +21,52 @@ body::-webkit-scrollbar {
     /* transform: matrix(-0.1, -0.99, -0.99, 0.13, 0, 0); */
     transform: rotate(90deg);
 }
+
+input[type="radio"], input[type="checkbox"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #334155;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+
+input[type="radio"] {
+    border-radius: 50%;
+}
+
+input[type="checkbox"] {
+    border-radius: 4px;
+}
+  
+input[type="radio"]:hover, input[type="checkbox"]:hover {
+    border-color: white;
+    background-color: #1E293B;
+    transform: scale(.9);
+}
+input[type="radio"]:checked {
+    border-color: #22D3EE;
+    border-width: 4px;
+    transform: scale(.9);
+}
+
+input[type="checkbox"]:checked {
+    background-color: #F472B6;
+    border: none;
+}
+
+input[type="checkbox"]:checked::before {
+    content: "";
+    display: inline-block;
+    position: relative;
+    top: -7px;
+    left: 3px;
+    width: 8px;
+    height: 8px;
+    background-image: url("/icons/FaCheck.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+  }
