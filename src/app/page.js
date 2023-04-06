@@ -5,8 +5,4 @@ export default function Home() {
 	if (true) {
 		notFound();
 	}
-
-	return(
-		<></>
-	);
 }
