@@ -1,16 +1,16 @@
+import Form from './Form';
 import Header from './Header';
-import StepOne from './StepOne';
-import font from '../font.module.css';
-import styles from '../globals.css';
+import ProgressOne from './ProgressOne';
 
 export default function Register() {
   return (
 		<main>
 			<Header />
-      <div className="bg-slate-950 relative h-screen overflow-hidden">
+      <div className="bg-slate-950 relative overflow-hidden py-16">
 				<div className="bg-gradient"></div>
-        <div className="flex flex-col items-center">
-					<StepOne />
+        <div className="flex flex-col gap-16 items-center relative z-[2]">
+					<ProgressOne />
+					<Form />
 				</div>
       </div>
     </main>
