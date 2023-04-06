@@ -1,7 +1,7 @@
 import Form from "./Form";
 import Header from "../login/Header";
 
-export default function EmailVerification() {
+export default function ForgotPassword() {
   return (
     <main>
 			<Header />
