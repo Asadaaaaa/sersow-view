@@ -25,7 +25,7 @@ export default function NotFound() {
                 <p className={`${font.Clash_display_h5medium} text-center text-gray-500`}>Nah, just kidding. You're lost within the mist.</p>
                 </div>
                 <button className="flex items-center gap-8 px-8 py-4 border-[1px] border-solid border-slate-300 rounded-xl">
-                  <h5 className={`${font.Clash_display_h5medium} text-white`}> Respawn here </h5>
+                  <h5 className={`${font.Clash_display_h5medium} text-white`}>Respawn here</h5>
                 </button>
               </div>
             </div>  
