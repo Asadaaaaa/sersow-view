@@ -13,11 +13,15 @@ export default function Header() {
             src={LogoTitle}
             className="w-72 pr-8 border-r-[1px] border-r-solid border-r-slate-700"
           />
-          <h3 className={`${font.Satoshi_b2bold} pl-8 text-slate-200`}>Home</h3>
+          <button className="home w-fit h-fit pl-8">
+            <h3 className={`${font.Satoshi_b2bold} text-slate-200`}>
+              Home
+            </h3>
+          </button>
         </div>
 
         <div className="flex gap-5">
-          <div className="flex items-center px-9 py-3 border-[1px] border-solid border-slate-300 rounded-xl bg-gradient-to-b from-[#A855F7] to-[#7C3AED]">
+          <button className="register flex items-center px-9 py-3 border-[1px] border-solid border-slate-300 rounded-xl bg-gradient-to-b from-[#A855F7] to-[#7C3AED]">
             <div>
               <h4
                 className={`${font.Satoshi_b2bold} text-left text-base font-bold text-white`}
@@ -25,14 +29,14 @@ export default function Header() {
                 Register
               </h4>
             </div>
-          </div>
+          </button>
           <div className="flex ">
-            <div className="flex items-center px-9 py-3 border-[1px] border-solid border-slate-300 rounded-xl bg">
+            <button className="login flex items-center px-9 py-3 border-[1px] border-solid border-slate-300 rounded-xl">
               <div className="pr-2">
                 <FaSignInAlt className="text-white" />
               </div>
               <h4 className={`${font.Satoshi_b2bold} text-white`}>Log in</h4>
-            </div>
+            </button>
           </div>
         </div>
       </div>
