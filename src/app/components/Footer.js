@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import font from "../font.module.css";
 import LogoFooter from "../../../public/images/LogoFooter.svg";
@@ -12,9 +13,9 @@ export default function Footer() {
         </div>
         <div className="flex">
           <div className="flex gap-2 items-center">
-            <button className="flex items-center h-fit px-9 py-3  border-solid rounded-xl bg-gradient-to-b from-[#22D3EE] to-[#0EA5E9]">
+            <Link href="#" id="credit" className="flex items-center h-fit px-9 py-3  border-solid rounded-xl bg-gradient-to-b from-[#22D3EE] to-[#0EA5E9]">
               <h4 className={`${font.Satoshi_b2bold} text-white`}>Credits</h4>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
