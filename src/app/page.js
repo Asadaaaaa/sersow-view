@@ -1,12 +1,27 @@
-import font from './font.module.css';
+import Faqs from "./Faqs";
+import Join from "./Join";
+import Main from "./Main";
+import Quote from "./Quote";
+import Header from "./Header";
+import Footer from "./Footer";
+import Credits from "./Credits";
+import Featured from "./Featured";
+import Discover from "./Discover";
+import TechStack from "./TechStack";
 
 export default function Home() {
   return (
-    <main>
-      <div>
-        <h1 className={`${font.Clash_display_d6bold} text-red-500`}>Landing page Sersow</h1>
-        <p>Sersow is a project showcase app for uploading and showcasing their project work, interact with others, seek ideas and find collaborators or teams.</p>
-      </div>
+    <main className="bg-slate-950">
+      <Header />
+      <Main />
+      <Featured />
+      <Discover />
+      <Join />
+      <Quote />
+      <TechStack />
+      <Credits />
+      <Faqs />
+      <Footer />
     </main>
   );
 }

@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import Input from '../register/Input';
 import font from '../font.module.css';
 
@@ -8,14 +10,16 @@ export default function Form () {
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Forgot your password ?</h1>
         <div className="flex flex-col gap-4 items-center w-[350px]">
           <h6 className={`${font.Satoshi_b2regular} text-white text-center`}>Enter your email and we'll send you a link to get back into your account</h6>
-          <Input placeholder={"Email"} />
+          <Input placeholder={"Email"} type={"text"} />
         </div>
 				<div className="flex flex-col gap-4 items-center w-full">
 					<h4 className={`${font.Satoshi_b2regular} text-white`}>Didn't receive a link ?{" "}<span className="text-cyan-500">Resend</span></h4>
           <div className="w-full px-2 py-1">
             <button className={`${font.Satoshi_b3bold} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}>Verify email</button>
           </div>
-          <h4 className={`${font.Satoshi_b2regular} text-cyan-500 text-center`}>I remember my password</h4>
+          <Link href="/login">
+            <h4 className={`${font.Satoshi_b2regular} text-cyan-500 text-center`}>I remember my password</h4>
+          </Link>
         </div>
 			</div>
 		</div>

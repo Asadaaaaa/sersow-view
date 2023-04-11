@@ -7,7 +7,7 @@ export default function Form () {
 			<div className="flex flex-col gap-4 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Email Verification</h1>
 				<h6 className={`${font.Satoshi_b2regular} text-white`}>Open your email and find the verification code</h6>
-				<Input placeholder={"Verification code"} />
+				<Input placeholder={"Verification code"} type={"text"} />
 				<div>
 					<h4 className={`${font.Satoshi_b2regular} text-white`}>Didn't receive a code ?{" "}<span className="text-cyan-500">Resend</span></h4>
 				</div>
