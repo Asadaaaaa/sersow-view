@@ -4,7 +4,7 @@ import font from "./font.module.css";
 
 export default function Faqs() {
   return (
-    <div className="p-24">
+    <div className="p-24" id="faqs">
       <h4 className={`${font.Clash_display_d4bold} text-white text-center mb-12`}>FAQS</h4>
       <div>
         <div className="w-full flex justify-between items-center px-8 py-4">

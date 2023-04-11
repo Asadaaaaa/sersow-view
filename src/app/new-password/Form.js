@@ -8,8 +8,8 @@ export default function Form () {
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Set a new password</h1>
         <div className="flex flex-col gap-4 items-center w-[350px]">
           <h6 className={`${font.Satoshi_b2regular} text-white text-center`}>Your new password must be different from previous used pasword</h6>
-          <Input placeholder={"New password"} />
-          <Input placeholder={"Confirm a new password"} />
+          <Input placeholder={"New password"} type={"password"} />
+          <Input placeholder={"Confirm a new password"} type={"password"} />
         </div>
         <div className="w-full px-2 py-1">
           <button className={`${font.Satoshi_b3bold} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}>Reset Password</button>
