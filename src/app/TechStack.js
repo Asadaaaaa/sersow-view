@@ -9,7 +9,7 @@ import Sequelize from "../../public/images/TechStack/Sequelize.svg";
 import Mysql from "../../public/images/TechStack/Mysql.svg";
 import font from "./font.module.css";
 
-export default function TechStack() {
+export default function TechStack({ styles }) {
   return (
     <div className="bg-[radial-gradient(100%_100%_at_50%_0%,#083344_0%,#020617_100%)] border-solid border-t-[1px] border-t-cyan-400 py-12 relative">
       <div className="absolute w-full flex justify-between top-0">
@@ -21,8 +21,8 @@ export default function TechStack() {
           <h4 className={`${font.Clash_display_d4medium} text-white text-center`}>One Platform</h4>
           <h4 className={`${font.Clash_display_h4medium} text-slate-400 text-center mt-1`}>Run with a tech stack</h4>
         </div>
-        <div className="overflow-x-hidden techstack-gallery">
-          <div className="w-fit flex gap-20 relative techstack">
+        <div className={`overflow-x-hidden ${styles.techstackGallery}`}>
+          <div className={`w-fit flex gap-20 relative ${styles.techstack}`}>
             <Image src={Tailwind} alt="Tailwind" />
             <Image src={Reactjs} alt="Reactjs" />
             <Image src={Nextjs} alt="Nextjs" />

@@ -1,0 +1,20 @@
+.featuredGallery::-webkit-scrollbar {
+  display: none;
+}
+
+.techstackGallery::-webkit-scrollbar {
+  display: none;
+}
+
+.techstack {
+  animation: runningtext linear 10s infinite;
+}
+
+@keyframes runningtext {
+  0% {
+      left: 0;
+  }
+  100% {
+      left: -2045px;
+  }
+}

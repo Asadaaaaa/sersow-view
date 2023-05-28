@@ -70,24 +70,3 @@ input[type="checkbox"]:checked::before {
     background-position: center center;
     background-size: contain;
 }
-
-.featured-gallery::-webkit-scrollbar {
-    display: none;
-}
-
-.techstack-gallery::-webkit-scrollbar {
-    display: none;
-}
-
-.techstack {
-    animation: runningtext linear 5s infinite;
-}
-
-@keyframes runningtext {
-    0% {
-        left: 0;
-    }
-    100% {
-        left: -2045px;
-    }
-}
