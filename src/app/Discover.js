@@ -7,7 +7,7 @@ import DiscoverComponent from "../../public/images/DiscoverComponent1.svg";
 export default function Discover() {
   return (
     <div className="bg-gradient-to-b from-slate-900 to-slate-900/0 relative overflow-hidden">
-      <div className="bg-[url(../../public/images/DiscoverBackground.svg)] w-full bg-repeat-y">
+      <div className="bg-[url(../../public/images/DiscoverBackground.svg)] w-full bg-repeat-y bg-cover">
         <div className="p-24 flex flex-col gap-12 relative z-[1]">
           <div className="flex justify-between">
             <div className="mt-12 w-60">
