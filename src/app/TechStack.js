@@ -35,6 +35,8 @@ export default function TechStack() {
             <Image src={Nextjs} alt="Nextjs" />
             <Image src={Axios} alt="Axios" />
             <Image src={Expressjs} alt="Expressjs" />
+            <Image src={Sequelize} alt="Sequelize" />
+            <Image src={Mysql} alt="Mysql" />
           </div>
         </div>
       </div>
