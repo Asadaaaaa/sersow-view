@@ -40,7 +40,7 @@ export default function Faqs() {
           <div key={index}>
             <div className="w-full flex justify-between items-center px-8 py-4">
               <h2 className={`${font.Clash_display_h2medium} text-white`}>{item.title}</h2>
-              <div onClick={() => handleClick(index)}>
+              <div className="cursor-pointer" onClick={() => handleClick(index)}>
                 <FaChevronLeft color="white" className={"w-6 h-6 transition-all " + (activeIndex === index ? "-rotate-90" : "")} />
               </div>
             </div>
@@ -52,34 +52,6 @@ export default function Faqs() {
             <hr />
           </div>
         ))}
-        {/* <div className="w-full flex justify-between items-center px-8 py-4">
-          <h2 className={`${font.Clash_display_h2medium} text-white`}>What is Sersow?</h2>
-          <div>
-            <FaChevronLeft color="white" className="w-6 h-6" />
-          </div>
-        </div>
-        <hr />
-        <div className="w-full flex justify-between items-center px-8 py-4">
-          <h2 className={`${font.Clash_display_h2medium} text-white`}>How does it work?</h2>
-          <div>
-            <FaChevronLeft color="white" className="w-6 h-6" />
-          </div>
-        </div>
-        <hr />
-        <div className="w-full flex justify-between items-center px-8 py-4">
-          <h2 className={`${font.Clash_display_h2medium} text-white`}>Is it free to use?</h2>
-          <div>
-            <FaChevronLeft color="white" className="w-6 h-6" />
-          </div>
-        </div>
-        <hr />
-        <div className="w-full flex justify-between items-center px-8 py-4">
-          <h2 className={`${font.Clash_display_h2medium} text-white`}>And many more will be added</h2>
-          <div>
-            <FaChevronLeft color="white" className="w-6 h-6" />
-          </div>
-        </div>
-        <hr /> */}
       </div>
     </div>
   );
