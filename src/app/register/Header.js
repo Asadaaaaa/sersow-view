@@ -11,7 +11,7 @@ export default function Header() {
 			<div className="flex justify-between">
 				<div className="flex items-center">
 					<Link href="/">
-						<Image src={LogoTitle} className="w-72 pr-8 border-r-[1px] border-r-solid border-r-slate-700 cursor-pointer" />
+						<Image alt="Sersow Logo" src={LogoTitle} className="w-72 pr-8 border-r-[1px] border-r-solid border-r-slate-700 cursor-pointer" />
 					</Link>
 					<Link href="/home">
 						<h3 className={`${font.Satoshi_b2medium} pl-8 text-slate-200`}>Home</h3>

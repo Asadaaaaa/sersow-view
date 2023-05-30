@@ -9,16 +9,18 @@ import Featured from "./Featured";
 import Discover from "./Discover";
 import TechStack from "./TechStack";
 
+import styles from "./root.module.css";
+
 export default function Home() {
   return (
     <main className="bg-slate-950">
       <Header />
       <Main />
-      <Featured />
+      <Featured styles={styles} />
       <Discover />
       <Join />
       <Quote />
-      <TechStack />
+      <TechStack styles={styles} />
       <Credits />
       <Faqs />
       <Footer />

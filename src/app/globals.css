@@ -37,8 +37,16 @@ input[type="radio"] {
     border-radius: 50%;
 }
 
+input[type="radio"].error {
+    border-color: #fb7185;
+}
+
 input[type="checkbox"] {
     border-radius: 4px;
+}
+
+input[type="checkbox"].error {
+    border-color: #fb7185;
 }
   
 input[type="radio"]:hover, input[type="checkbox"]:hover {
@@ -69,25 +77,4 @@ input[type="checkbox"]:checked::before {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: contain;
-}
-
-.featured-gallery::-webkit-scrollbar {
-    display: none;
-}
-
-.techstack-gallery::-webkit-scrollbar {
-    display: none;
-}
-
-.techstack {
-    animation: runningtext linear 10s infinite;
-}
-
-@keyframes runningtext {
-    0% {
-        left: 0;
-    }
-    100% {
-        left: -2045px;
-    }
 }

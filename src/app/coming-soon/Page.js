@@ -14,7 +14,7 @@ export default function Home() {
     <main>
       <Header />
 
-      <div className="flex flex-col content-center bg-gradient-to-b from-[#020617] to-[#0F172A] w-full ">
+      <div className="flex flex-col content-center bg-gradient-to-b from-[#020617] to-[#0F172A] w-full min-h-[calc(100vh-220.3px)]">
         <div>
           <Image src={colorBlend} className="absolute top-16 right-14 w-8/12 opacity-90 mix-blend-hard-light origin-top-right	"/>
           <Image src={iconRight} className="absolute right-0 opacity-50 -mr-40 mix-blend-soft-light"/>

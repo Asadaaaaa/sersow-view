@@ -13,7 +13,7 @@ export default function NotFound() {
     <main>
       <Header/>
       <div>
-        <div className="bg-slate-950 flex -mb-[122.91px]">
+        <div className="bg-slate-950 flex -mb-[122.91px] min-h-[calc(100vh-220.3px)]">
           <div className="relative w-full mb-4">
             <Image src={RGradient} className="mix-blend-plus-lighter float-right z-[0]"/>
             <Image src={LGradient} className="mix-blend-hard-light mt-24 z-[1]"/>
