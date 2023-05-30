@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import sersow from "../../public/images/sersow.png";
+import sersow from "../../public/images/Sersow.png";
 
 export default function Loading() {
   return (
