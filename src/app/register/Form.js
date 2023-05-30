@@ -9,7 +9,7 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
 import Input from './Input';
 import font from '../font.module.css';
-import { HOST } from "../../../config";
+import { HOST, VERSION } from "../../../config";
 
 export default function Form () {
 
@@ -288,7 +288,7 @@ export default function Form () {
 									return;
 								}
 
-								await fetch(HOST + "/v1/auth/register", {
+								await fetch(HOST + "/" + VERSION + "/auth/register", {
 									method: 'POST',
 									headers: {
 										'Accept': '*/*',
