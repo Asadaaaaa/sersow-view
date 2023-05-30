@@ -192,6 +192,7 @@ export default function Form () {
 				</div>
 				<div className="w-full px-2 py-1">
 						<button 
+							disabled={loading}
 							className={`${font.Satoshi_b3bold} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
 							onClick={async() => {
 
@@ -201,12 +202,16 @@ export default function Form () {
 									setDataError({ ...dataError, name: true});
 									setWarningText("Name can't be empty");
 
+									setLoading(false);
+
 									return;
 								}
 
 								if (!dataPattern.name.test(data.name)) {
 									setDataError({ ...dataError, name: true});
 									setWarningText("Input consists of alphabetic characters only, with words separated by a single space and no consecutive spaces.");
+
+									setLoading(false);
 
 									return;
 								}
@@ -215,12 +220,16 @@ export default function Form () {
 									setDataError({ ...dataError, emailUpi: true});
 									setWarningText("Email can't be empty");
 
+									setLoading(false);
+
 									return;
 								}
 
 								if (!dataPattern.emailUpi.test(data.emailUpi)) {
 									setDataError({ ...dataError, emailUpi: true});
 									setWarningText("Input should only contain alphanumeric characters, dots (.), underscores (_), percent (%), plus (+), or hyphens (-) without the domain (@upi.edu).");
+
+									setLoading(false);
 
 									return;
 								}
@@ -229,12 +238,16 @@ export default function Form () {
 									setDataError({ ...dataError, password: true});
 									setWarningText("Password can't be empty");
 
+									setLoading(false);
+
 									return;
 								}
 
 								if (data.password.length < 6) {
 									setDataError({ ...dataError, password: true});
 									setWarningText("Minimum length for password is 6 characters");
+
+									setLoading(false);
 
 									return;
 								}
@@ -243,12 +256,16 @@ export default function Form () {
 									setDataError({ ...dataError, password: true, confirmPassword: true});
 									setWarningText("Input should consist of a single sequence of non-whitespace characters.");
 
+									setLoading(false);
+
 									return;
 								}
 
 								if (data.password !== data.confirmPassword) {
 									setDataError({ ...dataError, password: true, confirmPassword: true});
 									setWarningText("Passwords can't be different");
+
+									setLoading(false);
 
 									return;
 								}
@@ -257,12 +274,16 @@ export default function Form () {
 									setDataError({ ...dataError, gender: true});
 									setWarningText("Sersow is only for normal person, so choose a gender");
 
+									setLoading(false);
+
 									return;
 								}
 
 								if (!data.tac) {
 									setDataError({ ...dataError, tac: true});
 									setWarningText("I know you won't read the Terms and Conditions, just check it");
+
+									setLoading(false);
 
 									return;
 								}
