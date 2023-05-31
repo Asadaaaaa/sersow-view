@@ -96,8 +96,6 @@ export default function Form () {
                       progress: undefined,
                       theme: "colored",
                     });
-
-                    console.log(1);
                   } else {
                     if (res.err) {
                       if (res.err.type === "validator") {
