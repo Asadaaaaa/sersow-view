@@ -210,7 +210,7 @@ export default function Form () {
 										expires: new Date(new Date().getTime() + 10800000),
 									});
 
-									console.log(1);
+									setCookie("refreshAuth", res.data.refreshToken);
 
 									router.push("home");
 
