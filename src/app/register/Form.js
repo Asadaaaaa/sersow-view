@@ -310,9 +310,24 @@ export default function Form () {
 										router.push("email-verification");
 									} else {
 										if(res.err) {
-											if(res.err.data.code === -1) {
-												setDataError({ ...dataError, emailUpi: true })
-												setWarningText("Email already registered");
+											if (res.err.type === "service") {
+												if(res.err.data.code === -1) {
+
+													setDataError({ ...dataError, emailUpi: true })
+													setWarningText("Email already registered");
+													
+												}
+											} else if (res.err.type === "validator") {
+												toast.error("Something Wrong With Your Input", {
+													position: "top-center",
+													autoClose: 3000,
+													hideProgressBar: true,
+													closeOnClick: true,
+													pauseOnHover: true,
+													draggable: true,
+													progress: undefined,
+													theme: "colored",
+												});
 											}
 										}
 									}
