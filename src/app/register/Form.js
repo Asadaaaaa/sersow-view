@@ -9,7 +9,7 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
 import Input from './Input';
 import font from '../font.module.css';
-import { HOST, VERSION } from "../../../config";
+import { HOST, VERSION } from "../../../config.js";
 
 export default function Form () {
 

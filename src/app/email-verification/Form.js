@@ -6,7 +6,7 @@ import { setCookie, getCookie } from 'cookies-next';
 
 import Input from '../register/Input';
 import font from '../font.module.css';
-import { HOST } from '../../../config';
+import { HOST, VERSION } from '../../../config.js';
 
 export default function Form () {
 	
@@ -78,7 +78,7 @@ export default function Form () {
 
 								handleResendClick();
 
-								await fetch(HOST + "/v1/auth/resend-code", {
+								await fetch(HOST + "/" + VERSION + "/auth/resend-code", {
 									method: 'POST',
 									headers: {
 										'Accept': '*/*',
@@ -194,7 +194,7 @@ export default function Form () {
 								return;
 							}
 
-							await fetch(HOST + "/v1/auth/valid-code", {
+							await fetch(HOST + "/" + VERSION + "/auth/valid-code", {
 								method: 'POST',
 								headers: {
 									'Accept': '*/*',
