@@ -10,7 +10,7 @@ export default function CookiesPolicy() {
           >
             Cookies policy
           </p>
-          <div className={`${font.Satoshi_c2medium} text-slate-400`}>
+          <div className={`${font.Satoshi_c1medium} text-slate-400`}>
             <p className="text-white py-4">Last updated: April 4th, 2023 </p>
             <p >
               This Cookies Policy explains what cookies are and how we use them

@@ -1,6 +1,6 @@
 import font from "../font.module.css";
 
-export default function TermCondition() {
+export default function TermsConditions() {
   return (
     <div className="flex justify-center text-white">
       <div className="mx-60 my-10 border-2 border-slate-700 rounded-xl ">
@@ -8,10 +8,10 @@ export default function TermCondition() {
           <p
             className={`${font.Clash_display_h5medium} mt-12 pb-4 border-b-2 border-slate-700`}
           >
-            Terms and Condition
+            Terms and Conditions
           </p>
 
-          <div className={`${font.Satoshi_c2medium} text-justify `}>
+          <div className={`${font.Satoshi_c1medium} text-justify `}>
             <p className="py-4">Last Updated: April 4th 2023</p>
             <p className="text-slate-400 ">
               Welcome to Sersow, a web-based platform for showcasing projects
