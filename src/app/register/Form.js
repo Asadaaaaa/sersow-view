@@ -188,7 +188,7 @@ export default function Form () {
 							setWarningText("");
 						}}
 					/>
-					<label htmlFor="tac" className={`${font.Satoshi_b2regular} text-white`}>I agree to the{" "}<Link href="/terms-and-conditions" className="text-cyan-500">terms and conditions</Link></label>
+					<label htmlFor="tac" className={`${font.Satoshi_b2regular} text-white`}>I agree to the{" "}<Link target="_blank" href="/terms-and-conditions" className="text-cyan-500">terms and conditions</Link></label>
 				</div>
 				<div className="w-full px-2 py-1">
 						<button 
