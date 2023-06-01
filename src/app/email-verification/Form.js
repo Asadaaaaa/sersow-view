@@ -4,8 +4,8 @@ import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { setCookie, getCookie } from 'cookies-next';
 
-import Input from '@/components/form/Input';
 import font from '../font.module.css';
+import Input from '@/components/form/Input';
 import { HOST, VERSION } from '../../../config.js';
 
 export default function Form () {
