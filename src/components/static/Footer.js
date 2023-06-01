@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
-import font from './font.module.css';
-import LogoFooter from '../../public/images/LogoFooter.svg';
+import font from '@/app/font.module.css';
+import LogoFooter from '../../../public/images/LogoFooter.svg';
 
-export default function Footer() {
+export default function Footer({ transparent }) {
   return (
-    <div className="w-full bg-slate-900 px-24 py-6 border-t-[1px] border-t-solid border-t-slate-700 relative z-[2]">
+    <div className={"w-full px-24 py-6 border-t-[1px] border-t-solid border-t-slate-700 relative z-[2] " + (transparent ? "bg-slate-900/20" : "bg-slate-900")}>
       <div className="flex justify-between">
         <div className="flex items-center">
           <Image src={LogoFooter} className="w-64 " />
