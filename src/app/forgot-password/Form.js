@@ -18,6 +18,7 @@ export default function Form () {
 
 	const [emailError, setEmailError] = useState(false);
 	const [warningText, setWarningText] = useState("");
+	const [success, setSuccess] = useState(false);
 
 	const [loading, setLoading] = useState(false);
 
@@ -39,11 +40,17 @@ export default function Form () {
             onFocus={() => {
               setEmailError(false);
               setWarningText("");
+              setSuccess(false);
             }}
           />
           {warningText && (
             <div className="w-full max-w-[350px] pt-2">
               <p className={`${font.Satoshi_b2regular} text-red-500`}>{warningText}</p>
+            </div>
+          )}
+          {success && (
+            <div className="w-full max-w-[350px] pt-2">
+              <p className={`${font.Satoshi_b2regular} text-emerald-500`}>Link sent, if your email matches an existing account we will send a password reset email within a few minutes. If you have not received an email check your spam folder or resend</p>
             </div>
           )}
         </div>
@@ -96,6 +103,8 @@ export default function Form () {
                       progress: undefined,
                       theme: "colored",
                     });
+
+                    setSuccess(true);
                   } else {
                     if (res.err) {
                       if (res.err.type === "validator") {
