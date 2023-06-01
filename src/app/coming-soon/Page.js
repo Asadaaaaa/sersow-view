@@ -3,7 +3,7 @@ import Image from 'next/image';
 import font from '../font.module.css';
 import { FaWrench } from 'react-icons/fa';
 
-import Header from './Header';
+import Header from '@/components/static/Header';
 import Footer from '@/components/static/Footer';
 import colorBlend from '../../../public/images/Comingsoon/ComingSoonGradient1.svg';
 import iconLeft from '../../../public/images/Comingsoon/ComingSoonComponent1.svg';

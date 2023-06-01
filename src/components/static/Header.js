@@ -1,9 +1,9 @@
-import Link from "next/link";
-import Image from "next/image";
-import { FaSignInAlt } from "react-icons/fa";
+import Link from 'next/link';
+import Image from 'next/image';
+import { FaSignInAlt } from 'react-icons/fa';
 
-import font from '../font.module.css';
-import LogoTitle from "../../../public/images/LogoTitle.svg";
+import font from '@/app/font.module.css';
+import LogoTitle from '../../../public/images/LogoTitle.svg';
 
 export default function Header() {
   return (

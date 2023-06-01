@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import '../app/globals.css';
 import font from '../app/font.module.css';
-import Header from '../app/coming-soon/Header';
+import Header from '@/components/static/Header';
 import Footer from '@/components/static/Footer';
 import IconNol from '../../public/images/NotFound/NotFoundComponent1.svg';
 import LGradient from '../../public/images/NotFound/NotFoundGradient1.svg';

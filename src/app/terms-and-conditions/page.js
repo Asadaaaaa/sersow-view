@@ -1,7 +1,7 @@
 import font from '../font.module.css';
-import Header from '../coming-soon/Header';
 import CookiesPolicy from './CookiesPolicy';
 import TermsConditions from './TermsConditions';
+import Header from '@/components/static/Header';
 import Footer from '@/components/static/Footer';
 
 export default function TaC() {
