@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
 import font from './font.module.css';
-import LogoTitle from "../../public/images/LogoTitle.svg";
+import LogoTitle from '../../public/images/LogoTitle.svg';
 
 export default function Header() {
 
@@ -23,11 +23,9 @@ export default function Header() {
           <button className="flex items-center gap-2 px-6 py-3" onClick={() => scrollToSection("faqs")}>
             <h4 className={`${font.Satoshi_b2medium} text-white`}>FAQ</h4>
           </button>
-          <Link href="/credits">
-            <button className="flex items-center gap-2 px-6 py-3">
-              <h4 className={`${font.Satoshi_b2medium} text-white`}>Credits</h4>
-            </button>
-          </Link>
+          <button className="flex items-center gap-2 px-6 py-3" onClick={() => scrollToSection("credits")}>
+            <h4 className={`${font.Satoshi_b2medium} text-white`}>Credits</h4>
+          </button>
           <div className="px-2 py-1">
             <Link href="/register">
               <button className="flex items-center gap-2 px-6 py-3 bg-gradient-to-b from-purple-500 to to-violet-600 rounded-xl hover:drop-shadow-[0px_0px_4px_rgba(168,85,247,0.4)] transition-all">
