@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-import "../app/globals.css"
+import '../app/globals.css';
 import Footer from './Footer';
 import font from '../app/font.module.css';
 import Header from '../app/coming-soon/Header';
