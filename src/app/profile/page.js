@@ -1,7 +1,10 @@
-import ComingSoon from "../coming-soon/Page";
+import Main from "./Main";
+import Layout from "@/components/main/Layout";
 
 export default function Profile() {
   return (
-    <ComingSoon />
+    <Layout isLogin={true} page={"Profile"}>
+      <Main />
+    </Layout>
   );
 }
