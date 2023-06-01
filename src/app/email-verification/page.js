@@ -1,14 +1,14 @@
 "use client"
 
-import { useEffect, useState } from "react";
-import { getCookie } from "cookies-next";
-import { useRouter } from "next/navigation";
-import { ToastContainer } from "react-toastify";
+import { getCookie } from 'cookies-next';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 
-import Form from "./Form";
-import Loading from "../loading";
-import Header from "../register/Header";
-import ProgressTwo from "./ProgressTwo";
+import Form from './Form';
+import Loading from '../loading';
+import ProgressTwo from './ProgressTwo';
+import Header from '@/components/form/Header';
 
 export default function EmailVerification() {
 
@@ -28,7 +28,7 @@ export default function EmailVerification() {
     <Loading />
   ) : (
     <main>
-			<Header />
+			<Header register={false} login={true} />
       <div className="bg-slate-950 relative overflow-hidden py-16 min-h-[calc(100vh-145.39px)]">
 				<div className="bg-gradient"></div>
         <div className="flex flex-col gap-16 items-center relative z-[2]">
