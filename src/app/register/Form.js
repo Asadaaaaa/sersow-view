@@ -10,6 +10,7 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
 import { HOST, VERSION } from "../../../config.js";
+import styles from "@/components/form/form.module.css";
 
 export default function Form () {
 
@@ -146,7 +147,7 @@ export default function Form () {
 								type="radio" 
 								name="gender" 
 								id="male" 
-								className={dataError.gender ? "error" : ""} 
+								className={styles.radio + " " + (dataError.gender ? styles.error : "")} 
 								onClick={() => {
 									setData({ ...data, gender: 1});
 									setDataError({ ...dataError, gender: false});
@@ -160,7 +161,7 @@ export default function Form () {
 								type="radio" 
 								name="gender" 
 								id="female" 
-								className={dataError.gender ? "error" : ""} 
+								className={styles.radio + " " + (dataError.gender ? styles.error : "")} 
 								onClick={() => {
 									setData({ ...data, gender: 2});
 									setDataError({ ...dataError, gender: false});
@@ -180,7 +181,7 @@ export default function Form () {
 					<input 
 						type="checkbox" 
 						id="tac" 
-						className={dataError.tac ? "error" : ""} 
+						className={styles.checkbox + " " + (dataError.tac ? styles.error : "")} 
 						checked={data.tac}
 						onChange={(e) => {
 							setData({ ...data, tac: e.target.checked});

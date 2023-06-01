@@ -9,6 +9,7 @@ import Form from './Form';
 import Loading from '../loading';
 import ProgressTwo from './ProgressTwo';
 import Header from '@/components/form/Header';
+import BgGradient from '@/components/form/BgGradient';
 
 export default function EmailVerification() {
 
@@ -30,7 +31,7 @@ export default function EmailVerification() {
     <main>
 			<Header register={false} login={true} />
       <div className="bg-slate-950 relative overflow-hidden py-16 min-h-[calc(100vh-145.39px)]">
-				<div className="bg-gradient"></div>
+        <BgGradient />
         <div className="flex flex-col gap-16 items-center relative z-[2]">
 					<ProgressTwo />
 					<Form />
