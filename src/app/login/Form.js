@@ -2,14 +2,14 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { setCookie } from "cookies-next";
+import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { Loading } from "@nextui-org/react";
+import { Loading } from '@nextui-org/react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 
-import Input from '../register/Input';
+import Input from '@/components/form/Input';
 import font from '../font.module.css';
-import { HOST, VERSION } from "../../../config.js";
+import { HOST, VERSION } from '../../../config.js';
 
 export default function Form () {
 

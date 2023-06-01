@@ -1,12 +1,12 @@
 "use client";
 
-import { useState } from 'react';;
-import { toast } from "react-toastify";
-import { Loading } from "@nextui-org/react";
+import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { Loading } from '@nextui-org/react';
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-import Input from '../register/Input';
+import Input from '@/components/form/Input';
 import font from '../font.module.css';
 import { HOST, VERSION } from '../../../config.js';
 
