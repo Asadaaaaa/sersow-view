@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import font from "./font.module.css";
-import UpiWhite from "../../public/images/UpiWhite.svg";
+import UpiWhite from "../../public/images/Join/UpiWhite.svg";
 
 export default function Join() {
   return (

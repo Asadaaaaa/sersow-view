@@ -1,10 +1,10 @@
-import Link from "next/link";
-import Image from "next/image";
-import { FaHome, FaHashtag, FaUser, FaCog, FaRocket, FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import Link from 'next/link';
+import Image from 'next/image';
+import { FaHome, FaHashtag, FaUser, FaCog, FaRocket, FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 
-import font from "../../app/font.module.css";
-import LogoTitle from "../../../public/images/LogoTitle.svg";
-import Mikakitchen from "../../../public/images/Mikakitchen.png";
+import font from '../../app/font.module.css';
+import LogoTitle from '../../../public/images/LogoTitle.svg';
+import Mikakitchen from '../../../public/dummy/Mikakitchen.png';
 
 export default function Sidebar({ isLogin, page }) {
 

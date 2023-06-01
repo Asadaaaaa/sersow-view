@@ -1,8 +1,8 @@
 import Image from "next/image";
 
 import font from "./font.module.css";
-import QuoteGradient from "../../public/images/QuoteGradient.svg";
-import MarkZuckerberg from "../../public/images/MarkZuckerberg.png";
+import QuoteGradient from "../../public/images/Quote/QuoteGradient.svg";
+import MarkZuckerberg from "../../public/images/Quote/MarkZuckerberg.png";
 
 export default function Quote() {
   return (

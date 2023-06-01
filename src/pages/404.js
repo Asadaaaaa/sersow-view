@@ -4,9 +4,9 @@ import '../app/globals.css';
 import font from '../app/font.module.css';
 import Header from '../app/coming-soon/Header';
 import Footer from '@/components/static/Footer';
-import IconNol from '../../public/images/NotFoundComponent1.svg';
-import LGradient from '../../public/images/NotFoundGradient1.svg';
-import RGradient from '../../public/images/NotFoundGradient2.svg';
+import IconNol from '../../public/images/NotFound/NotFoundComponent1.svg';
+import LGradient from '../../public/images/NotFound/NotFoundGradient1.svg';
+import RGradient from '../../public/images/NotFound/NotFoundGradient2.svg';
 
 export default function NotFound() {
   return (
