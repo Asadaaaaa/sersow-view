@@ -6,7 +6,6 @@ import { setCookie, getCookie } from 'cookies-next';
 
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
-import { HOST, VERSION } from '../../../config.js';
 
 export default function Form () {
 	
@@ -78,7 +77,7 @@ export default function Form () {
 
 								handleResendClick();
 
-								await fetch(HOST + "/" + VERSION + "/auth/resend-code", {
+								await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/resend-code", {
 									method: 'POST',
 									headers: {
 										'Accept': '*/*',
@@ -194,7 +193,7 @@ export default function Form () {
 								return;
 							}
 
-							await fetch(HOST + "/" + VERSION + "/auth/valid-code", {
+							await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/valid-code", {
 								method: 'POST',
 								headers: {
 									'Accept': '*/*',

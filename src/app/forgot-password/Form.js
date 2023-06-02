@@ -8,7 +8,6 @@ import { Loading } from '@nextui-org/react';
 
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
-import { HOST, VERSION } from '../../../config.js';
 
 export default function Form () {
 
@@ -81,7 +80,7 @@ export default function Form () {
 									return;
 								}
   
-                await fetch(HOST + "/" + VERSION + "/auth/req-forgot-password", {
+                await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/req-forgot-password", {
                   method: 'POST',
                   headers: {
                     'Accept': '*/*',
