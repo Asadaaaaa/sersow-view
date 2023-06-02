@@ -1,4 +1,4 @@
-import font from '../font.module.css';
+import font from '@/app/font.module.css';
 
 export default function Input({ placeholder, type, value, onChange, maxLength, error, onFocus }) {
   return (

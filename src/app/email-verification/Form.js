@@ -1,12 +1,11 @@
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
-import { Loading } from "@nextui-org/react";
-import { useRouter } from "next/navigation";
+import { Loading } from '@nextui-org/react';
+import { useRouter } from 'next/navigation';
 import { setCookie, getCookie } from 'cookies-next';
 
-import Input from '../register/Input';
 import font from '../font.module.css';
-import { HOST, VERSION } from '../../../config.js';
+import Input from '@/components/form/Input';
 
 export default function Form () {
 	
@@ -78,7 +77,7 @@ export default function Form () {
 
 								handleResendClick();
 
-								await fetch(HOST + "/" + VERSION + "/auth/resend-code", {
+								await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/resend-code", {
 									method: 'POST',
 									headers: {
 										'Accept': '*/*',
@@ -194,7 +193,7 @@ export default function Form () {
 								return;
 							}
 
-							await fetch(HOST + "/" + VERSION + "/auth/valid-code", {
+							await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/valid-code", {
 								method: 'POST',
 								headers: {
 									'Accept': '*/*',

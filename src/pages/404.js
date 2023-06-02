@@ -1,22 +1,22 @@
 import Image from 'next/image';
 
-import "../app/globals.css"
-import Footer from './Footer';
+import '../app/globals.css';
 import font from '../app/font.module.css';
-import Header from '../app/coming-soon/Header';
-import IconNol from '../../public/images/NotFoundComponent1.svg';
-import LGradient from '../../public/images/NotFoundGradient1.svg';
-import RGradient from '../../public/images/NotFoundGradient2.svg';
+import Header from '@/components/static/Header';
+import Footer from '@/components/static/Footer';
+import IconNol from '../../public/images/NotFound/NotFoundComponent1.svg';
+import LGradient from '../../public/images/NotFound/NotFoundGradient1.svg';
+import RGradient from '../../public/images/NotFound/NotFoundGradient2.svg';
 
 export default function NotFound() {
   return (
     <main>
-      <Header/>
+      <Header />
       <div>
         <div className="bg-slate-950 flex -mb-[122.91px] min-h-[calc(100vh-220.3px)]">
           <div className="relative w-full mb-4">
-            <Image src={RGradient} className="mix-blend-plus-lighter float-right z-[0]"/>
-            <Image src={LGradient} className="mix-blend-hard-light mt-24 z-[1]"/>
+            <Image src={RGradient} className="mix-blend-plus-lighter float-right z-[0]" />
+            <Image src={LGradient} className="mix-blend-hard-light mt-24 z-[1]" />
           </div>
           <div className="absolute w-full py-24 mt-2">
             <div className="flex flex-col gap-y-16 -gap-x-8  items-center z-[2]">
@@ -31,7 +31,7 @@ export default function NotFound() {
             </div>
           </div>  
         </div>
-        <Footer/>
+        <Footer transparent={true} />
       </div>
     </main>
   );

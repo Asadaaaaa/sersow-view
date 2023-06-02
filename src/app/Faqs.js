@@ -7,10 +7,16 @@ import font from "./font.module.css";
 
 export default function Faqs() {
 
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [activeIndices, setActiveIndices] = useState([]);
 
   const handleClick = (index) => {
-    setActiveIndex((prevIndex) => (prevIndex === index ? null : index));
+    setActiveIndices((prevIndices) => {
+      if (prevIndices.includes(index)) {
+        return prevIndices.filter((i) => i !== index);
+      } else {
+        return [...prevIndices, index];
+      }
+    });
   };
 
   const content = [
@@ -38,13 +44,13 @@ export default function Faqs() {
       <div>
         {content.map((item, index) => (
           <div key={index}>
-            <div className="w-full flex justify-between items-center px-8 py-4">
+            <div className="w-full flex justify-between items-center px-8 py-4 cursor-pointer" onClick={() => handleClick(index)}>
               <h2 className={`${font.Clash_display_h2medium} text-white`}>{item.title}</h2>
-              <div className="cursor-pointer" onClick={() => handleClick(index)}>
-                <FaChevronLeft color="white" className={"w-6 h-6 transition-all " + (activeIndex === index ? "-rotate-90" : "")} />
+              <div>
+                <FaChevronLeft color="white" className={"w-6 h-6 transition-all " + (activeIndices.includes(index) ? "-rotate-90" : "")} />
               </div>
             </div>
-            {activeIndex === index && (
+            {activeIndices.includes(index) && (
               <div className={`${font.Satoshi_b1regular} text-slate-400 px-8 pb-8 select-none`}>
                 {item.desc}
               </div>

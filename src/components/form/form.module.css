@@ -1,0 +1,71 @@
+.bgGradient {
+  width: 125.4vw;
+  height: 333.02vh;
+  position: absolute;
+  z-index: 1;
+  left: -51.25vw;
+  top: -150vh;
+
+  background: radial-gradient(34.08% 34.22% at 66% 27.65%, rgba(93, 170, 174, 0.8) 0%, rgba(72, 78, 183, 0) 100%, rgba(159, 167, 255, 0) 100%);
+  mix-blend-mode: color-dodge;
+  filter: blur(60.323px);
+  border-radius: 241.292px;
+  transform: rotate(90deg);
+}
+
+.radio, .checkbox {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #334155;
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+  transition: all 200ms linear;
+}
+
+.radio {
+  border-radius: 50%;
+}
+
+.radio.error {
+  border-color: #fb7185;
+}
+
+.checkbox {
+  border-radius: 4px;
+}
+
+.checkbox.error {
+  border-color: #fb7185;
+}
+
+.radio:hover, .checkbox:hover {
+  border-color: white;
+  background-color: #1E293B;
+  transform: scale(.9);
+}
+.radio:checked {
+  border-color: #22D3EE;
+  border-width: 4px;
+  transform: scale(.9);
+}
+
+.checkbox:checked {
+  background-color: #F472B6;
+  border: none;
+}
+
+.checkbox:checked::before {
+  content: "";
+  display: inline-block;
+  position: relative;
+  top: -7px;
+  left: 3px;
+  width: 8px;
+  height: 8px;
+  background-image: url("/icons/FaCheck.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+}

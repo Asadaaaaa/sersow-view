@@ -3,11 +3,11 @@ import Join from "./Join";
 import Main from "./Main";
 import Quote from "./Quote";
 import Header from "./Header";
-import Footer from "./Footer";
 import Credits from "./Credits";
 import Featured from "./Featured";
 import Discover from "./Discover";
 import TechStack from "./TechStack";
+import Footer from "@/components/static/Footer";
 
 import styles from "./root.module.css";
 
@@ -23,7 +23,7 @@ export default function Home() {
       <TechStack styles={styles} />
       <Credits />
       <Faqs />
-      <Footer />
+      <Footer transparent={false} />
     </main>
   );
 }

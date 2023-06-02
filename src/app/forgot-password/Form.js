@@ -2,13 +2,12 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { Loading } from "@nextui-org/react";
+import { Loading } from '@nextui-org/react';
 
-import Input from '../register/Input';
 import font from '../font.module.css';
-import { HOST, VERSION } from '../../../config.js';
+import Input from '@/components/form/Input';
 
 export default function Form () {
 
@@ -18,6 +17,7 @@ export default function Form () {
 
 	const [emailError, setEmailError] = useState(false);
 	const [warningText, setWarningText] = useState("");
+	const [success, setSuccess] = useState(false);
 
 	const [loading, setLoading] = useState(false);
 
@@ -39,11 +39,17 @@ export default function Form () {
             onFocus={() => {
               setEmailError(false);
               setWarningText("");
+              setSuccess(false);
             }}
           />
           {warningText && (
             <div className="w-full max-w-[350px] pt-2">
               <p className={`${font.Satoshi_b2regular} text-red-500`}>{warningText}</p>
+            </div>
+          )}
+          {success && (
+            <div className="w-full max-w-[350px] pt-2">
+              <p className={`${font.Satoshi_b2regular} text-emerald-500`}>Link sent, if your email matches an existing account we will send a password reset email within a few minutes. If you have not received an email check your spam folder or resend</p>
             </div>
           )}
         </div>
@@ -74,7 +80,7 @@ export default function Form () {
 									return;
 								}
   
-                await fetch(HOST + "/" + VERSION + "/auth/req-forgot-password", {
+                await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/req-forgot-password", {
                   method: 'POST',
                   headers: {
                     'Accept': '*/*',
@@ -96,6 +102,8 @@ export default function Form () {
                       progress: undefined,
                       theme: "colored",
                     });
+
+                    setSuccess(true);
                   } else {
                     if (res.err) {
                       if (res.err.type === "validator") {

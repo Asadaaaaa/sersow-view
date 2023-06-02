@@ -1,0 +1,9 @@
+.mainScrollbar::-webkit-scrollbar {
+  width: 0.4vw;
+  background-color: transparent;
+}
+
+.mainScrollbar::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 4px;
+}

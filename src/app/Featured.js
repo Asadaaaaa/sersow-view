@@ -1,15 +1,12 @@
-// 'use client';
+import Image from 'next/image';
 
-import Image from "next/image";
-
-import { featured } from "./dummy";
-import font from "./font.module.css";
+import { featured } from './dummy';
 
 export default function Featured({ styles }) {
   return (
     <div className="py-24 bg-gradient-to-b from-slate-950 to-slate-900 flex flex-col gap-24 relative">
       <div className="px-24">
-        <Image src="/images/FeaturedTitle.png" width={1250} height={88} className="w-full" />
+        <Image src="/images/Featured/FeaturedTitle.png" width={1250} height={88} className="w-full" />
       </div>
       <div className={`overflow-x-auto ${styles.featuredGallery}`}>
         <div className="flex w-fit gap-8 px-24">
