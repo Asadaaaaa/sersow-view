@@ -5,9 +5,9 @@ import { FaWrench } from 'react-icons/fa';
 
 import Header from '@/components/static/Header';
 import Footer from '@/components/static/Footer';
-import colorBlend from '../../../public/images/Comingsoon/ComingSoonGradient1.svg';
-import iconLeft from '../../../public/images/Comingsoon/ComingSoonComponent1.svg';
-import iconRight from '../../../public/images/Comingsoon/ComingSoonComponent2.svg';
+import colorBlend from '../../../public/images/ComingSoon/ComingSoonGradient1.svg';
+import iconLeft from '../../../public/images/ComingSoon/ComingSoonComponent1.svg';
+import iconRight from '../../../public/images/ComingSoon/ComingSoonComponent2.svg';
 
 export default function Home() {
   return (
