@@ -109,10 +109,7 @@ export default function Form () {
 							const res = await login(data.identity, data.password);
 
 							if (res.status === "200") {
-								setCookie("auth", res.data.token, {
-									expires: new Date(new Date().getTime() + 10800000),
-								});
-
+								setCookie("auth", res.data.token);
 								setCookie("refreshAuth", res.data.refreshToken);
 
 								router.push("home");

@@ -186,9 +186,7 @@ export default function Form () {
 							const res = await validCode(getCookie("regAuth"), code);
 
 							if (res.status === "200") {
-								setCookie("auth", res.data.token, {
-									expires: new Date(new Date().getTime() + 10800000),
-								});
+								setCookie("auth", res.data.token);
 								setCookie("refreshAuth", res.data.refreshToken);
 								deleteCookie("regAuth");
 
