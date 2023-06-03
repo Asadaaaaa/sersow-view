@@ -1,44 +1,13 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { FaHome, FaHashtag, FaUser, FaCog, FaRocket, FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
+import { FaRocket, FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 
-import font from '../../app/font.module.css';
-import LogoTitle from '../../../public/images/LogoTitle.svg';
-import Mikakitchen from '../../../public/dummy/Mikakitchen.png';
+import font from '@/app/font.module.css';
+import SidebarMenu from '@/components/main/sidebar/SidebarMenu';
+import LogoTitle from '../../../../public/images/LogoTitle.svg';
+import Mikakitchen from '../../../../public/dummy/Mikakitchen.png';
 
-export default function Sidebar({ isLogin, page }) {
-
-  const pages = [
-    {
-      icon: <FaHome className="w-6 h-6" />,
-      text: "Home",
-      isLogin: false,
-    },
-    {
-      icon: <FaHashtag className="w-6 h-6" />,
-      text: "Discover",
-      isLogin: false,
-    },
-    {
-      icon: <FaUser className="w-6 h-6" />,
-      text: "Profile",
-      isLogin: true,
-    },
-    {
-      icon: <FaCog className="w-6 h-6" />,
-      text: "Settings",
-      isLogin: true,
-    },
-  ]
-
-  const filteredPages = pages.filter((page) => {
-    if (isLogin) {
-      return page;
-    } else {
-      return page.isLogin === isLogin;
-    }
-  });
-
+export default function Sidebar({ isLogin }) {
   return (
     <div className="h-screen flex flex-col justify-between py-6 px-12 bg-slate-900 border-solid border-slate-700 border-r-[1px]">
       <div className="flex flex-col gap-12">
@@ -46,18 +15,7 @@ export default function Sidebar({ isLogin, page }) {
           <Image src={LogoTitle} alt="Sersow Logo" className="w-[280px] h-auto" priority={true} />
         </div>
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
-            {filteredPages.map((item) => (
-              <Link href={item.text.toLowerCase()} key={item.text + " page"}>
-                <div className={"flex items-center gap-2 px-6 py-3 select-none rounded-full transition-all " + (page === item.text ? "text-cyan-400" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800")}>
-                  <div>
-                    {item.icon}
-                  </div>
-                  <span className={`${font.Satoshi_h6bold}`}>{item.text}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <SidebarMenu isLogin={isLogin} />
           {
             isLogin && (
               <div>
