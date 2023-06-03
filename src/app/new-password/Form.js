@@ -35,7 +35,7 @@ export default function Form () {
 	const passwordPattern = /^\S+$/;
 
 	return (
-		<div className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-12 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Set a new password</h1>
         <div className="flex flex-col gap-4 items-center w-[350px]">
@@ -200,6 +200,6 @@ export default function Form () {
           </button>
         </div>
 			</div>
-		</div>
+		</form>
 	);
 }

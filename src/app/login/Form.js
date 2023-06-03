@@ -32,7 +32,7 @@ export default function Form () {
 	const [loading, setLoading] = useState(false);
 
 	return (
-		<div className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-4 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Login</h1>
 				<Input 
@@ -142,6 +142,6 @@ export default function Form () {
 					<h4 className={`${font.Satoshi_b2regular} text-white`}>Don't have an account ?{" "}<Link href="/register" className="text-cyan-500">Register</Link></h4>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 }

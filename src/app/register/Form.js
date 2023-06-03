@@ -48,7 +48,7 @@ export default function Form () {
 	};
 
 	return (
-		<div className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-4 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Create new account</h1>
 				<Input 
@@ -326,6 +326,6 @@ export default function Form () {
 					<h4 className={`${font.Satoshi_b2regular} text-white`}>Already have an account ?{" "}<Link href="/login" className="text-cyan-500">Login</Link></h4>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 }
