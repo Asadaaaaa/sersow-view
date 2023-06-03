@@ -11,6 +11,8 @@ import font from '../font.module.css';
 import Input from '@/components/form/Input';
 import styles from "@/components/form/form.module.css";
 
+import register from '@/api/register';
+
 export default function Form () {
 
 	const router = useRouter();
@@ -192,9 +194,11 @@ export default function Form () {
 				</div>
 				<div className="w-full px-2 py-1">
 						<button 
+							type="submit"
 							disabled={loading}
 							className={`${font.Satoshi_b2medium} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
-							onClick={async() => {
+							onClick={async(e) => {
+								e.preventDefault();
 
 								setLoading(true);
 
@@ -288,54 +292,31 @@ export default function Form () {
 									return;
 								}
 
-								await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/register", {
-									method: 'POST',
-									headers: {
-										'Accept': '*/*',
-										'Content-Type': 'application/json'
-									},
-									body: JSON.stringify({
-										name: data.name,
-										emailUpi: data.emailUpi + "@upi.edu",
-										gender: data.gender,
-										password: data.password,
-									})
-								}).then(res => res.json()).then(res => {
+								const res = await register(data.name, data.emailUpi + "@upi.edu", data.gender, data.password);
 
-									if(res.status === 200) {
-										setCookie("auth", res.data.token, {
-											expires: new Date(new Date().getTime() + 10800000),
-										});
+								if (res.status === "200") {
+									setCookie("regAuth", res.data.token, {
+										expires: new Date(new Date().getTime() + 10800000),
+									});
 
-										router.push("email-verification");
-									} else {
-										if(res.err) {
-											if (res.err.type === "service") {
-												if(res.err.data.code === -1) {
+									router.push("email-verification");
+								} else if (res.status === "validator") {
+									toast.error("Something Wrong With Your Input", {
+										position: "top-center",
+										autoClose: 3000,
+										hideProgressBar: true,
+										closeOnClick: true,
+										pauseOnHover: true,
+										draggable: true,
+										progress: undefined,
+										theme: "colored",
+									});								
+								} else if (res.status === "-1") {
+									setDataError({ ...dataError, emailUpi: true });
+									setWarningText("Email already registered");
+								}
 
-													setDataError({ ...dataError, emailUpi: true })
-													setWarningText("Email already registered");
-													
-												}
-											} else if (res.err.type === "validator") {
-												toast.error("Something Wrong With Your Input", {
-													position: "top-center",
-													autoClose: 3000,
-													hideProgressBar: true,
-													closeOnClick: true,
-													pauseOnHover: true,
-													draggable: true,
-													progress: undefined,
-													theme: "colored",
-												});
-											}
-										}
-									}
-									
-								}).catch((err) => {
-								}).finally(() => {
-									setLoading(false);
-								});
+								setLoading(false);
 							}}
 						>
 							{loading ? <Loading type="points-opacity" size="lg" color="white" /> : "Register"}

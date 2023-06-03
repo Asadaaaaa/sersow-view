@@ -2,10 +2,13 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { setCookie, getCookie } from 'cookies-next';
+import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
+
+import validCode from '@/api/valid-code';
+import resendCode from '@/api/resend-code';
 
 export default function Form () {
 	
@@ -28,6 +31,7 @@ export default function Form () {
 
 		setTimeout(() => {
 			clearInterval(resendInterval);
+			setTimer(0);
 			setResendDisabled(false);
 		}, 30000);
 	};
@@ -77,100 +81,83 @@ export default function Form () {
 
 								handleResendClick();
 
-								await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/resend-code", {
-									method: 'POST',
-									headers: {
-										'Accept': '*/*',
-										'Content-Type': 'application/json',
-										'Authorization': getCookie("auth"),
-									}
-								}).then(res => res.json()).then(res => {
-									if (res.status === 200) {
-										toast.success("Resend Success", {
-											position: "top-center",
-											autoClose: 3000,
-											hideProgressBar: true,
-											closeOnClick: true,
-											pauseOnHover: true,
-											draggable: true,
-											progress: undefined,
-											theme: "colored",
-										});
-									} else {
-										if (res.err) {
-											if (res.err.type === "token") {
-												toast.error("Request Unauthorized", {
-													position: "top-center",
-													autoClose: 3000,
-													hideProgressBar: true,
-													closeOnClick: true,
-													pauseOnHover: true,
-													draggable: true,
-													progress: undefined,
-													theme: "colored",
-												});
+								const res = await resendCode(getCookie("regAuth"));
 
-												router.push("register");
-
-											} else if (res.err.type === "service") {
-												if (res.err.data.code === -1) {
-													toast.error("Request Unauthorized", {
-														position: "top-center",
-														autoClose: 3000,
-														hideProgressBar: true,
-														closeOnClick: true,
-														pauseOnHover: true,
-														draggable: true,
-														progress: undefined,
-														theme: "colored",
-													});
+								if (res.status === "200") {
+									toast.success("Resend Success", {
+										position: "top-center",
+										autoClose: 3000,
+										hideProgressBar: true,
+										closeOnClick: true,
+										pauseOnHover: true,
+										draggable: true,
+										progress: undefined,
+										theme: "colored",
+									});
+								} else if (res.status === "token") {
+									toast.error("Request Unauthorized", {
+										position: "top-center",
+										autoClose: 3000,
+										hideProgressBar: true,
+										closeOnClick: true,
+										pauseOnHover: true,
+										draggable: true,
+										progress: undefined,
+										theme: "colored",
+									});
 	
-													router.push("register");
+									router.push("register");
+								} else if (res.status === "validator") {
+									toast.error("Something Wrong With Your Input", {
+										position: "top-center",
+										autoClose: 3000,
+										hideProgressBar: true,
+										closeOnClick: true,
+										pauseOnHover: true,
+										draggable: true,
+										progress: undefined,
+										theme: "colored",
+									});								
+								} else if (res.status === "-1") {
+									toast.error("Request Unauthorized", {
+										position: "top-center",
+										autoClose: 3000,
+										hideProgressBar: true,
+										closeOnClick: true,
+										pauseOnHover: true,
+										draggable: true,
+										progress: undefined,
+										theme: "colored",
+									});
 
-												} else if (res.err.data.code === -2) {
-													toast.error("Email Already Verified", {
-														position: "top-center",
-														autoClose: 3000,
-														hideProgressBar: true,
-														closeOnClick: true,
-														pauseOnHover: true,
-														draggable: true,
-														progress: undefined,
-														theme: "colored",
-													});
+									router.push("register");
+								} else if (res.status === "-2") {
+									toast.error("Email Already Verified", {
+										position: "top-center",
+										autoClose: 3000,
+										hideProgressBar: true,
+										closeOnClick: true,
+										pauseOnHover: true,
+										draggable: true,
+										progress: undefined,
+										theme: "colored",
+									});
+
+									router.push("login");
+								} else if (res.status === "-3") {
+									toast.error("Resend On Cooldown", {
+										position: "top-center",
+										autoClose: 3000,
+										hideProgressBar: true,
+										closeOnClick: true,
+										pauseOnHover: true,
+										draggable: true,
+										progress: undefined,
+										theme: "colored",
+									});
+								}
 	
-													router.push("login");
-
-												} else if (res.err.data.code === -3) {
-													toast.error("Resend On Cooldown", {
-														position: "top-center",
-														autoClose: 3000,
-														hideProgressBar: true,
-														closeOnClick: true,
-														pauseOnHover: true,
-														draggable: true,
-														progress: undefined,
-														theme: "colored",
-													});
-												}
-											} else if (res.err.type === "validator") {
-												toast.error("Something Wrong With Your Input", {
-													position: "top-center",
-													autoClose: 3000,
-													hideProgressBar: true,
-													closeOnClick: true,
-													pauseOnHover: true,
-													draggable: true,
-													progress: undefined,
-													theme: "colored",
-												});
-											}
-										}
-									}
-									
-								}).catch((err) => {
-								}).finally(() => {
-								});
+								setLoading(false);
 							}}
 						>
 							Resend {timer !== 0 ? "(" + timer + ")" : ""}
@@ -179,9 +166,12 @@ export default function Form () {
 				</div>
 				<div className="w-full px-2 py-1">
 					<button 
+						type="submit"
 						disabled={loading}
 						className={`${font.Satoshi_b2medium} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
-						onClick={async() => {
+						onClick={async(e) => {
+							e.preventDefault();
+
 							setLoading(true);
 
 							if (code.length < 6) {
@@ -193,72 +183,49 @@ export default function Form () {
 								return;
 							}
 
-							await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/valid-code", {
-								method: 'POST',
-								headers: {
-									'Accept': '*/*',
-									'Content-Type': 'application/json',
-									'Authorization': getCookie("auth"),
-								},
-								body: JSON.stringify({
-									code: code
-								})
-							}).then(res => res.json()).then(res => {
-								if (res.status === 200) {
-									setCookie("auth", res.data.token, {
-										expires: new Date(new Date().getTime() + 10800000),
-									});
+							const res = await validCode(getCookie("regAuth"), code);
 
-									setCookie("refreshAuth", res.data.refreshToken);
+							if (res.status === "200") {
+								setCookie("auth", res.data.token, {
+									expires: new Date(new Date().getTime() + 10800000),
+								});
+								setCookie("refreshAuth", res.data.refreshToken);
+								deleteCookie("regAuth");
 
-									router.push("home");
+								router.push("home");
+							} else if (res.status === "token") {
+								toast.error("Request Unauthorized", {
+									position: "top-center",
+									autoClose: 3000,
+									hideProgressBar: true,
+									closeOnClick: true,
+									pauseOnHover: true,
+									draggable: true,
+									progress: undefined,
+									theme: "colored",
+								});
 
-								} else {
-									if (res.err) {
-										if (res.err.type === "token") {
-											toast.error("Request Unauthorized", {
-												position: "top-center",
-												autoClose: 3000,
-												hideProgressBar: true,
-												closeOnClick: true,
-												pauseOnHover: true,
-												draggable: true,
-												progress: undefined,
-												theme: "colored",
-											});
+								router.push("register");
+							} else if (res.status === "validator") {
+								toast.error("Something Wrong With Your Input", {
+									position: "top-center",
+									autoClose: 3000,
+									hideProgressBar: true,
+									closeOnClick: true,
+									pauseOnHover: true,
+									draggable: true,
+									progress: undefined,
+									theme: "colored",
+								});								
+							} else if (res.status === "-1") {
+								setCodeError(true);
+								setWarningText("Your verification code is invalid");
+							} else if (res.status === "-2") {
+								setCodeError(true);
+								setWarningText("Your verification code has expired");
+							}
 
-											router.push("register");
-
-										} else if (res.err.type === "service") {
-											if (res.err.data.code === -1) {
-
-												setCodeError(true);
-												setWarningText("Your verification code is invalid");
-
-											} else if (res.err.data.code === -2) {
-												
-												setCodeError(true);
-												setWarningText("Your verification code has expired");
-
-											}
-										} else if (res.err.type === "validator") {
-											toast.error("Something Wrong With Your Input", {
-												position: "top-center",
-												autoClose: 3000,
-												hideProgressBar: true,
-												closeOnClick: true,
-												pauseOnHover: true,
-												draggable: true,
-												progress: undefined,
-												theme: "colored",
-											});
-										}
-									}
-								}
-							}).catch((err) => {
-							}).finally(() => {
-								setLoading(false);
-							});
+							setLoading(false);
 						}}
 					>
 						{loading ? <Loading type="points-opacity" size="lg" color="white" /> : "Verify Email"}
