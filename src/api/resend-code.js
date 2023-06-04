@@ -1,6 +1,6 @@
 export default async function resendCode(regAuth) {
   try {
-    await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/resend-code", {
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/resend-code", {
       method: 'POST',
       headers: {
         'Accept': '*/*',
