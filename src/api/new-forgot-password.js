@@ -1,6 +1,6 @@
 export default async function newForgotPassword(token, password) {
   try {
-    await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/new-forgot-password", {
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/new-forgot-password", {
       method: 'POST',
       headers: {
         'Accept': '*/*',

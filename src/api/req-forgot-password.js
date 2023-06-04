@@ -1,6 +1,6 @@
 export default async function reqForgotPassword(email) {
   try {
-    await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/req-forgot-password", {
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/req-forgot-password", {
       method: 'POST',
       headers: {
         'Accept': '*/*',
