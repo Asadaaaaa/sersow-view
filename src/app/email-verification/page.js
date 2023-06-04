@@ -1,6 +1,6 @@
 "use client"
 
-import { getCookie } from 'cookies-next';
+import { hasCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -18,7 +18,7 @@ export default function EmailVerification() {
   const [isAuth, setIsAuth] = useState(false);
 
   useEffect(() => {
-    if (!getCookie("auth")) {
+    if (!hasCookie("regAuth")) {
       router.push("register");
     }
 
