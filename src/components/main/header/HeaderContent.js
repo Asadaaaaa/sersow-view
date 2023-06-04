@@ -8,7 +8,6 @@ import HomeToggleFilter from '@/components/main/home/ToggleFilter';
 import DiscoverToggleFilter from '@/components/main/discover/ToggleFilter';
 
 export default function HeaderContent({ isLogin }) {
-
   const pathName = usePathname();
   const rootPageName = pathName.split("/")[1];
   const page = rootPageName.charAt(0).toUpperCase() + rootPageName.slice(1);

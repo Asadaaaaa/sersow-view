@@ -1,13 +1,19 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useContext } from 'react';
 import { FaRocket, FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 
+
 import font from '@/app/font.module.css';
+import { IsLogin } from '@/components/main/LoginContext';
 import SidebarMenu from '@/components/main/sidebar/SidebarMenu';
 import LogoTitle from '../../../../public/images/LogoTitle.svg';
 import Mikakitchen from '../../../../public/dummy/Mikakitchen.png';
 
-export default function Sidebar({ isLogin }) {
+export default function Sidebar() {
+
+  const { isLogin } = useContext(IsLogin);
+
   return (
     <div className="h-screen flex flex-col justify-between py-6 px-12 bg-slate-900 border-solid border-slate-700 border-r-[1px]">
       <div className="flex flex-col gap-12">
