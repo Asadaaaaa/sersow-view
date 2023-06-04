@@ -8,9 +8,9 @@ import Azka from "../../../public/images/Credit/zka.svg";
 import Mikey from "../../../public/images/Credit/mik.svg";
 import Adit from "../../../public/images/Credit/dit.svg";
 import Lele from "../../../public/images/Credit/lee.svg";
-import Fza from "../../../public/images/Credit/zka.svg";
+import Fza from "../../../public/images/Credit/fza.svg";
 import Talim from "../../../public/images/Credit/tlim.svg";
-import Afwa from "../../../public/images/Credit/zka.svg";
+import Afwa from "../../../public/images/Credit/fwa.svg";
 import Rafi from "../../../public/images/Credit/jefri.svg";
 
 export default function Credits() {
@@ -36,7 +36,7 @@ export default function Credits() {
       color: "pink-950",
       url: "./#",
       jobdesk: "Tech Design",
-      nama: "Aditya Speed"
+      nama: "Aditya Syawal"
       }],
     [
       {
@@ -72,7 +72,7 @@ export default function Credits() {
         color: "orange-950",
         url: "./#",
         jobdesk: "Front-end",
-        nama: "Rafi Nichol"
+        nama: "Rafi Fajrul"
       }]
   ]
 
@@ -83,13 +83,13 @@ export default function Credits() {
         <div>
           <Image src={BgGradient} className="absolute float-right right-0 mix-blend-hard-light w-3/6 -mt-8 select-none" draggable="false"/>
         </div>
-        <p className={`${font.Clash_display_h1bold} mx-auto mt-20 mb-16 pb-4 select-none`} draggable="false">Meet our savvy mastermind</p>
+        <p className={`${font.Clash_display_h1bold} mx-auto mt-20 mb-16 pb-4 select-none`} draggable="false">Introducing our savvy mastermind</p>
         {dataDev.map((row) => (
           <div className="mx-auto flex gap-6 mb-12 select-none" draggable="false">
           {row.map((items) => (
               <div className="group">
                 <div className="relative w-48 rounded-[0.65rem] overflow-hidden text-white">
-                  <Image src={items.image} className="absolute h-48 grayscale object-cover transition-transform duration-[1000ms] transform group-hover:scale-110"/>
+                  <Image src={items.image} className="absolute h-48 grayscale bg-gradient-to-bl from-gray-800 to-gray-900 to-40% object-cover transition-transform duration-[1000ms] transform group-hover:scale-110"/>
                   <div className={`w-48 h-48 inset-0 bg-gradient-to-t from-${items.color} to-transparent to-50% opacity-[99%] hover:to-75% transition-all duration-[1000ms]`}>
                     <div className="w-48 h-48 inset-0 bg-gradient-to-r from-slate-950 to-[#00000000] to-50% opacity-[99%]">
                       <a href={items.url} className="absolute left-[3.25rem] w-fit h-fit rounded-2xl px-2 py-1 border-[1px] opacity-0 group-hover:translate-y-36 group-hover:opacity-100 transition-all duration-[1000ms]" >Visit Profil</a>
