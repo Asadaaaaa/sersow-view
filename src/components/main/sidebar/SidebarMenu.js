@@ -46,7 +46,7 @@ export default function SidebarMenu({ isLogin }) {
   return (
     <div className="flex flex-col gap-2">
       {filteredPages.map((item) => (
-        <Link href={item.text.toLowerCase()} key={item.text + " page"}>
+        <Link href={ item.text === "Settings" ? item.text.toLowerCase() + "/profile" : item.text.toLowerCase() } key={item.text + " page"}>
           <div className={"flex items-center gap-2 px-6 py-3 select-none rounded-full transition-all " + (page === item.text ? "text-cyan-400" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800")}>
             <div>
               {item.icon}
