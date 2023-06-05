@@ -11,7 +11,7 @@ import font from '../font.module.css';
 import Input from '@/components/form/Input';
 import styles from "@/components/form/form.module.css";
 
-import register from '@/api/register';
+import register from '@/api/auth/register';
 
 export default function Form () {
 

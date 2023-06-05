@@ -9,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
 
-import newForgotPassword from '@/api/new-forgot-password';
+import newForgotPassword from '@/api/auth/new-forgot-password';
 
 export default function Form () {
 

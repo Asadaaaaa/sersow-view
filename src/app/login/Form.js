@@ -10,7 +10,7 @@ import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa';
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
 
-import login from '@/api/login';
+import login from '@/api/auth/login';
 
 export default function Form () {
 

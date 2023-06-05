@@ -4,13 +4,14 @@ import { useEffect, useState } from 'react';
 import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 
 import Loading from '@/app/loading';
-import TokenCheck from '@/api/token-check';
-import RefreshToken from '@/api/refresh-token';
 import styles from '@/components/main/main.module.css';
 import Sidebar from '@/components/main/sidebar/Sidebar';
-import { IsLogin } from '@/components/main/LoginContext';
+import { IsLogin, Username } from '@/components/main/LoginContext';
 
-export default async function MainLayout({ children }) {
+import TokenCheck from '@/api/auth/token-check';
+import RefreshToken from '@/api/auth/refresh-token';
+
+export default async function MainLayout(props) {
 
   const [data, setData] = useState(null);
   const [isLogin, setIsLogin] = useState(null);
@@ -64,9 +65,11 @@ export default async function MainLayout({ children }) {
       <div className="grow h-screen bg-slate-900"></div>
       <IsLogin.Provider value={{ isLogin }}>
         <div className="grow-0 h-screen flex">
-          <Sidebar image={data.data ? data.data.image : ""} name={data.data ? data.data.name : ""} username={data ? data.data.username : ""} />
+          <Sidebar image={data ? data.data.image : ""} name={data ? data.data.name : ""} username={data ? data.data.username : ""} />
           <div className={`${styles.mainScrollbar} overflow-y-auto`}>
-            {children}
+            <Username.Provider value={{ username: data ? data.data.username : null }}>
+              {props.children}
+            </Username.Provider>
           </div>
         </div>
       </IsLogin.Provider>
