@@ -1,11 +1,14 @@
 export default async function Username(username, auth) {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/" + username, {
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/username", {
       method: 'PATCH',
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json',
         'Authorization': auth,
+      },
+      body: {
+        'username': username,
       }
     }).then((res) => res.json());
     
