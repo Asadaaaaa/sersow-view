@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 
 import Loading from '@/app/loading';
-import TokenCheck from '@/api/token-check';
-import RefreshToken from '@/api/refresh-token';
 import styles from '@/components/main/main.module.css';
 import Sidebar from '@/components/main/sidebar/Sidebar';
 import { IsLogin } from '@/components/main/LoginContext';
+
+import TokenCheck from '@/api/auth/token-check';
+import RefreshToken from '@/api/auth/refresh-token';
 
 export default async function MainLayout(props) {
 

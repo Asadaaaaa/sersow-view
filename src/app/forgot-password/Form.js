@@ -9,7 +9,7 @@ import { Loading } from '@nextui-org/react';
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
 
-import reqForgotPassword from '@/api/req-forgot-password';
+import reqForgotPassword from '@/api/auth/req-forgot-password';
 
 export default function Form () {
 

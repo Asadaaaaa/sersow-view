@@ -7,8 +7,8 @@ import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 import font from '../font.module.css';
 import Input from '@/components/form/Input';
 
-import validCode from '@/api/valid-code';
-import resendCode from '@/api/resend-code';
+import validCode from '@/api/auth/valid-code';
+import resendCode from '@/api/auth/resend-code';
 
 export default function Form () {
 	
