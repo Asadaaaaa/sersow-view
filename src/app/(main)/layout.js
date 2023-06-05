@@ -10,7 +10,7 @@ import styles from '@/components/main/main.module.css';
 import Sidebar from '@/components/main/sidebar/Sidebar';
 import { IsLogin } from '@/components/main/LoginContext';
 
-export default async function MainLayout({ children }) {
+export default async function MainLayout(props) {
 
   const [data, setData] = useState(null);
   const [isLogin, setIsLogin] = useState(null);
@@ -66,7 +66,7 @@ export default async function MainLayout({ children }) {
         <div className="grow-0 h-screen flex">
           <Sidebar image={data.data ? data.data.image : ""} name={data.data ? data.data.name : ""} username={data ? data.data.username : ""} />
           <div className={`${styles.mainScrollbar} overflow-y-auto`}>
-            {children}
+            {props.children}
           </div>
         </div>
       </IsLogin.Provider>
