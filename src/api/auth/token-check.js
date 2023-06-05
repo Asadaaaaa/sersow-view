@@ -19,6 +19,8 @@ export default async function TokenCheck(auth) {
           } else {
             return {status: "guest"};
           }
+        } else if (res.err.type === "service") {
+          return {status: "guest"};
         }
       } else {
         return {status: "err"};
