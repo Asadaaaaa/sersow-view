@@ -65,7 +65,7 @@ export default function Main({ username }) {
 
         location.reload();
       } else if (res.status === "notfound") {
-        router.push("user-not-found")
+        router.push("user-not-found");
       } else {
         throw new Error({statusCode: 500});
       }
