@@ -66,7 +66,7 @@ export default async function MainLayout(props) {
       <IsLogin.Provider value={{ isLogin }}>
         <div className="grow-0 h-screen flex">
           <Sidebar image={data ? data.data.image : ""} name={data ? data.data.name : ""} username={data ? data.data.username : ""} />
-          <div className={`${styles.mainScrollbar} overflow-y-auto`}>
+          <div className={`${styles.mainScrollbar} w-[1016px] overflow-y-auto`}>
             <Username.Provider value={{ username: data ? data.data.username : null }}>
               {props.children}
             </Username.Provider>
