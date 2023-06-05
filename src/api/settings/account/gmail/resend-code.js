@@ -1,15 +1,12 @@
-export default async function Username(username, auth) {
+export default async function ResendCode(auth) {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/username", {
-      method: 'PATCH',
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/gmail/resend-code", {
+      method: 'POST',
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json',
         'Authorization': auth,
-      },
-      body: JSON.stringify({
-        'username': username,
-      })
+      }
     }).then((res) => res.json());
     
     if(res.status === 200) {
@@ -22,10 +19,10 @@ export default async function Username(username, auth) {
           if (res.err.data.code === -1) {
             return {status: "notexist"};
           } else if (res.err.data.code === -2) {
-            return {status: "notchange"};
+            return {status: "verified"};
           } else if (res.err.data.code === -3) {
-            return {status: "used"};
-          }
+            return {status: "cooldown"};
+          } 
         }
       } else {
         return {status: "err"};

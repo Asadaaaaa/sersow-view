@@ -1,14 +1,14 @@
-export default async function Username(username, auth) {
+export default async function ValidCode(code, auth) {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/username", {
-      method: 'PATCH',
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/gmail/valid-code", {
+      method: 'POST',
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json',
         'Authorization': auth,
       },
       body: JSON.stringify({
-        'username': username,
+        'code': code,
       })
     }).then((res) => res.json());
     
@@ -20,11 +20,9 @@ export default async function Username(username, auth) {
           return {status: "unauth"};
         } else if (res.err.type === "service") {
           if (res.err.data.code === -1) {
-            return {status: "notexist"};
+            return {status: "wrong"};
           } else if (res.err.data.code === -2) {
-            return {status: "notchange"};
-          } else if (res.err.data.code === -3) {
-            return {status: "used"};
+            return {status: "expired"};
           }
         }
       } else {

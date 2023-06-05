@@ -1,14 +1,14 @@
-export default async function Username(username, auth) {
+export default async function AddGmail(email, auth) {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/username", {
-      method: 'PATCH',
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/settings/account/gmail/add", {
+      method: 'POST',
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json',
         'Authorization': auth,
       },
       body: JSON.stringify({
-        'username': username,
+        'email': email,
       })
     }).then((res) => res.json());
     
@@ -22,8 +22,8 @@ export default async function Username(username, auth) {
           if (res.err.data.code === -1) {
             return {status: "notexist"};
           } else if (res.err.data.code === -2) {
-            return {status: "notchange"};
-          } else if (res.err.data.code === -3) {
+            return {status: "verified"};
+          } if (res.err.data.code === -3) {
             return {status: "used"};
           }
         }
