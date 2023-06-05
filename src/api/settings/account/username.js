@@ -7,9 +7,9 @@ export default async function Username(username, auth) {
         'Content-Type': 'application/json',
         'Authorization': auth,
       },
-      body: {
+      body: JSON.stringify({
         'username': username,
-      }
+      })
     }).then((res) => res.json());
     
     if(res.status === 200) {
