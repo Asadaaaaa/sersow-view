@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 
 import '../app/globals.css';
@@ -9,6 +10,9 @@ import LGradient from '../../public/images/NotFound/NotFoundGradient1.svg';
 import RGradient from '../../public/images/NotFound/NotFoundGradient2.svg';
 
 export default function NotFound() {
+
+  const router = useRouter();
+
   return (
     <main>
       <Header />
@@ -25,7 +29,13 @@ export default function NotFound() {
                 <h2 className={`${font.Clash_display_h1medium} text-center text-white`}>Congrats! You just find an easter egg</h2>
                 <p className={`${font.Clash_display_h5medium} text-center text-gray-500`}>Nah, just kidding. You're lost within the mist.</p>
               </div>
-              <button className="respawnBtn flex items-center gap-8 px-8 py-4 border-[1px] border-solid border-slate-300 rounded-xl transition ease-out delay-150 hover:shadow-[0_0_4px_1px_white] hover:shadow-inner-[0_0_3px_1px_rgb(255,255,255,0.4)] active:scale-[.92] active:delay-150">
+              <button 
+                className="respawnBtn flex items-center gap-8 px-8 py-4 border-[1px] border-solid border-slate-300 rounded-xl transition ease-out delay-150 hover:shadow-[0_0_4px_1px_white] hover:shadow-inner-[0_0_3px_1px_rgb(255,255,255,0.4)] active:scale-[.92] active:delay-150"
+                onClick={() => {
+                  router.back();
+                  router.back();
+                }}
+              >
                 <h5 className={`${font.Clash_display_h5medium} text-white`}>Respawn here</h5>
               </button>
             </div>
