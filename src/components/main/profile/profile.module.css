@@ -1,0 +1,9 @@
+.profileScrollbar::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.profileScrollbar::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 4px;
+}
