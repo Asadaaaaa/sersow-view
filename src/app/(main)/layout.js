@@ -6,7 +6,7 @@ import { getCookie, setCookie, deleteCookie, hasCookie } from 'cookies-next';
 import Loading from '@/app/loading';
 import styles from '@/components/main/main.module.css';
 import Sidebar from '@/components/main/sidebar/Sidebar';
-import { IsLogin } from '@/components/main/LoginContext';
+import { IsLogin, Username } from '@/components/main/LoginContext';
 
 import TokenCheck from '@/api/auth/token-check';
 import RefreshToken from '@/api/auth/refresh-token';
@@ -65,9 +65,11 @@ export default async function MainLayout(props) {
       <div className="grow h-screen bg-slate-900"></div>
       <IsLogin.Provider value={{ isLogin }}>
         <div className="grow-0 h-screen flex">
-          <Sidebar image={data.data ? data.data.image : ""} name={data.data ? data.data.name : ""} username={data ? data.data.username : ""} />
+          <Sidebar image={data ? data.data.image : ""} name={data ? data.data.name : ""} username={data ? data.data.username : ""} />
           <div className={`${styles.mainScrollbar} overflow-y-auto`}>
-            {props.children}
+            <Username.Provider value={{ username: data ? data.data.username : null }}>
+              {props.children}
+            </Username.Provider>
           </div>
         </div>
       </IsLogin.Provider>
