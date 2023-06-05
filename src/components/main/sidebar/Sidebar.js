@@ -19,7 +19,7 @@ export default function Sidebar({ image, name, username}) {
     <div className="h-screen flex flex-col justify-between py-6 px-12 bg-slate-900 border-solid border-slate-700 border-r-[1px]">
       <div className="flex flex-col gap-12">
         <div>
-          <Image src={LogoTitle} alt="Sersow Logo" className="w-[280px] h-auto" priority={true} />
+          <Image src={LogoTitle} alt="Sersow Logo" className="w-[280px] max-w-[280px]" priority={true} />
         </div>
         <div className="flex flex-col gap-6">
           <SidebarMenu isLogin={isLogin} />
