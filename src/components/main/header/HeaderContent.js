@@ -4,6 +4,7 @@ import { FaSearch } from 'react-icons/fa';
 import { usePathname } from 'next/navigation';
 
 import font from '@/app/font.module.css';
+import BackButton from '@/components/main/profile/BackButton';
 import HomeToggleFilter from '@/components/main/home/ToggleFilter';
 import DiscoverToggleFilter from '@/components/main/discover/ToggleFilter';
 
@@ -17,6 +18,11 @@ export default function HeaderContent({ isLogin }) {
       {
         (page === "Home" && isLogin) && (
           <HomeToggleFilter />
+        )
+      }
+      {
+        (page === "Profile") && (
+          <BackButton />
         )
       }
       <div className="relative">
