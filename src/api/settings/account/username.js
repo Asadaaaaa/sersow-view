@@ -23,6 +23,8 @@ export default async function Username(username, auth) {
             return {status: "notexist"};
           } else if (res.err.data.code === -2) {
             return {status: "notchange"};
+          } else if (res.err.data.code === -3) {
+            return {status: "used"};
           }
         }
       } else {
