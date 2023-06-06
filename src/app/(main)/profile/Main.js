@@ -206,9 +206,7 @@ export default function Main({ username }) {
                 </>
               ) : (
                 <div className="pt-12 flex justify-center">
-                  <Loading>
-                    Loading
-                  </Loading>
+                  <Loading />
                 </div>
               )
             }
