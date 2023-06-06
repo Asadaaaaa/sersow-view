@@ -13,6 +13,7 @@ import { DataProfile } from '@/components/main/settings/Context';
 import CardSubtitle from '@/components/main/settings/CardSubtitle';
 import CardContainer from '@/components/main/settings/CardContainer';
 import PopupContainer from '@/components/main/settings/PopupContainer';
+import CardMainButton from '@/components/main/settings/CardMainButton';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 import CardSecondaryButton from '@/components/main/settings/CardSecondaryButton';
 
@@ -20,6 +21,7 @@ import Username from '@/api/settings/account/username';
 import AddGmail from '@/api/settings/account/gmail/add-gmail';
 import ValidCode from '@/api/settings/account/gmail/valid-code';
 import ResendCode from '@/api/settings/account/gmail/resend-code';
+import ChangePassword from '@/api/settings/account/change-password';
 
 export default function Account() {
 
@@ -32,13 +34,20 @@ export default function Account() {
     username: "",
     email: "",
     emailVerif: "",
+    password: "",
+    newPassword: "",
+    confirmPassword: "",
   });
   const [dataError, setDataError] = useState({
     username: false,
     email: false,
     emailVerif: false,
+    password: false,
+    newPassword: false,
+    confirmPassword: false,
   });
   const [warningText, setWarningText] = useState("");
+  const [passwordWarningText, setPasswordWarningText] = useState("");
   const [loading, setLoading] = useState(false);
   const [timer, setTimer] = useState(30);
   const [resendDisabled, setResendDisabled] = useState(true);
@@ -46,6 +55,7 @@ export default function Account() {
   const dataPattern = {
     username: /^[a-zA-Z0-9_]{1,15}$/,
     email: /[A-Za-z0-9._%+-]+@gmail\.com$/,
+    password: /^\S+$/,
   };
 
   async function changeUsername() {
@@ -411,6 +421,97 @@ export default function Account() {
     }
   }
 
+  async function changePassword() {
+
+    setLoading(true);
+
+    if (data.password.length < 6 || !dataPattern.password.test(data.password)) {
+      setDataError({ ...dataError, password: true});
+      setPasswordWarningText("Current password is invalid");
+
+      setLoading(false);
+
+      return;
+    }
+
+    if (data.newPassword.length < 6) {
+      setDataError({ ...dataError, newPassword: true});
+      setPasswordWarningText("Minimum length for password is 6 characters");
+
+      setLoading(false);
+
+      return;
+    }
+
+    if (!dataPattern.password.test(data.newPassword)) {
+      setDataError({ ...dataError, newPassword: true});
+      setPasswordWarningText("Input should consist of a single sequence of non-whitespace characters.");
+
+      setLoading(false);
+
+      return;
+    }
+
+    if (data.newPassword !== data.confirmPassword) {
+      setDataError({ ...dataError, newPassword: true, confirmPassword: true});
+      setPasswordWarningText("Passwords can't be different");
+
+      setLoading(false);
+
+      return;
+    }
+
+    const res = await ChangePassword(data.password, data.newPassword, getCookie("auth"));
+
+    if (res) {
+      if (res.status === "200") {
+        toast.success("Password Updated", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+
+        setData({password: "", newPassword: "", confirmPassword: ""});
+      } else if (res.status === "wrong") {
+        setDataError({ ...dataError, password: true});
+        setPasswordWarningText("Current password is invalid");
+      } else if (res.status === "same") {
+        setDataError({ ...dataError, newPassword: true, confirmPassword: true});
+        setPasswordWarningText("Your new password cannot be the same as your old password");
+      } else {
+        toast.error("Failed to Update Password", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      }
+    } else {
+      toast.error("Failed to Update Password", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+
+    setLoading(false);
+
+  }
+
   const startTimer = () => {
 		setTimer(30);
 		setResendDisabled(true);
@@ -435,7 +536,7 @@ export default function Account() {
   return (
     <div className="flex justify-center h-full">
       <div className="w-[456px] h-full pt-24">
-        <div className="flex flex-col gap-6 pt-12">
+        <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Username"} />
             <div className="flex flex-col gap-3">
@@ -468,6 +569,64 @@ export default function Account() {
                   <CardSubtitle text={dataProfile.email_gmail} />
                 )
               }
+            </div>
+          </CardContainer>
+          <CardContainer>
+            <CardTitle title={"Password"} />
+            <div className="flex flex-col gap-2">
+              <CardLabel text={"Current password"} />
+              <Input 
+                type={"password"} 
+                maxLength={18}
+                value={data.password} 
+                onChange={(e) => {setData({ ...data, password: e.target.value})}} 
+                error={dataError.password}
+                onFocus={() => {
+                  setDataError({ ...dataError, password: false});
+                  setPasswordWarningText("");
+                }}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <CardLabel text={"New password"} />
+              <Input 
+                type={"password"} 
+                maxLength={18}
+                value={data.newPassword} 
+                onChange={(e) => {setData({ ...data, newPassword: e.target.value})}} 
+                error={dataError.newPassword}
+                onFocus={() => {
+                  setDataError({ ...dataError, newPassword: false, confirmPassword: false});
+                  setPasswordWarningText("");
+                }}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <CardLabel text={"Confirm New password"} />
+              <Input 
+                type={"password"} 
+                maxLength={18}
+                value={data.confirmPassword} 
+                onChange={(e) => {setData({ ...data, confirmPassword: e.target.value})}} 
+                error={dataError.confirmPassword}
+                onFocus={() => {
+                  setDataError({ ...dataError, newPassword: false, confirmPassword: false});
+                  setPasswordWarningText("");
+                }}
+              />
+            </div>
+            {passwordWarningText && (
+                <div className="w-full max-w-[408px]">
+                  <p className={`${font.Satoshi_b2regular} text-red-500`}>{passwordWarningText}</p>
+                </div>
+              )}
+            <div>
+              <CardMainButton
+                disabled={loading}
+                clickHandler={changePassword}
+              >
+                Update Password
+              </CardMainButton>
             </div>
           </CardContainer>
           {

@@ -53,9 +53,7 @@ export default function Main({ username }) {
 
   useEffect(() => {
     async function getProfile() {
-      let res;
-
-      res = await Profile(username, getCookie("auth"));
+      const res = await Profile(username, getCookie("auth"));
 
       if (res.status === "200") {
         return res;
@@ -64,7 +62,8 @@ export default function Main({ username }) {
         deleteCookie("refreshAuth");
 
         location.reload();
-      } else if (res.status === "notfound") {
+      } 
+      else if (res.status === "notfound") {
         router.push("user-not-found");
       }
     }
@@ -72,9 +71,11 @@ export default function Main({ username }) {
     async function fetchData() {
       const res = await getProfile();
 
-      if (res.status === "200") {
-        setDataProfile(res.data);
-        setIsFollowed(res.data.isFollowed);
+      if (res) {
+        if (res.status === "200") {
+          setDataProfile(res.data);
+          setIsFollowed(res.data.isFollowed);
+        }
       }
     }
     fetchData();
