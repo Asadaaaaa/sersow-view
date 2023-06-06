@@ -497,7 +497,7 @@ export default function Account() {
                           <CardLabel text={"Enter your new username"} />
                           <Input 
                             type={"text"} 
-                            placeholder={"e.g., John Doe"} 
+                            placeholder={"e.g., johndoe"} 
                             maxLength={15}
                             value={data.username} 
                             onChange={(e) => {setData({ ...data, username: e.target.value})}} 
