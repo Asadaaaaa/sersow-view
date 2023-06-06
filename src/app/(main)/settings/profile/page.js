@@ -159,7 +159,7 @@ export default function Profile() {
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Avatar"} subtitle={"Unleash your good looking avatar or just use our amazing default avatar."} />
-            <CardSubtitle text={"Just drag and drop your avatar or manually choose it"} />
+            <CardSubtitle text={<span>Just <s>drag and drop</s> your avatar or manually choose it</span>} />
             <div className="flex gap-4 items-center">
               {
                 image ? (
