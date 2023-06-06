@@ -1,4 +1,4 @@
-export default async function UpdateProfile(name, bio, image, website, auth) {
+export default async function UpdateProfile(name, bio, website, image, auth) {
   try {
     const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/profile/update", {
       method: 'PATCH',
@@ -7,11 +7,11 @@ export default async function UpdateProfile(name, bio, image, website, auth) {
         'Content-Type': 'application/json',
         'Authorization': auth,
       },
-			body: JSON.parse({
+			body: JSON.stringify({
 				name: name,
-				bio: bio,
-				image: image,
-				website, website,
+				bio: bio === "" ? null : bio,
+				website: website === "" ? null : website,
+        ...(image !== "empty" ? {image: image} : {})
 			}),
     }).then((res) => res.json());
     
@@ -29,6 +29,8 @@ export default async function UpdateProfile(name, bio, image, website, auth) {
 					} else if (res.err.data.code === -3) {
 						return {status: "size"};
 					}
+        } else {
+          return {status: "err"};
         }
       } else {
         return {status: "err"};
