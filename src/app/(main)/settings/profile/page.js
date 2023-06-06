@@ -90,10 +90,6 @@ export default function Profile() {
           progress: undefined,
           theme: "colored",
         });
-
-        setTimeout(() => {
-          location.reload();
-        }, 500);
       } else if (res.status === "unauth") {
         deleteCookie("auth");
         deleteCookie("refreshAuth");
