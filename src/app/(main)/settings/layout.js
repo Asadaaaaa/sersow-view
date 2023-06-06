@@ -39,8 +39,6 @@ export default function SettingsLayout({ children }) {
         deleteCookie("refreshAuth");
 
         location.reload();
-      } else if (res.status === "notfound") {
-        router.push("user-not-found");
       }
     }
 
