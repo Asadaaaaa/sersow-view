@@ -94,7 +94,7 @@ export default function Main({ username }) {
                       src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image}
                       width={192}
                       height={192}
-                      className="w-48 h-48" 
+                      className="w-48 h-48 rounded-full" 
                     />
                   </div>
                   <div className="flex justify-center">
