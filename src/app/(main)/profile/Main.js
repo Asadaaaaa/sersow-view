@@ -92,7 +92,7 @@ export default function Main({ username }) {
                 <>
                   <div>
                     <Image 
-                      src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image}
+                      src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image + "?key=" + Date.now()}
                       width={192}
                       height={192}
                       className="w-48 h-48 rounded-full object-cover" 

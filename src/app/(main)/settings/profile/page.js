@@ -22,7 +22,7 @@ export default function Profile() {
 
   const { dataProfile } = useContext(DataProfile);
   
-  const [image, setImage] = useState(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image);
+  const [image, setImage] = useState(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image + "?key=" + Date.now());
   const uploadAvatarRef = useRef(null);
 
   const [data, setData] = useState({
