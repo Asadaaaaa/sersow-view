@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useContext } from 'react';
-import { redirect } from 'next/navigation';
 import { deleteCookie } from 'cookies-next';
 import { FaRocket, FaSignOutAlt, FaSignInAlt } from 'react-icons/fa';
 
@@ -9,7 +8,6 @@ import font from '@/app/font.module.css';
 import { IsLogin } from '@/components/main/LoginContext';
 import SidebarMenu from '@/components/main/sidebar/SidebarMenu';
 import LogoTitle from '../../../../public/images/LogoTitle.svg';
-import Mikakitchen from '../../../../public/dummy/Mikakitchen.png';
 
 export default function Sidebar({ image, name, username}) {
 
@@ -25,14 +23,16 @@ export default function Sidebar({ image, name, username}) {
           <SidebarMenu isLogin={isLogin} />
           {
             isLogin && (
-              <div>
-                <button className="flex justify-center items-center gap-2 px-[45.5px] py-4 text-white rounded-xl bg-gradient-to-b from-[#22D3EE] to-[#0EA5E9] transition ease-out delay-100 hover:to-[#22D3EE] hover:shadow-[0px_0px_12px_.5px_#22d3ee] active:shadow-[0_0_0_0] active:scale-[.92] active:from-[rgb(6 182 212)] active:to-[rgb(6 182 212)]">
-                  <div>
-                    <FaRocket className="w-5 h-5" />
-                  </div>
-                  <span className={`${font.Satoshi_h6bold}`}>Publish Project</span>
-                </button>
-              </div>
+              <Link href={"publish-project"}>
+                <div>
+                  <button className="flex justify-center items-center gap-2 px-[45.5px] py-4 text-white rounded-xl bg-gradient-to-b from-[#22D3EE] to-[#0EA5E9] transition ease-out delay-100 hover:to-[#22D3EE] hover:shadow-[0px_0px_12px_.5px_#22d3ee] active:shadow-[0_0_0_0] active:scale-[.92] active:from-[rgb(6 182 212)] active:to-[rgb(6 182 212)]">
+                    <div>
+                      <FaRocket className="w-5 h-5" />
+                    </div>
+                    <span className={`${font.Satoshi_h6bold}`}>Publish Project</span>
+                  </button>
+                </div>
+              </Link>
             )
           }
         </div>
