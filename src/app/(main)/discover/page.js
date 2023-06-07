@@ -1,15 +1,10 @@
 "use client";
 
 import { useState } from "react";
-
-import BgGradient from "@/components/main/BgGradient";
-
-import Main from "./Main";
 import Project from "./Project";
-
 import Header from "@/components/main/header/Header";
+import BgGradient from "@/components/main/BgGradient";
 import { ContentFilter } from "@/components/main/discover/Context";
-
 import styles from "@/components/main/discover/discover.module.css";
 
 export default function Discover() {
