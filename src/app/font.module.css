@@ -26,28 +26,124 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_d2bold {
-  font-family: "Clash Display";
-  font-size: 8rem; /* 128px */
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Clash_display_d2bold {
+    font-family: "Clash Display";
+    font-size: 8rem; /* 128px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1392.9px)
+  and (min-width: 1024px) {
+  .Clash_display_d2bold {
+    font-family: "Clash Display";
+    font-size: 6.75rem; /* 128px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+  and (min-width: 768px) {
+  .Clash_display_d2bold {
+    font-family: "Clash Display";
+    font-size: 5.5rem; /* 128px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+  and (min-width: 0px) {
+  .Clash_display_d2bold {
+    font-family: "Clash Display";
+    font-size: 2rem; /* 128px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
-.Clash_display_d3bold {
-  font-family: "Clash Display";
-  font-size: 6rem; /* 96px */
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Clash_display_d3bold {
+    font-family: "Clash Display";
+    font-size: 6rem; /* 96px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1392.9px)
+  and (min-width: 1024px) {
+  .Clash_display_d3bold {
+      font-family: "Clash Display";
+      font-size: 5.5rem; /* 96px */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+  and (min-width: 768px) {
+    .Clash_display_d3bold {
+    font-family: "Clash Display";
+    font-size: 5rem; /* 96px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+  and (min-width: 0px) {
+    .Clash_display_d3bold {
+    font-family: "Clash Display";
+    font-size: 2rem; /* 96px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
-.Clash_display_d4bold {
-  font-family: "Clash Display";
-  font-size: 4.5rem; /* 72px */
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Clash_display_d4bold {
+    font-family: "Clash Display";
+    font-size: 5.5rem; /* 72px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Clash_display_d4bold {
+    font-family: "Clash Display";
+    font-size: 4.5rem; /* 72px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+  and (min-width: 768px) {
+    .Clash_display_d4bold {
+      font-family: "Clash Display";
+      font-size: 3.5rem; /* 72px */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+}
+@media screen and (max-width: 767.9px)
+  and (min-width: 0px) {
+    .Clash_display_d4bold {
+      font-family: "Clash Display";
+      font-size: 2.5rem; /* 72px */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
 }
 
 .Clash_display_d5bold {
@@ -82,20 +178,85 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_d3medium {
-  font-family: "Clash Display";
-  font-size: 6rem; /* 96px */
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Clash_display_d3medium {
+    font-family: "Clash Display";
+    font-size: 6rem; /* 96px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Clash_display_d3medium {
+    font-family: "Clash Display";
+    font-size: 4.75rem; /* 96px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+  and (min-width: 768px) {
+    .Clash_display_d3medium {
+      font-family: "Clash Display";
+      font-size: 3.5rem; /* 96px */
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+}
+@media screen and (max-width: 767.9px)
+  and (min-width: 0px) {
+    .Clash_display_d3medium {
+      font-family: "Clash Display";
+      font-size: 2rem; /* 96px */
+      font-weight: 500;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
 }
 
-.Clash_display_d4medium {
-  font-family: "Clash Display";
-  font-size: 4.5rem; /* 72px */
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+
+@media screen and (min-width: 1393px) {
+  .Clash_display_d4medium {
+    font-family: "Clash Display";
+    font-size: 4.5rem; /* 72px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Clash_display_d4medium {
+    font-family: "Clash Display";
+    font-size: 4.25rem; /* 72px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_d4medium {
+    font-family: "Clash Display";
+    font-size: 4rem; /* 72px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Clash_display_d4medium {
+    font-family: "Clash Display";
+    font-size: 3rem; /* 72px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
 .Clash_display_d5medium {
@@ -146,12 +307,45 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_d5regular {
-  font-family: "Clash Display";
-  font-size: 3.75rem; /* 60px */
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Clash_display_d5regular {
+    font-family: "Clash Display";
+    font-size: 3.75rem; /* 60px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Clash_display_d5regular {
+    font-family: "Clash Display";
+    font-size: 3.5rem; /* 60px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_d5regular {
+    font-family: "Clash Display";
+    font-size: 3.25rem; /* 60px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_d5regular {
+    font-family: "Clash Display";
+    font-size: 3rem; /* 60px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
 .Clash_display_d6regular {
@@ -226,12 +420,45 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_h3bold {
-  font-family: "Clash Display";
-  font-size: 2rem; /* 32px */
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Clash_display_h3bold {
+    font-family: "Clash Display";
+    font-size: 2rem; /* 32px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px){
+  .Clash_display_h3bold {
+    font-family: "Clash Display";
+    font-size: 1.75rem; /* 32px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_h3bold {
+    font-family: "Clash Display";
+    font-size: 1.5rem; /* 32px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Clash_display_h3bold {
+    font-family: "Clash Display";
+    font-size: 1.25rem; /* 32px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
 .Clash_display_h4bold {
@@ -242,12 +469,44 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_h5bold {
-  font-family: "Clash Display";
-  font-size: 1.5rem; /* 24px */
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Clash_display_h5bold {
+    font-family: "Clash Display";
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Clash_display_h5bold {
+    font-family: "Clash Display";
+    font-size: 1.25rem; /* 24px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+  and (min-width: 768px) {
+    .Clash_display_h5bold {
+      font-family: "Clash Display";
+      font-size: 0.75rem; /* 24px */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+}
+@media screen and (max-width: 767.9px)
+  and (min-width: 0px) {
+    .Clash_display_h5bold {
+      font-family: "Clash Display";
+      font-size: 2rem; /* 24px */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
 }
 
 .Clash_display_h6bold {
@@ -258,20 +517,85 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_h1medium {
-  font-family: "Clash Display";
-  font-size: 3rem; /* 48px */
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px){
+  .Clash_display_h1medium {
+    font-family: "Clash Display";
+    font-size: 3rem; /* 48px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px){
+  .Clash_display_h1medium {
+    font-family: "Clash Display";
+    font-size: 2.5rem; /* 48px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_h1medium {
+    font-family: "Clash Display";
+    font-size: 1.75rem; /* 48px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Clash_display_h1medium {
+    font-family: "Clash Display";
+    font-size: 0.8rem; /* 48px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
-.Clash_display_h2medium {
-  font-family: "Clash Display";
-  font-size: 2.375rem; /* 38px */
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px){
+  .Clash_display_h2medium {
+    font-family: "Clash Display";
+    font-size: 2.375rem; /* 38px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px){
+  .Clash_display_h2medium {
+    font-family: "Clash Display";
+    font-size: 1.875rem; /* 38px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_h2medium {
+    font-family: "Clash Display";
+    font-size: 1.375rem; /* 38px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Clash_display_h2medium {
+    font-family: "Clash Display";
+    font-size: 1.5rem; /* 38px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
 .Clash_display_h3medium {
@@ -282,12 +606,45 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_h4medium {
-  font-family: "Clash Display";
-  font-size: 1.75rem; /* 28px */
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px){
+  .Clash_display_h4medium {
+    font-family: "Clash Display";
+    font-size: 1.75rem; /* 28px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px){
+  .Clash_display_h4medium {
+    font-family: "Clash Display";
+    font-size: 1.5rem; /* 28px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_h4medium {
+    font-family: "Clash Display";
+    font-size: 1.25rem; /* 28px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Clash_display_h4medium {
+    font-family: "Clash Display";
+    font-size: 1rem; /* 28px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
 .Clash_display_h5medium {
@@ -298,12 +655,44 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_h6medium {
-  font-family: "Clash Display";
-  font-size: 1.25rem; /* 20px */
-  font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px){
+  .Clash_display_h6medium {
+    font-family: "Clash Display";
+    font-size: 1.25rem; /* 20px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px){
+  .Clash_display_h6medium {
+    font-family: "Clash Display";
+    font-size: 1rem; /* 20px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_h6medium {
+    font-family: "Clash Display";
+    font-size: 0.75rem; /* 20px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Clash_display_h6medium {
+    font-family: "Clash Display";
+    font-size: 1rem; /* 20px */
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
 .Clash_display_h1regular {
@@ -338,12 +727,44 @@
   letter-spacing: 0.02em;
 }
 
-.Clash_display_h5regular {
-  font-family: "Clash Display";
-  font-size: 1.5rem; /* 24px */
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px){
+  .Clash_display_h5regular {
+    font-family: "Clash Display";
+    font-size: 1.5rem; /* 24px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px){
+  .Clash_display_h5regular {
+    font-family: "Clash Display";
+    font-size: 1.43rem; /* 24px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Clash_display_h5regular {
+    font-family: "Clash Display";
+    font-size: 1rem; /* 24px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Clash_display_h5regular {
+    font-family: "Clash Display";
+    font-size: 1rem; /* 24px */
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
 }
 
 .Clash_display_h6regular {
@@ -433,6 +854,7 @@
   line-height: 1.2;
   letter-spacing: 0.02em;
 }
+
 
 .Satoshi_h5bold {
   font-family: Satoshi;
@@ -615,18 +1037,76 @@
   line-height: 1.4;
 }
 
-.Satoshi_b2medium {
-  font-family: Satoshi;
-  font-size: 1rem; /* 16px */
-  font-weight: 500;
-  line-height: 1.4;
+@media screen and (min-width: 1393px) {
+  .Satoshi_b2medium {
+    font-family: Satoshi;
+    font-size: 1rem; /* 16px */
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Satoshi_b2medium {
+    font-family: Satoshi;
+    font-size: 0.9rem; /* 16px */
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Satoshi_b2medium {
+    font-family: Satoshi;
+    font-size: 0.8rem; /* 16px */
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Satoshi_b2medium {
+    font-family: Satoshi;
+    font-size: 0.4rem; /* 16px */
+    font-weight: 500;
+    line-height: 1.4;
+  }
 }
 
-.Satoshi_b1regular {
-  font-family: Satoshi;
-  font-size: 1.125rem; /* 18px */
-  font-weight: 400;
-  line-height: 1.4;
+@media screen and (min-width: 1393px) {
+  .Satoshi_b1regular {
+    font-family: Satoshi;
+    font-size: 1.125rem; /* 18px */
+    font-weight: 400;
+    line-height: 1.4;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Satoshi_b1regular {
+    font-family: Satoshi;
+    font-size: 1rem; /* 18px */
+    font-weight: 400;
+    line-height: 1.4;
+  }
+}
+@media screen and (max-width: 1023.9px)
+and (min-width: 768px) {
+  .Satoshi_b1regular {
+    font-family: Satoshi;
+    font-size: 0.875rem; /* 18px */
+    font-weight: 400;
+    line-height: 1.4;
+  }
+}
+@media screen and (max-width: 767.9px)
+and (min-width: 0px) {
+  .Satoshi_b1regular {
+    font-family: Satoshi;
+    font-size: 1.75rem; /* 18px */
+    font-weight: 400;
+    line-height: 1.4;
+  }
 }
 
 .Satoshi_b2regular {
