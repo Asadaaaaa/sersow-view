@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import Project from "./Project";
 import User from './user';
 import Header from '@/components/main/header/Header';
 import BgGradient from "@/components/main/BgGradient";
@@ -19,7 +20,13 @@ export default function Discover() {
       <div className="w-full relative h-screen">
         <BgGradient />
         <div className={`${styles.settingsContent} w-full max-w-[calc(100vw-376px)] xl:max-w-[1016px] overflow-y-auto h-screen`}>
-          <User />
+          {
+            contentFilter === 0 ? (
+              <Project />
+            ) : contentFilter === 1 ? (
+              <User />
+            ) : null
+          }
         </div>
       </div>
     </ContentFilter.Provider>
