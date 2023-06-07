@@ -16,9 +16,9 @@ import { IsLogin } from "@/components/main/LoginContext";
 
 import UserTrends from "@/api/profile/user-trends";
 
-export default function User() {
+export default function Users() {
   const router = useRouter();
-
+ 
   const { isLogin } = useContext(IsLogin);
 
   const [dataProfile, setDataProfile] = useState([]);
