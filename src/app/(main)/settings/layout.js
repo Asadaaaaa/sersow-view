@@ -49,7 +49,10 @@ export default function SettingsLayout({ children }) {
         setDataProfile(res.data);
       }
     }
-    fetchData();
+
+    if (isLogin) {
+      fetchData();
+    }
   }, [])
 
   return (
