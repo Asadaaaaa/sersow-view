@@ -1,6 +1,6 @@
 import font from '@/app/font.module.css';
 
-export default function CardPrimaryButton({ text, disabled, clickHandler }) {
+export default function CardPrimaryButton({ text, disabled, clickHandler, children }) {
   return (
     <div className="py-1 px-2">
       <button 
@@ -9,6 +9,7 @@ export default function CardPrimaryButton({ text, disabled, clickHandler }) {
         onClick={clickHandler}
       >
         {text}
+        {children}
       </button>
     </div>
   );

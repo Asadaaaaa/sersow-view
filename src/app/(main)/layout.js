@@ -57,6 +57,7 @@ export default async function MainLayout(props) {
       setData(resData);
       setIsLogin(!!resData);
     }
+
     fetchData();
   }, []);
 

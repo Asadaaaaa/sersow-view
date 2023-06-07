@@ -1,6 +1,6 @@
 import font from '@/app/font.module.css';
 
-export default function Input({ placeholder, type, value, onChange, maxLength, error, onFocus }) {
+export default function Input({ placeholder, type, value, onChange, maxLength, error, onFocus, onKeyDown }) {
   return (
     <input 
       spellCheck={"false"}
@@ -11,6 +11,7 @@ export default function Input({ placeholder, type, value, onChange, maxLength, e
       value={value}
       onChange={onChange}
       onFocus={onFocus}
+      onKeyDown={onKeyDown}
     />
   );
 }

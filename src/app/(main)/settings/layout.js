@@ -27,7 +27,7 @@ export default function SettingsLayout({ children }) {
   const [dataProfile, setDataProfile] = useState(null);
 
   useEffect(() => {
-    async function getProfile() {
+    async function getCat() {
       let res;
 
       res = await Profile(username, getCookie("auth"));
@@ -49,7 +49,10 @@ export default function SettingsLayout({ children }) {
         setDataProfile(res.data);
       }
     }
-    fetchData();
+
+    if (isLogin) {
+      fetchData();
+    }
   }, [])
 
   return (

@@ -3,14 +3,14 @@ import Image from 'next/image';
 import font from '../font.module.css';
 import Header from '@/components/static/Header';
 import Footer from '@/components/static/Footer';
-import Fza from '../../../public/images/Credit/fza.svg';
-import Afwa from '../../../public/images/Credit/fwa.svg';
-import Azka from '../../../public/images/Credit/zka.svg';
-import Adit from '../../../public/images/Credit/dit.svg';
-import Lele from '../../../public/images/Credit/lee.svg';
-import Mikey from '../../../public/images/Credit/mik.svg';
-import Rafi from '../../../public/images/Credit/jefri.svg';
-import Talim from '../../../public/images/Credit/tlim.svg';
+import Fza from '../../../public/images/Credit/fza.jpeg';
+import Afwa from '../../../public/images/Credit/fwa.jpeg';
+import Azka from '../../../public/images/Credit/zka.jpeg';
+import Adit from '../../../public/images/Credit/dit.jpeg';
+import Lele from '../../../public/images/Credit/lee.jpeg';
+import Mikey from '../../../public/images/Credit/mik.jpeg';
+import Rafi from '../../../public/images/Credit/jefri.jpeg';
+import Talim from '../../../public/images/Credit/tlim.jpeg';
 import BgGradient from '../../../public/images/Credit/CreditGradient1.svg';
 
 export default function Credits() {

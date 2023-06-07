@@ -277,7 +277,7 @@ export default function Profile() {
                 <CardSubtitle text={"(max. 160 characters)"} />
               </div>
               <Textarea
-                type={"text"} 
+                minRows={1}
                 placeholder={"e.g., A master of the digital realm"} 
                 maxLength={160}
                 value={data.bio} 
