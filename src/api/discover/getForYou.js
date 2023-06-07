@@ -1,11 +1,10 @@
-export default async function Profile(username, auth = null) {
+export default async function getForyou(auth = null) {
   try {
     const res = await fetch(
       process.env.NEXT_PUBLIC_HOST +
         "/" +
         process.env.NEXT_PUBLIC_VERSION +
-        "/profile/get/" +
-        username,
+        "/project/get/foryou?offset=1&limit=6",
       {
         method: "GET",
         headers: {

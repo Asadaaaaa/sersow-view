@@ -1,0 +1,13 @@
+.discoverContent::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.discoverContent::-webkit-scrollbar-track {
+  margin-top: 175px;
+}
+
+.discoverContent::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 4px;
+}
