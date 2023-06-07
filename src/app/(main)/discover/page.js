@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import Project from "./Project";
-import User from './user';
+import User from "./User"
 import Header from '@/components/main/header/Header';
 import BgGradient from "@/components/main/BgGradient";
 import { ContentFilter } from '@/components/main/discover/Context';

@@ -11,17 +11,13 @@ export default function ToggleFilter() {
 
   const navbarMenu = [
     {
-      menu: "All",
+      menu: "Project",
       value: 0,
     },
     {
-      menu: "Project",
-      value: 1,
-    },
-    {
       menu: "User",
-      value: 2,
-    },
+      value: 1,
+    }
   ]
 
   return (
