@@ -58,9 +58,7 @@ export default async function MainLayout(props) {
       setIsLogin(!!resData);
     }
 
-    if (isLogin) {
-      fetchData();
-    }
+    fetchData();
   }, []);
 
   return (isLogin === null || data === null) ? (<Loading />) : (
