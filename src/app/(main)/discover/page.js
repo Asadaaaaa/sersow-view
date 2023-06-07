@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 
-import Main from './Main';
+import User from './user';
 import Header from '@/components/main/header/Header';
+import BgGradient from "@/components/main/BgGradient";
 import { ContentFilter } from '@/components/main/discover/Context';
+import styles from '@/components/main/settings/settings.module.css';
+
 
 export default function Discover() {
 
@@ -13,7 +16,12 @@ export default function Discover() {
   return (
     <ContentFilter.Provider value={{ contentFilter, setContentFilter }} >
       <Header />
-      <Main />
+      <div className="w-full relative h-screen">
+        <BgGradient />
+        <div className={`${styles.settingsContent} w-full max-w-[calc(100vw-376px)] xl:max-w-[1016px] overflow-y-auto h-screen`}>
+          <User />
+        </div>
+      </div>
     </ContentFilter.Provider>
   );
 }
