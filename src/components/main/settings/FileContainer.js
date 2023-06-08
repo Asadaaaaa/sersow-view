@@ -25,7 +25,7 @@ export default function FileContainer({ children, status, subtitle, clickHandler
                       <FaFolderOpen className="w-8 h-8 text-slate-600 group-hover:text-slate-400" />
                     </div>
                     <div className="text-center">
-                      <h1 className={`${font.Satoshi_c2bold} text-white`}>Click or Drag your file here</h1>
+                      <h1 className={`${font.Satoshi_c2bold} text-white`}>Click to Upload Your File Here</h1>
                       {
                         subtitle && (
                           <h4 className={`${font.Satoshi_c2regular} text-slate-400`}>{subtitle}</h4>

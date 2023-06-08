@@ -22,7 +22,7 @@ export default function Profile() {
 
   const { dataProfile } = useContext(DataProfile);
   
-  const [image, setImage] = useState(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image);
+  const [image, setImage] = useState(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image + "?key=" + Date.now());
   const uploadAvatarRef = useRef(null);
 
   const [data, setData] = useState({
@@ -159,7 +159,6 @@ export default function Profile() {
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Avatar"} subtitle={"Unleash your good looking avatar or just use our amazing default avatar."} />
-            <CardSubtitle text={<span>Just <s>drag and drop</s> your avatar or manually choose it</span>} />
             <div className="flex gap-4 items-center">
               {
                 image ? (
@@ -203,7 +202,7 @@ export default function Profile() {
                           toast.error("Error: File is too big!", {
                             position: "top-center",
                             autoClose: 2500,
-                            hideProgressBar: false,
+                            hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,

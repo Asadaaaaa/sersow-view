@@ -42,7 +42,7 @@ export default function Sidebar({ image, name, username}) {
           isLogin ? (
             <div className="flex justify-between items-center pt-5 pb-1 border-solid border-slate-700 border-t-[1px]">
               <div className="flex items-center gap-2">
-                <Image src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + image} width={40} height={40} alt="Sersow Profile Picture" className="w-9 h-9 rounded-full object-cover" />
+                <Image src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + image + "?key=" + Date.now()} width={40} height={40} alt="Sersow Profile Picture" className="w-9 h-9 rounded-full object-cover" />
                 <div className="flex flex-col text-slate-300">
                   <h4 className={`${font.Satoshi_c1bold}`}>{name}</h4>
                   <h5 className={`${font.Satoshi_c2regular}`}>{"@" + username}</h5>
