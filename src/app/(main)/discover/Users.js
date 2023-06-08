@@ -16,7 +16,7 @@ import { IsLogin } from "@/components/main/LoginContext";
 
 import UserTrends from "@/api/profile/user-trends";
 
-export default function Users() {
+export default function User() {
   const router = useRouter();
 
   const { isLogin } = useContext(IsLogin);
@@ -86,7 +86,7 @@ export default function Users() {
   return (
     <div className="flex justify-center h-full">
       <div className="flex w-full h-full pt-24">
-        <div className="flex flex-col w-full h-full gap-12 px-20 py-8">
+        <div className="flex flex-col w-full h-full px-20 py-8">
           <div className="flex items-center gap-2 p-4">
             <FaChartLine fill="white" />
             <p className={`${font.Satoshi_b2medium} text-white`}>TRENDS</p>
@@ -100,7 +100,7 @@ export default function Users() {
                 >
                   <Image
                     alt="Avatar User"
-                    className="w-12 h-12 object-cover rounded-[50%]"
+                    className="w-12 h-12 object-cover rounded-full "
                     src={
                       process.env.NEXT_PUBLIC_HOST +
                       "/" +

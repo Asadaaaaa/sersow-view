@@ -7,7 +7,7 @@ import { Popover } from "@nextui-org/react";
 import { useState, useContext, useEffect } from "react";
 
 import font from "@/app/font.module.css";
-import getForyou from "@/api/project/forYou";
+import getFollowing from "@/api/project/following";
 import Like from "@/api/activity/project/like";
 import Unlike from "@/api/activity/project/unlike";
 import { IsLogin } from "@/components/main/LoginContext";
@@ -15,7 +15,7 @@ import { OptionsCard } from "@/components/main/home/projectOptionsCard";
 
 import { FaEllipsisH, FaHeart, FaComment, FaShare } from "react-icons/fa";
 
-export default function Foryou() {
+export default function Following() {
   const router = useRouter();
 
   const [dataProject, setdataProject] = useState([]);
@@ -71,7 +71,7 @@ export default function Foryou() {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await getForyou(getCookie("auth"));
+      const res = await getFollowing(getCookie("auth"));
 
       if (res) {
         if (res.status === "200") {

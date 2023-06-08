@@ -5,6 +5,7 @@ import { getCookie } from "cookies-next";
 import { Popover } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useState, useContext, useEffect } from "react";
+import { FaChartLine, FaEllipsisH, FaHeart, FaComment, FaShare } from "react-icons/fa";
 
 import font from "@/app/font.module.css";
 import Category from "@/api/project/category";
@@ -14,13 +15,6 @@ import projectTrends from "@/api/project/projectTrends";
 import { IsLogin } from "@/components/main/LoginContext";
 import styles from "@/components/main/discover/discover.module.css";
 import { OptionsCard } from "@/components/main/discover/projectOptionsCard";
-import {
-  FaChartLine,
-  FaEllipsisH,
-  FaHeart,
-  FaComment,
-  FaShare,
-} from "react-icons/fa";
 
 export default function Project() {
   const router = useRouter();
@@ -28,9 +22,9 @@ export default function Project() {
   const { isLogin } = useContext(IsLogin);
 
   const [dataProject, setdataProject] = useState([]);
+  const [filterCategory, setFilterCategory] = useState(null);
   const [dataCategory, setDataCategory] = useState([{ name: "All" }]);
-  const [dataProjectOdd, setdataProjectOdd] = useState([])
-  const [dataProjectEven, setdataProjectEven] = useState([])
+
 
   async function like(projectId) {
     if (isLogin) {
@@ -79,22 +73,8 @@ export default function Project() {
     );
   };
 
-  const [filterCategory, setFilterCategory] = useState(null);
-
-//   useEffect(() => {
-//     if(dataProject.length !== 0 ){
-//       dataProject.map((item, index) => {
-//         index % 2 !== 0 ? (
-//           setdataProjectOdd([...dataProjectOdd, ...item])
-//         ) : (
-//           setdataProjectEven([...dataProjectEven, ...item])
-//         )
-//       })
-//     }
-// }, [dataProject])
 
   useEffect(() => {
-    console.log(dataCategory);
     if (dataCategory.length !== 0) {
       setFilterCategory(dataCategory[0].name);
     }
@@ -109,6 +89,15 @@ export default function Project() {
           if (dataCategory.length === 1) {
             setDataCategory([...dataCategory, ...res.data]);
           }
+        }
+        if (res.status === "unauth") {
+          deleteCookie("auth");
+          deleteCookie("refreshAuth");
+  
+          location.reload();
+        }
+        if (res.status === "notfound") {
+          router.push("not-found");
         }
       }
     }
@@ -128,9 +117,7 @@ export default function Project() {
 
   return (
     <div className="flex flex-col justify-center px-24 mt-24 gap-12 text-white">
-      <div
-        className={`${styles.discoverCategory} flex w-full min-w-full pb-3 pt-12 gap-4 bg-gradient-b  from-slate-900/60 to-slate-900/20 backdrop-blur-md overflow-x-auto `}
-      >
+      <div className={`${styles.discoverCategory} flex w-full min-w-full pb-3 pt-12 gap-4 bg-gradient-b  from-slate-900/60 to-slate-900/20 backdrop-blur-md overflow-x-auto `}>
         {dataCategory.map((item) => (
           <div
             className={
@@ -153,27 +140,20 @@ export default function Project() {
 
         <div className="flex flex-wrap gap-6 items-start">
           {dataProject.map((item, index) => {
-            if (
-              item.categories.includes(filterCategory) ||
-              filterCategory === "All"
-            ) {
+            if ( item.categories.includes(filterCategory) || filterCategory === "All" ) 
+            {
               return (
                 <div className="p-6 bg-slate-900 rounded-lg w-96" key={index}>
                   <div className="border-b border-slate-700 flex items-center justify-between pb-4">
                     <Link
                       href={`/profile/${item.owner_username}`}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 "
                     >
                       <Image
-                        src={
-                          process.env.NEXT_PUBLIC_HOST +
-                          "/" +
-                          process.env.NEXT_PUBLIC_VERSION +
-                          item.owner_image
-                        }
+                         src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item.owner_image }
                         width={120}
                         height={120}
-                        className="rounded-[50%] w-12 h-12"
+                        className="rounded-full w-12 h-12 object-cover"
                       />
                       <p className={`${font.Satoshi_c2medium}`}>
                         @{item.owner_username}
@@ -185,7 +165,7 @@ export default function Project() {
                           <FaEllipsisH />
                         </div>
                       </Popover.Trigger>
-                      <Popover.Content>
+                      <Popover.Content css={{overflow:"hidden"}}>
                         <OptionsCard
                           username={item.owner_username}
                           isMyProject={item.isMyProject}
@@ -206,7 +186,7 @@ export default function Project() {
                         }
                         width={220}
                         height={220}
-                        className="w-11 h-11 object-cover rounded-[50%]"
+                        className="w-11 h-11 object-cover rounded-full"
                       />
                     ) : (
                       <></>

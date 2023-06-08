@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-import Foryou from "./Foryou"
+import Foryou from "./Foryou";
+import Following from "./Following"
 import Header from "@/components/main/header/Header";
 import BgGradient from "@/components/main/BgGradient";
 import { ContentFilter } from "@/components/main/home/Context";
@@ -23,9 +24,10 @@ export default function Home() {
           {
             contentFilter === 0 ? (
               <Foryou />
+            ) : contentFilter === 1 ? (
+              <Following />
             ) : null
           }
-          <forYou />
       </div>
       </div>
       <ToastContainer

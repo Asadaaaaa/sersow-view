@@ -3,9 +3,7 @@
 import User from "./user"
 import Project from "./Project";
 import { useState } from 'react';
-
-import Project from "./Project";
-import User from "./User"
+import { ToastContainer } from 'react-toastify';
 import Header from '@/components/main/header/Header';
 import BgGradient from "@/components/main/BgGradient";
 import { ContentFilter } from '@/components/main/discover/Context';
@@ -25,7 +23,7 @@ export default function Discover() {
             contentFilter === 0 ? (
               <Project />
             ) : contentFilter === 1 ? (
-              <Users />
+              <User />
             ) : null
           }
         </div>
