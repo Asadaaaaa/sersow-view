@@ -1,5 +1,4 @@
 export default async function DraftProject(data, auth) {
-  console.log(12, data);
   try {
     const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/project/draft", {
       method: 'PUT',
@@ -10,8 +9,6 @@ export default async function DraftProject(data, auth) {
       },
       body: JSON.stringify(data),
     }).then((res) => res.json());
-
-    console.log(2, res)
     
     if (res.status === 200) {
       return {status: "200", data: res.data};

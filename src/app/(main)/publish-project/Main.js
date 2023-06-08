@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import { Loading } from '@nextui-org/react';
 import { deleteCookie, getCookie } from 'cookies-next';
 import { useEffect, useRef, useState } from 'react';
 import { FaCloudUploadAlt, FaTrashAlt, FaPlus } from 'react-icons/fa';
@@ -16,6 +17,7 @@ import CardMainButton from '@/components/main/settings/CardMainButton';
 import styles from '@/components/main/publish-project/pubpro.module.css';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 
+import PublishProject from '@/api/project/publish-project';
 import DraftProject from '@/api/project/draft-project';
 import SearchUsername from '@/api/profile/search-username';
 
@@ -71,7 +73,8 @@ export default function Main({ category }) {
   const [warningText, setWarningText] = useState("");
   const [isOther, setIsOther] = useState(false);
   const [image, setImage] = useState(null);
-  const [loading, setLoading] = useState(null);
+  const [publishLoading, setPublishLoading] = useState(null);
+  const [draftLoading, setDraftLoading] = useState(null);
 
   const uploadLogoRef = useRef(null);
   const uploadThumbnailRef = useRef(null);
@@ -165,11 +168,57 @@ export default function Main({ category }) {
     };
   }, [data.tempContributors]);
 
+  function clearForm() {
+    setData({
+      title: "",
+      description: "",
+      categories: [],
+      otherCtg: "",
+      thumbnail: null,
+      image1: null,
+      image2: null,
+      image3: null,
+      program: null,
+      programUrl: "",
+      paper: null,
+      paperUrl: "",
+      code: null,
+      codeUrl: "",
+      tags: [],
+      tempTags: "",
+      contributors: [],
+      tempContributors: "",
+    });
+
+    setDataError({
+      title: false,
+      description: false,
+    });
+
+    setDataStatus({
+      thumbnail: "ready",
+      image1: "ready",
+      image2: "ready",
+      image3: "ready",
+      program: "ready",
+      paper: "ready",
+      code: "ready",
+    });
+
+    setDataName({
+      thumbnail: "",
+      image1: "",
+      image2: "",
+      image3: "",
+      program: "",
+      paper: "",
+      code: "",
+    })
+  }
+
   async function draftProject() {
 
-    console.log(1);
-
-    setLoading(true);
+    setDraftLoading(true);
 
     if (data.title === "") {
       setDataError({ ...dataError, title: true});
@@ -185,7 +234,7 @@ export default function Main({ category }) {
         theme: 'colored',
       });
 
-      setLoading(false);
+      setDraftLoading(false);
 
       return;
     }
@@ -204,7 +253,7 @@ export default function Main({ category }) {
         theme: 'colored',
       });
 
-      setLoading(false);
+      setDraftLoading(false);
 
       return;
     }
@@ -213,30 +262,30 @@ export default function Main({ category }) {
       id: null,
       title: data.title,
       description: data.description,
-      categories: data.categories,
+      categories: data.categories.length !== 0 ? data.categories : null,
       otherCtg: data.otherCtg ? data.otherCtg : null,
-      logo: image.split(",")[1],
-      thumbnail: {
+      logo: image ? image.split(",")[1] : null,
+      thumbnail: data.thumbnail ? {
         isUrl: false,
         data: data.thumbnail,
-      },
+      } : null,
       image1: data.image1,
       image2: data.image2,
       image3: data.image3,
-      program: {
+      program: data.program ? {
         isUrl: data.program === null,
         data: data.program !== null ? data.program : data.programUrl,
-      },
-      paper: {
+      } : null,
+      paper: data.program ? {
         isUrl: data.paper === null,
         data: data.paper !== null ? data.paper : data.paperUrl,
-      },
-      code: {
+      } : null,
+      code: data.code ? {
         isUrl: data.code === null,
         data: data.code !== null ? data.code : data.codeUrl,
-      },
-      tags: data.tags,
-      contributors: data.contributors.map((item) => item.id),
+      } : null,
+      tags: data.tags.length !== 0 ? data.tags : null,
+      contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
     }
 
     const res = await DraftProject(dataSend, getCookie("auth"));
@@ -293,12 +342,136 @@ export default function Main({ category }) {
         theme: 'colored',
       });
     }
+    setDraftLoading(false);
+  }
 
-    console.log(dataSend);
-    console.log(res);
+  async function publishProject() {
 
-    setLoading(false);
+    setPublishLoading(true);
 
+    if (data.title === "") {
+      setDataError({ ...dataError, title: true});
+
+      toast.error("Project name can't be empty", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      setPublishLoading(false);
+
+      return;
+    }
+
+    if (data.description === "") {
+      setDataError({ ...dataError, description: true});
+
+      toast.error("Description can't be empty", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      setPublishLoading(false);
+
+      return;
+    }
+
+    const dataSend = {
+      id: null,
+      title: data.title,
+      description: data.description,
+      categories: data.categories.length !== 0 ? data.categories : null,
+      otherCtg: data.otherCtg ? data.otherCtg : null,
+      logo: image ? image.split(",")[1] : null,
+      thumbnail: data.thumbnail ? {
+        isUrl: false,
+        data: data.thumbnail,
+      } : null,
+      image1: data.image1,
+      image2: data.image2,
+      image3: data.image3,
+      program: data.program ? {
+        isUrl: data.program === null,
+        data: data.program !== null ? data.program : data.programUrl,
+      } : null,
+      paper: data.program ? {
+        isUrl: data.paper === null,
+        data: data.paper !== null ? data.paper : data.paperUrl,
+      } : null,
+      code: data.code ? {
+        isUrl: data.code === null,
+        data: data.code !== null ? data.code : data.codeUrl,
+      } : null,
+      tags: data.tags.length !== 0 ? data.tags : null,
+      contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
+    }
+
+    const res = await PublishProject(dataSend, getCookie("auth"));
+
+    if (res) {
+      if (res.status === "200") {
+        toast.success('Success publish project', {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      } else if (res.status === "unauth") {
+        deleteCookie("auth");
+        deleteCookie("refreshAuth");
+  
+        location.reload();
+      } else if (res.message) {
+        toast.error(res.message, {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      } else {
+        toast.error("Failed publish project", {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }
+    } else {
+      toast.error("Failed publish project", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
+    setPublishLoading(false);
   }
 
   return (
@@ -1082,13 +1255,18 @@ export default function Main({ category }) {
           <CardContainer>
             <CardTitle title={"Finish"} subtitle={"You've reached the end! May this project shines resourceful among the savvy."} />
             <div className="flex">
-              <CardMainButton disabled={loading}>Publish</CardMainButton>
+              <CardMainButton 
+                disabled={publishLoading || draftLoading}
+                clickHandler={async() => await publishProject()}
+              >
+                {publishLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Publish"}
+              </CardMainButton>
               <button 
-                disabled={loading} 
+                disabled={publishLoading || draftLoading} 
                 className={`${font.Satoshi_c2bold} text-slate-200 px-[25px] py-2`}
                 onClick={async() => await draftProject()}
               >
-                Save Draft
+                {draftLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Save Draft"}
               </button>
             </div>
           </CardContainer>

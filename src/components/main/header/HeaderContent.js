@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
+import PubProTitle from '../publish-project/PubProTitle';
 import Searchbar from '@/components/main/header/Searchbar';
 import BackButton from '@/components/main/profile/BackButton';
 import HomeToggleFilter from '@/components/main/home/ToggleFilter';
@@ -42,7 +43,7 @@ export default function HeaderContent({ isLogin }) {
       }
       {
         (page === "Publish-project") && (
-          <></>
+          <PubProTitle />
         )  
       }
     </div>
