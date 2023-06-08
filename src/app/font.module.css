@@ -550,7 +550,7 @@ and (min-width: 768px) {
 and (min-width: 0px) {
   .Clash_display_h1medium {
     font-family: "Clash Display";
-    font-size: 0.8rem; /* 48px */
+    font-size: 1rem; /* 48px */
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0.02em;
@@ -591,7 +591,7 @@ and (min-width: 768px) {
 and (min-width: 0px) {
   .Clash_display_h2medium {
     font-family: "Clash Display";
-    font-size: 1.5rem; /* 38px */
+    font-size: 1rem; /* 38px */
     font-weight: 500;
     line-height: 1.2;
     letter-spacing: 0.02em;
@@ -1067,7 +1067,7 @@ and (min-width: 768px) {
 and (min-width: 0px) {
   .Satoshi_b2medium {
     font-family: Satoshi;
-    font-size: 0.4rem; /* 16px */
+    font-size: 0.5rem; /* 16px */
     font-weight: 500;
     line-height: 1.4;
   }
