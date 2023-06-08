@@ -203,7 +203,7 @@ export default function Profile() {
                           toast.error("Error: File is too big!", {
                             position: "top-center",
                             autoClose: 2500,
-                            hideProgressBar: false,
+                            hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,

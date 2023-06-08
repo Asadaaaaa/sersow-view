@@ -21,7 +21,7 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page === "Profile") && (
+        (page === "Profile" || page === "Publish-project") && (
           <BackButton />
         )
       }
@@ -31,14 +31,19 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page !== "Settings") && (
+        (page !== "Settings" && page !== "Publish-project") && (
           <Searchbar />
         )
       }
       {
-        page === "Discover" && (
+        (page === "Discover") && (
           <DiscoverToggleFilter />
         )
+      }
+      {
+        (page === "Publish-project") && (
+          <></>
+        )  
       }
     </div>
   );
