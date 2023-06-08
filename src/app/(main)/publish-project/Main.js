@@ -484,7 +484,7 @@ export default function Main({ category }) {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="w-[456px] h-full pt-24">
+      <div className="w-[350px] md:w-[456px] h-full pt-24">
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Main"} subtitle={"This information is required."} />

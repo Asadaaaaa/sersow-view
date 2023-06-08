@@ -15,7 +15,7 @@ export default function HeaderContent({ isLogin }) {
   const page = rootPageName.charAt(0).toUpperCase() + rootPageName.slice(1);
 
   return (
-    <div className="flex gap-12 items-center">
+    <div className="flex gap-6 md:gap-12 items-center">
       {
         (page === "Home" && isLogin) && (
           <HomeToggleFilter />

@@ -155,7 +155,7 @@ export default function Profile() {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="w-[456px] h-full pt-24">
+      <div className="w-[350px] md:w-[456px] h-full pt-24">
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Avatar"} subtitle={"Unleash your good looking avatar or just use our amazing default avatar."} />
@@ -167,7 +167,7 @@ export default function Profile() {
                     src={image} 
                     width={96} 
                     height={96} 
-                    className="w-24 h-24 border-solid border-slate-700 border-[1px] rounded-full object-cover"
+                    className="w-16 h-16 md:w-24 md:h-24 border-solid border-slate-700 border-[1px] rounded-full object-cover"
                   />
                 ) : (
                   <div className="w-24 h-24 border-solid border-slate-700 border-[1px] rounded-full"></div>
@@ -289,7 +289,7 @@ export default function Profile() {
               />
             </div>
             {warningText && (
-              <div className="w-full max-w-[408px]">
+              <div className="w-full max-w-[302px] md:max-w-[408px]">
                 <p className={`${font.Satoshi_b2regular} text-red-500`}>{warningText}</p>
               </div>
             )}
