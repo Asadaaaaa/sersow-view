@@ -213,7 +213,11 @@ export default function Main({ category }) {
       program: "",
       paper: "",
       code: "",
-    })
+    });
+
+    setImage(null);
+
+    setIsOther(null);
   }
 
   async function draftProject() {
@@ -302,6 +306,8 @@ export default function Main({ category }) {
           progress: undefined,
           theme: 'colored',
         });
+
+        clearForm();
       } else if (res.status === "unauth") {
         deleteCookie("auth");
         deleteCookie("refreshAuth");
@@ -431,6 +437,8 @@ export default function Main({ category }) {
           progress: undefined,
           theme: 'colored',
         });
+
+        clearForm();
       } else if (res.status === "unauth") {
         deleteCookie("auth");
         deleteCookie("refreshAuth");
