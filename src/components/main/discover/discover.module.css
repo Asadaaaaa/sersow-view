@@ -11,3 +11,16 @@
   background-color: #64748b;
   border-radius: 4px;
 }
+
+.discoverCategory::-webkit-scrollbar {
+  width: 5px;
+  height: 3px;
+  background-color: transparent;
+}
+.discoverCategory::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color:#64748b ;
+}
+.discoverContent::-webkit-scrollbar-track {
+  margin-top: 175px;
+}
