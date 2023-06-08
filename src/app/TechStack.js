@@ -16,13 +16,13 @@ export default function TechStack({ styles }) {
         <div className="w-60 h-[410px] bg-gradient-to-r from-slate-950 to-slate-950/0 -translate-y-[1px]"></div>
         <div className="w-60 h-[410px] bg-gradient-to-l from-slate-950 to-slate-950/0 -translate-y-[1px]"></div>
       </div>
-      <div className="flex flex-col items-center gap-12">
+      <div className="flex flex-col items-center xl:gap-12 lg:gap-10 md:gap-8 sm:gap-8 ss:gap-2">
         <div>
           <h4 className={`${font.Clash_display_d4medium} text-white text-center`}>One Platform</h4>
           <h4 className={`${font.Clash_display_h4medium} text-slate-400 text-center mt-1`}>Run with a tech stack</h4>
         </div>
         <div className={`overflow-x-hidden ${styles.techstackGallery}`}>
-          <div className={`w-fit flex gap-20 relative ${styles.techstack}`}>
+          <div className={`w-fit flex relative gap-20  ${styles.techstack}`}>
             <Image src={Tailwind} alt="Tailwind" />
             <Image src={Reactjs} alt="Reactjs" />
             <Image src={Nextjs} alt="Nextjs" />
