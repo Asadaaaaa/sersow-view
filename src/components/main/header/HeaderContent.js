@@ -32,7 +32,7 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page !== "Settings" && page !== "Publish-project") && (
+        (page !== "Settings" && page !== "Publish-project" && page !== "Profile") && (
           <Searchbar />
         )
       }
