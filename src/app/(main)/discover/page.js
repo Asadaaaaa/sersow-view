@@ -1,6 +1,6 @@
 "use client";
 
-import User from "./user"
+import User from "./Users";
 import Project from "./Project";
 import { useState } from 'react';
 import { ToastContainer } from 'react-toastify';

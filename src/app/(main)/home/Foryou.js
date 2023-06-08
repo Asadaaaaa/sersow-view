@@ -149,7 +149,7 @@ export default function Foryou() {
                     <div
                       className={` ${font.Satoshi_c3bold} flex justify-center w-20 rounded-full border border-slate-500 py-1 px-2`}
                     >
-                      {item}
+                      {item.name}
                     </div>
                   ))}
                 </div>

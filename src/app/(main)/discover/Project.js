@@ -22,7 +22,7 @@ export default function Project() {
   const { isLogin } = useContext(IsLogin);
 
   const [dataProject, setdataProject] = useState([]);
-  const [filterCategory, setFilterCategory] = useState(null);
+  const [filterCategory, setFilterCategory] = useState({ name: "All"});
   const [dataCategory, setDataCategory] = useState([{ name: "All" }]);
 
 
@@ -76,7 +76,7 @@ export default function Project() {
 
   useEffect(() => {
     if (dataCategory.length !== 0) {
-      setFilterCategory(dataCategory[0].name);
+      setFilterCategory(dataCategory[0]);
     }
   }, [dataCategory]);
 
@@ -122,11 +122,11 @@ export default function Project() {
           <div
             className={
               "flex justify-center items-center h-8 border border-slate-500 rounded-full py-2 px-4 whitespace-nowrap cursor-pointer " +
-              (item.name === filterCategory
+              (item.name === filterCategory.name
                 ? "bg-slate-200 text-slate-950"
                 : "bg-slate-900 text-slate-200")
             }
-            onClick={() => setFilterCategory(item.name)}
+            onClick={() => setFilterCategory(item)}
           >
             {item.name}
           </div>
@@ -140,7 +140,7 @@ export default function Project() {
 
         <div className="flex flex-wrap gap-6 items-start">
           {dataProject.map((item, index) => {
-            if ( item.categories.includes(filterCategory) || filterCategory === "All" ) 
+            if ( item.categories.map((item) => item.id).includes(filterCategory.id) || filterCategory.name === "All" ) 
             {
               return (
                 <div className="p-6 bg-slate-900 rounded-lg w-96" key={index}>
@@ -200,7 +200,7 @@ export default function Project() {
                         <div
                           className={` ${font.Satoshi_c3bold} flex justify-center w-20 rounded-full border border-slate-500 py-1 px-2`}
                         >
-                          {item}
+                          {item.name}
                         </div>
                       ))}
                     </div>
