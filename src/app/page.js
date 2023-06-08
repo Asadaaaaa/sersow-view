@@ -13,7 +13,7 @@ import styles from "./root.module.css";
 
 export default function Home() {
   return (
-    <main className="bg-slate-950">
+    <main className="overflow-x-hidden bg-slate-950">
       <Header />
       <Main />
       <Featured styles={styles} />

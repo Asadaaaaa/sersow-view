@@ -6,14 +6,14 @@ import MarkZuckerberg from "../../public/images/Quote/MarkZuckerberg.png";
 
 export default function Quote() {
   return (
-    <div className="bg-[radial-gradient(100%_342.58%_at_0%_0%,#0F172A_0%,#020617_100%)] flex flex-col gap-12 p-24 relative">
+    <div className="w-full bg-[radial-gradient(100%_342.58%_at_0%_0%,#0F172A_0%,#020617_100%)] flex flex-col xl:p-24 lg:p-24 md:p-24 sm:p-20 ss:p-8 xl:gap-12 relative lg:gap-8 md:gap-6 sm:gap-8 ss:gap-6">
       <h1 className={`${font.Clash_display_h1medium} text-slate-400`}>a wise man once said</h1>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col xl:gap-6 lg:gap-5 md:gap-4 sm:gap-8 ss:gap-6">
         <div className="pb-3 bg-gradient-to-r from-cyan-400 to-sky-500 bg-clip-text border-solid border-b-2 border-b-slate-600">
           <h3 className={`${font.Clash_display_d3medium} text-transparent`}>"People don't care about what you say, they care about what you build.</h3>
         </div>
-        <div className="flex gap-6 items-center">
-          <Image src={MarkZuckerberg} alt="Mark Zuckerberg" className="w-24 h-24" />
+        <div className="flex xl:gap-6 items-center lg:gap-4 md:gap-3 sm:gap-6 ss:gap-4">
+          <Image src={MarkZuckerberg} alt="Mark Zuckerberg" className="xl:w-24 xl:h-24 lg:w-20 lg:h-20 md:w-16 md:h-16 sm:w-20 sm:h-20"/>
           <div>
             <h3 className={`${font.Clash_display_h3bold} text-white`}>Mark Zuckerberg</h3>
             <h4 className={`${font.Clash_display_h4medium} text-slate-400`}>CEO of Meta</h4>
