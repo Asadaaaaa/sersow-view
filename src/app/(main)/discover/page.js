@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from 'react';
-
+import User from "./user"
 import Project from "./Project";
-import Users from "./Users";
+import { useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import Header from '@/components/main/header/Header';
 import BgGradient from "@/components/main/BgGradient";
 import { ContentFilter } from '@/components/main/discover/Context';
@@ -23,11 +23,23 @@ export default function Discover() {
             contentFilter === 0 ? (
               <Project />
             ) : contentFilter === 1 ? (
-              <Users />
+              <User />
             ) : null
           }
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1250}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </ContentFilter.Provider>
   );
 }
