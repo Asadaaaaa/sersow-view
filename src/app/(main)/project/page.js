@@ -12,7 +12,7 @@ import styles from '@/components/main/settings/settings.module.css';
 
 import Category from '@/api/project/category';
 
-export default function PublishProject() {
+export default function Project() {
 
   const { isLogin } = useContext(IsLogin);
 

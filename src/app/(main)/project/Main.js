@@ -14,7 +14,7 @@ import CardSubtitle from '@/components/main/settings/CardSubtitle';
 import CardContainer from '@/components/main/settings/CardContainer';
 import FileContainer from '@/components/main/settings/FileContainer';
 import CardMainButton from '@/components/main/settings/CardMainButton';
-import styles from '@/components/main/publish-project/pubpro.module.css';
+import styles from '@/components/main/project/project.module.css';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 
 import PublishProject from '@/api/project/publish-project';

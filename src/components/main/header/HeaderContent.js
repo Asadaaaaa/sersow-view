@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import PubProTitle from '../publish-project/PubProTitle';
+import ProjectTitle from '../project/ProjectTitle';
 import Searchbar from '@/components/main/header/Searchbar';
 import BackButton from '@/components/main/profile/BackButton';
 import HomeToggleFilter from '@/components/main/home/ToggleFilter';
@@ -22,7 +22,7 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page === "Profile" || page === "Publish-project") && (
+        (page === "Profile" || page === "Project") && (
           <BackButton />
         )
       }
@@ -32,7 +32,7 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page !== "Settings" && page !== "Publish-project" && page !== "Profile") && (
+        (page !== "Settings" && page !== "Project" && page !== "Profile") && (
           <Searchbar />
         )
       }
@@ -42,8 +42,8 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page === "Publish-project") && (
-          <PubProTitle />
+        (page === "Project") && (
+          <ProjectTitle />
         )  
       }
     </div>

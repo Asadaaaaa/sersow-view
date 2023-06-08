@@ -26,7 +26,7 @@ export default function Sidebar({ image, name, username}) {
           <SidebarMenu isLogin={isLogin} />
           {
             isLogin && (
-              <Link href={"publish-project"}>
+              <Link href={"project"}>
                 <div className="flex justify-center">
                   <button className="flex justify-center items-center gap-2 px-[20px] lg:px-[30px] xl:px-[45.5px] py-4 text-white rounded-xl bg-gradient-to-b from-[#22D3EE] to-[#0EA5E9] transition ease-out delay-100 hover:to-[#22D3EE] hover:shadow-[0px_0px_12px_.5px_#22d3ee] active:shadow-[0_0_0_0] active:scale-[.92] active:from-[rgb(6 182 212)] active:to-[rgb(6 182 212)]">
                     <div>
