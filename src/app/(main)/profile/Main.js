@@ -195,7 +195,9 @@ export default function Main({ username }) {
                       dataProfile.website && (
                         <div className="flex gap-2 items-center">
                           <div><FaLink className="w-3 h-3 text-slate-600" /></div>
-                          <h4 className={`${font.Satoshi_c2regular} text-slate-400`}>{dataProfile.website}</h4>
+                          <a href={dataProfile.website} target='_blank'>
+                            <h4 className={`${font.Satoshi_c2regular} text-slate-400`}>{dataProfile.website}</h4>
+                          </a>
                         </div>
                       )
                     }
