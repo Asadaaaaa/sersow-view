@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import { useRouter } from 'next/navigation';
 
 import Main from './Main';
-import GlobalError from '@/app/global-error';
 import Header from '@/components/main/header/Header';
 import { IsLogin, Username } from '@/components/main/LoginContext';
 
@@ -22,7 +21,7 @@ export default function Profile() {
   return (
     <>
       <Header />
-      <Main username={username} fallback={<GlobalError />} />
+      <Main username={username} />
     </>
   );
 }
