@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import { toast } from 'react-toastify';
+import { Loading } from '@nextui-org/react';
 import { deleteCookie, getCookie } from 'cookies-next';
 import { useEffect, useRef, useState } from 'react';
-import { FaCloudUploadAlt, FaTrashAlt } from 'react-icons/fa';
+import { FaCloudUploadAlt, FaTrashAlt, FaPlus } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
 import Input from '@/components/main/settings/Input';
@@ -13,8 +14,11 @@ import CardSubtitle from '@/components/main/settings/CardSubtitle';
 import CardContainer from '@/components/main/settings/CardContainer';
 import FileContainer from '@/components/main/settings/FileContainer';
 import CardMainButton from '@/components/main/settings/CardMainButton';
+import styles from '@/components/main/publish-project/pubpro.module.css';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 
+import PublishProject from '@/api/project/publish-project';
+import DraftProject from '@/api/project/draft-project';
 import SearchUsername from '@/api/profile/search-username';
 
 export default function Main({ category }) {
@@ -29,14 +33,17 @@ export default function Main({ category }) {
     image2: null,
     image3: null,
     program: null,
+    programUrl: "",
     paper: null,
+    paperUrl: "",
     code: null,
+    codeUrl: "",
     tags: [],
     tempTags: "",
     contributors: [],
-    searchContributors: [],
     tempContributors: "",
   });
+  const [searchContributors, setSearchContributors] = useState([]);
 
   const [dataError, setDataError] = useState({
     title: false,
@@ -66,6 +73,8 @@ export default function Main({ category }) {
   const [warningText, setWarningText] = useState("");
   const [isOther, setIsOther] = useState(false);
   const [image, setImage] = useState(null);
+  const [publishLoading, setPublishLoading] = useState(null);
+  const [draftLoading, setDraftLoading] = useState(null);
 
   const uploadLogoRef = useRef(null);
   const uploadThumbnailRef = useRef(null);
@@ -109,56 +118,370 @@ export default function Main({ category }) {
     }
   }, [data.image1, data.image2, data.image3]);
 
-  async function searchUsername(value) {
-    const res = await SearchUsername(value, 5, getCookie("auth"));
-
-    if (res) {
-      if (res.status === "200") {
-        setData({ ...data, searchContributors: res.data});
-      } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-
-        location.reload();
+  useEffect(() => {
+    async function searchUsername(value) {
+      if (value) {
+        const res = await SearchUsername(value, 5, getCookie('auth'));
+        
+        if (res) {
+          if (res.status === '200') {
+            setSearchContributors(res.data);
+          } else if (res.status === 'unauth') {
+            deleteCookie('auth');
+            deleteCookie('refreshAuth');
+            location.reload();
+          } else {
+            toast.error('Failed to fetch user', {
+              position: 'top-center',
+              autoClose: 2500,
+              hideProgressBar: true,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: 'colored',
+            });
+          }
+        } else {
+          toast.error('Failed to fetch user', {
+            position: 'top-center',
+            autoClose: 2500,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'colored',
+          });
+        }
       } else {
-        toast.error("Failed to fetching user", {
-          position: "top-center",
-          autoClose: 2500,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        setSearchContributors([]);
       }
-    } else {
-      toast.error("Failed to fetching user", {
-        position: "top-center",
+    }
+
+    const timeout = setTimeout(() => {
+      searchUsername(data.tempContributors);
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [data.tempContributors]);
+
+  function clearForm() {
+    setData({
+      title: "",
+      description: "",
+      categories: [],
+      otherCtg: "",
+      thumbnail: null,
+      image1: null,
+      image2: null,
+      image3: null,
+      program: null,
+      programUrl: "",
+      paper: null,
+      paperUrl: "",
+      code: null,
+      codeUrl: "",
+      tags: [],
+      tempTags: "",
+      contributors: [],
+      tempContributors: "",
+    });
+
+    setDataError({
+      title: false,
+      description: false,
+    });
+
+    setDataStatus({
+      thumbnail: "ready",
+      image1: "ready",
+      image2: "ready",
+      image3: "ready",
+      program: "ready",
+      paper: "ready",
+      code: "ready",
+    });
+
+    setDataName({
+      thumbnail: "",
+      image1: "",
+      image2: "",
+      image3: "",
+      program: "",
+      paper: "",
+      code: "",
+    });
+
+    setImage(null);
+
+    setIsOther(null);
+  }
+
+  async function draftProject() {
+
+    setDraftLoading(true);
+
+    if (data.title === "") {
+      setDataError({ ...dataError, title: true});
+
+      toast.error("Project name can't be empty", {
+        position: 'top-center',
         autoClose: 2500,
-        hideProgressBar: false,
+        hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "colored",
+        theme: 'colored',
+      });
+
+      setDraftLoading(false);
+
+      return;
+    }
+
+    if (data.description === "") {
+      setDataError({ ...dataError, description: true});
+
+      toast.error("Description can't be empty", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      setDraftLoading(false);
+
+      return;
+    }
+
+    const dataSend = {
+      id: null,
+      title: data.title,
+      description: data.description,
+      categories: data.categories.length !== 0 ? data.categories : null,
+      otherCtg: data.otherCtg ? data.otherCtg : null,
+      logo: image ? image.split(",")[1] : null,
+      thumbnail: data.thumbnail ? {
+        isUrl: false,
+        data: data.thumbnail,
+      } : null,
+      image1: data.image1,
+      image2: data.image2,
+      image3: data.image3,
+      program: data.program ? {
+        isUrl: data.program === null,
+        data: data.program !== null ? data.program : data.programUrl,
+      } : null,
+      paper: data.program ? {
+        isUrl: data.paper === null,
+        data: data.paper !== null ? data.paper : data.paperUrl,
+      } : null,
+      code: data.code ? {
+        isUrl: data.code === null,
+        data: data.code !== null ? data.code : data.codeUrl,
+      } : null,
+      tags: data.tags.length !== 0 ? data.tags : null,
+      contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
+    }
+
+    const res = await DraftProject(dataSend, getCookie("auth"));
+
+    if (res) {
+      if (res.status === "200") {
+        toast.success('Success save draft', {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+
+        clearForm();
+      } else if (res.status === "unauth") {
+        deleteCookie("auth");
+        deleteCookie("refreshAuth");
+  
+        location.reload();
+      } else if (res.message) {
+        toast.error(res.message, {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      } else {
+        toast.error("Failed save draft", {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }
+    } else {
+      toast.error("Failed save draft", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
       });
     }
+    setDraftLoading(false);
   }
 
-  useEffect(() => {
-    const timeout = setTimeout(async() => {
-      if (data.tempContributors) {
-        await searchUsername(data.tempContributors);
-      } else {
-        setData({ ...data, searchContributors: []});
-      }
-    }, 200);
+  async function publishProject() {
 
-    return () => {
-      clearTimeout(timeout);
+    setPublishLoading(true);
+
+    if (data.title === "") {
+      setDataError({ ...dataError, title: true});
+
+      toast.error("Project name can't be empty", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      setPublishLoading(false);
+
+      return;
     }
-  }, [data.tempContributors]);
+
+    if (data.description === "") {
+      setDataError({ ...dataError, description: true});
+
+      toast.error("Description can't be empty", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      setPublishLoading(false);
+
+      return;
+    }
+
+    const dataSend = {
+      id: null,
+      title: data.title,
+      description: data.description,
+      categories: data.categories.length !== 0 ? data.categories : null,
+      otherCtg: data.otherCtg ? data.otherCtg : null,
+      logo: image ? image.split(",")[1] : null,
+      thumbnail: data.thumbnail ? {
+        isUrl: false,
+        data: data.thumbnail,
+      } : null,
+      image1: data.image1,
+      image2: data.image2,
+      image3: data.image3,
+      program: data.program ? {
+        isUrl: data.program === null,
+        data: data.program !== null ? data.program : data.programUrl,
+      } : null,
+      paper: data.program ? {
+        isUrl: data.paper === null,
+        data: data.paper !== null ? data.paper : data.paperUrl,
+      } : null,
+      code: data.code ? {
+        isUrl: data.code === null,
+        data: data.code !== null ? data.code : data.codeUrl,
+      } : null,
+      tags: data.tags.length !== 0 ? data.tags : null,
+      contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
+    }
+
+    const res = await PublishProject(dataSend, getCookie("auth"));
+
+    if (res) {
+      if (res.status === "200") {
+        toast.success('Success publish project', {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+
+        clearForm();
+      } else if (res.status === "unauth") {
+        deleteCookie("auth");
+        deleteCookie("refreshAuth");
+  
+        location.reload();
+      } else if (res.message) {
+        toast.error(res.message, {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      } else {
+        toast.error("Failed publish project", {
+          position: 'top-center',
+          autoClose: 2500,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored',
+        });
+      }
+    } else {
+      toast.error("Failed publish project", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+    }
+    setPublishLoading(false);
+  }
+
   return (
     <div className="flex justify-center h-full">
       <div className="w-[456px] h-full pt-24">
@@ -299,7 +622,7 @@ export default function Main({ category }) {
                           toast.error("Error: File is too big!", {
                             position: "top-center",
                             autoClose: 2500,
-                            hideProgressBar: false,
+                            hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,
@@ -351,7 +674,7 @@ export default function Main({ category }) {
                       toast.error("Error: File is too big!", {
                         position: "top-center",
                         autoClose: 2500,
-                        hideProgressBar: false,
+                        hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
@@ -420,7 +743,7 @@ export default function Main({ category }) {
                       toast.error("Error: File is too big!", {
                         position: "top-center",
                         autoClose: 2500,
-                        hideProgressBar: false,
+                        hideProgressBar: true,
                         closeOnClick: true,
                         pauseOnHover: true,
                         draggable: true,
@@ -486,7 +809,7 @@ export default function Main({ category }) {
                           toast.error("Error: File is too big!", {
                             position: "top-center",
                             autoClose: 2500,
-                            hideProgressBar: false,
+                            hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,
@@ -554,7 +877,7 @@ export default function Main({ category }) {
                           toast.error("Error: File is too big!", {
                             position: "top-center",
                             autoClose: 2500,
-                            hideProgressBar: false,
+                            hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,
@@ -605,8 +928,8 @@ export default function Main({ category }) {
                 status={dataStatus.program} 
                 fileName={dataName.program}
                 isWithLink={true}
-                value={data.program}
-                onChange={(e) => {setData({ ...data, program: e.target.value})}}
+                value={data.programUrl}
+                onChange={(e) => {setData({ ...data, programUrl: e.target.value, program: null})}}
                 clickHandler={() => {
                   if (dataStatus.program === "success") return;
                   if (uploadProgramRef.current === null) return;
@@ -630,7 +953,7 @@ export default function Main({ category }) {
                         toast.error("Error: File is too big!", {
                           position: "top-center",
                           autoClose: 2500,
-                          hideProgressBar: false,
+                          hideProgressBar: true,
                           closeOnClick: true,
                           pauseOnHover: true,
                           draggable: true,
@@ -643,7 +966,7 @@ export default function Main({ category }) {
 
                       const program = await getBase64(file);
 
-                      setData({ ...data, program: program.split(",")[1]});
+                      setData({ ...data, program: program.split(",")[1], programUrl: ""});
                       setDataStatus({ ...dataStatus, program: "success"});
                       setDataName({ ...dataName, program: file.name});
                     } catch {
@@ -676,8 +999,8 @@ export default function Main({ category }) {
                 status={dataStatus.paper} 
                 fileName={dataName.paper}
                 isWithLink={true}
-                value={data.paper}
-                onChange={(e) => {setData({ ...data, paper: e.target.value})}}
+                value={data.paperUrl}
+                onChange={(e) => {setData({ ...data, paperUrl: e.target.value, paper: null})}}
                 clickHandler={() => {
                   if (dataStatus.paper === "success") return;
                   if (uploadPaperRef.current === null) return;
@@ -701,7 +1024,7 @@ export default function Main({ category }) {
                         toast.error("Error: File is too big!", {
                           position: "top-center",
                           autoClose: 2500,
-                          hideProgressBar: false,
+                          hideProgressBar: true,
                           closeOnClick: true,
                           pauseOnHover: true,
                           draggable: true,
@@ -714,7 +1037,7 @@ export default function Main({ category }) {
 
                       const paper = await getBase64(file);
 
-                      setData({ ...data, paper: paper.split(",")[1]});
+                      setData({ ...data, paper: paper.split(",")[1], paperUrl: ""});
                       setDataStatus({ ...dataStatus, paper: "success"});
                       setDataName({ ...dataName, paper: file.name});
                     } catch {
@@ -747,8 +1070,8 @@ export default function Main({ category }) {
                 status={dataStatus.code} 
                 fileName={dataName.code}
                 isWithLink={true}
-                value={data.code}
-                onChange={(e) => {setData({ ...data, code: e.target.value})}}
+                value={data.codeUrl}
+                onChange={(e) => {setData({ ...data, codeUrl: e.target.value, code: null})}}
                 clickHandler={() => {
                   if (dataStatus.code === "success") return;
                   if (uploadCodeRef.current === null) return;
@@ -772,7 +1095,7 @@ export default function Main({ category }) {
                         toast.error("Error: File is too big!", {
                           position: "top-center",
                           autoClose: 2500,
-                          hideProgressBar: false,
+                          hideProgressBar: true,
                           closeOnClick: true,
                           pauseOnHover: true,
                           draggable: true,
@@ -785,7 +1108,7 @@ export default function Main({ category }) {
 
                       const code = await getBase64(file);
 
-                      setData({ ...data, code: code.split(",")[1]});
+                      setData({ ...data, code: code.split(",")[1], codeUrl: ""});
                       setDataStatus({ ...dataStatus, code: "success"});
                       setDataName({ ...dataName, code: file.name});
                     } catch {
@@ -814,28 +1137,31 @@ export default function Main({ category }) {
           <CardContainer>
             <CardTitle title={"Tags"} subtitle={"Tags could enhance content discovery and recommendations for public."} />
             <CardSubtitle text={"Max. 4 Tags"} />
-            <div className="flex flex-wrap gap-2">
-              {
-                data.tags.map((item) => (
-                  <div
-                    key={item}
-                    className={`${font.Satoshi_c2medium} py-1 px-2 flex gap-1 rounded-3xl bg-slate-700 text-white cursor-pointer`}
-                    onClick={() => {
-                      const index = getCategoryIndex(item);
-                      const updatedTags = [...selectedTags];
+            {
+              data.tags.length !== 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {
+                    data.tags.map((item, index) => (
+                      <div
+                        key={item}
+                        className={`${font.Satoshi_c2medium} py-1 px-2 flex gap-1 rounded-3xl bg-slate-700 text-white cursor-pointer`}
+                        onClick={() => {
+                          const updatedTags = [...selectedTags];
 
-                      updatedTags.splice(index, 1);
-                      setData({ ...data, tags: updatedTags});
-                    }}
-                  > 
-                    <div>
-                      &times;
-                    </div>
-                    {item}
-                  </div>
-                ))
-              }
-            </div>
+                          updatedTags.splice(index, 1);
+                          setData({ ...data, tags: updatedTags});
+                        }}
+                      > 
+                        <div>
+                          &times;
+                        </div>
+                        {"#"+item}
+                      </div>
+                    ))
+                  }
+                </div>
+              )
+            }
             <Input 
               type={"text"} 
               placeholder={"Press Enter to push tags"} 
@@ -856,22 +1182,100 @@ export default function Main({ category }) {
           </CardContainer>
           <CardContainer>
             <CardTitle title={"Contributors"} subtitle={"Give credit to other fellow contributors."} />
-            {/* <CardSubtitle text={"Max. 4 Tags"} /> */}
+            {
+              data.contributors.length !== 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {
+                    data.contributors.map((item, index) => (
+                      <div
+                        key={item.id}
+                        className={`${font.Satoshi_c2medium} py-1 px-2 flex gap-1 rounded-3xl bg-slate-700 text-white cursor-pointer`}
+                        onClick={() => {
+                          const updatedContributors = [...data.contributors];
+                          updatedContributors.splice(index, 1);
+                          
+                          setData({ ...data, contributors: updatedContributors });
+                        }}
+                      > 
+                        <div>
+                          &times;
+                        </div>
+                        {"@"+item.username}
+                      </div>
+                    ))
+                  }
+                </div>
+              )
+            }
             <div className="flex flex-col">
               <Input 
                 type={"text"} 
-                placeholder={"e.g., John Doe"} 
+                placeholder={"e.g., johndoe"} 
                 maxLength={15}
                 value={data.tempContributors} 
                 onChange={(e) => setData({ ...data, tempContributors: e.target.value})}
               />
-              <div className="flex flex-col mt-2 max-h-[216px] bg-slate-900 border-slate-700 border-[1px] overflow-y-auto rounded-xl">
-                {
-                  data.searchContributors.map((item) => (
-                    <div key={item.id} className="h-[72px] flex justify-center items-center text-white">{item.name}</div>
-                  ))
-                }
-              </div>
+              {
+                searchContributors.length !== 0 && (
+                  <div className={`${styles.contributors} flex flex-col mt-2 max-h-[216px] border-slate-700 border-[1px] overflow-y-auto rounded-xl cursor-pointer`}>
+                    {
+                      searchContributors.map((item) => (
+                        <div 
+                          key={item.id} 
+                          className="h-[72px] py-3 px-4 flex justify-between items-center text-white bg-slate-900 hover:bg-slate-800 active:bg-slate-950"
+                          onClick={() => {
+                            const contributorExists = data.contributors.some((contributor) => contributor.id === item.id);
+                              if (!contributorExists) {
+                                setData((prevData) => ({
+                                  ...prevData,
+                                  contributors: [...prevData.contributors, { username: item.username, id: item.id }],
+                                  tempContributors: "",
+                                }));
+                              }
+                          }}
+                        >
+                          <div className="flex gap-2 items-center">
+                            <div>
+                              <Image
+                                src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item.image}
+                                alt="Sersow profile image"
+                                width={48}
+                                height={48}
+                                className="w-12 h-12 rounded-full object-cover"
+                              />
+                            </div>
+                            <div className="fles flex-col justify-center">
+                              <h1 className={`${font.Satoshi_c2regular} text-white`}>{item.name}</h1>
+                              <h3 className={`${font.Satoshi_c1medium} text-slate-300`}>{"@" + item.username}</h3>
+                            </div>
+                          </div>
+                          <div>
+                            <FaPlus className="w-4 h-4 text-slate-200" />
+                          </div>
+                        </div>
+                      ))
+                    }
+                  </div>
+                )
+              }
+            </div>
+          </CardContainer>
+          <CardContainer>
+            <CardTitle title={"Finish"} subtitle={"You've reached the end! May this project shines resourceful among the savvy."} />
+            <div className="flex">
+              <CardMainButton 
+                disabled={publishLoading || draftLoading}
+                clickHandler={async() => await publishProject()}
+              >
+                {publishLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Publish"}
+              </CardMainButton>
+              <button 
+                disabled={publishLoading || draftLoading} 
+                className={`${font.Satoshi_c2bold} text-slate-200 px-[25px] py-2`}
+                onClick={async() => await draftProject()}
+              >
+                {draftLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Save Draft"}
+              </button>
             </div>
           </CardContainer>
         </div>

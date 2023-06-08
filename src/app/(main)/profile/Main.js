@@ -1,7 +1,7 @@
 "use client";
 
-import Error from 'next/error';
 import Image from 'next/image';
+import { toast, ToastContainer } from 'react-toastify';
 import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { getCookie, deleteCookie } from 'cookies-next';
@@ -15,6 +15,7 @@ import styles from '@/components/main/profile/profile.module.css';
 import Profile from '@/api/profile/profile';
 import Follow from '@/api/activity/user/follow';
 import Unfollow from '@/api/activity/user/unfollow';
+import Link from 'next/link';
 
 export default function Main({ username }) {
 
@@ -22,6 +23,7 @@ export default function Main({ username }) {
 
   const [isFollowed, setIsFollowed] = useState(false);
   const [dataProfile, setDataProfile] = useState(null);
+  const urlProfile = "https://stg.sersow.otech.id/profile/" + username;
 
   function formatTimestamp(timestamp) {
     const date = new Date(timestamp);
@@ -92,7 +94,7 @@ export default function Main({ username }) {
                 <>
                   <div>
                     <Image 
-                      src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image}
+                      src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image + "?key=" + Date.now()}
                       width={192}
                       height={192}
                       className="w-48 h-48 rounded-full object-cover" 
@@ -102,10 +104,12 @@ export default function Main({ username }) {
                     <div className="py-1 px-2">
                       {
                         dataProfile.isMyProfile ? (
-                          <button className={`${font.Satoshi_c2bold} flex justify-center gap-2 w-[136px] py-2 text-white bg-gradient-to-b from-purple-500 to to-violet-600 rounded-3xl`}>
-                            <FaUserEdit className="w-4 h-4" />
-                            <h3>Edit</h3>
-                          </button>
+                          <Link href={"settings/profile"}>
+                            <button className={`${font.Satoshi_c2bold} flex justify-center gap-2 w-[136px] py-2 text-white bg-gradient-to-b from-purple-500 to to-violet-600 rounded-3xl`}>
+                              <FaUserEdit className="w-4 h-4" />
+                              <h3>Edit</h3>
+                            </button>
+                          </Link>
                         ) : (
                           isFollowed ? (
                             <button 
@@ -126,7 +130,22 @@ export default function Main({ username }) {
                       }
                     </div>
                     <div className="p-[6px]">
-                      <button className="border-solid border-slate-300 border-[1px] rounded-full p-2">
+                      <button 
+                        className="border-solid border-slate-300 border-[1px] rounded-full p-2"
+                        onClick={() => {
+                          navigator.clipboard.writeText(urlProfile);
+                          toast.success("Link copied", {
+                            position: 'top-center',
+                            autoClose: 2500,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: 'colored',
+                          });
+                        }}
+                      >
                         <FaLink className="w-3 h-3 text-white" />
                       </button>
                     </div>
@@ -224,6 +243,18 @@ export default function Main({ username }) {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={1250}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 }
