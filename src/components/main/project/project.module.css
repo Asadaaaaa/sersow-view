@@ -1,9 +1,33 @@
+.projectContent::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.projectContent::-webkit-scrollbar-track {
+  margin-top: 96px;
+}
+
+.projectContent::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 4px;
+}
+
 .contributors::-webkit-scrollbar {
   width: 5px;
   background-color: transparent;
 }
 
 .contributors::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 4px;
+}
+
+.detailImages::-webkit-scrollbar {
+  width: 5px;
+  background-color: #232d3b;
+}
+
+.detailImages::-webkit-scrollbar-thumb {
   background-color: #64748b;
   border-radius: 4px;
 }
