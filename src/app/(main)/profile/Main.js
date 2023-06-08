@@ -80,7 +80,9 @@ export default function Main({ username }) {
         }
       }
     }
-    fetchData();
+    if (username !== null) {
+      fetchData();
+    }
   }, []);
 
   return (
