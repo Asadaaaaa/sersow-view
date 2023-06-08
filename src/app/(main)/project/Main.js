@@ -276,18 +276,18 @@ export default function Main({ category }) {
       image1: data.image1,
       image2: data.image2,
       image3: data.image3,
-      program: data.program ? {
+      program: (!data.program && !data.programUrl) ? null : {
         isUrl: data.program === null,
         data: data.program !== null ? data.program : data.programUrl,
-      } : null,
-      paper: data.program ? {
+      },
+      paper: (!data.paper && !data.paperUrl) ? null : {
         isUrl: data.paper === null,
         data: data.paper !== null ? data.paper : data.paperUrl,
-      } : null,
-      code: data.code ? {
+      },
+      code: (!data.code && !data.codeUrl) ? null : {
         isUrl: data.code === null,
         data: data.code !== null ? data.code : data.codeUrl,
-      } : null,
+      },
       tags: data.tags.length !== 0 ? data.tags : null,
       contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
     }
@@ -407,18 +407,18 @@ export default function Main({ category }) {
       image1: data.image1,
       image2: data.image2,
       image3: data.image3,
-      program: data.program ? {
+      program: (!data.program && !data.programUrl) ? null : {
         isUrl: data.program === null,
         data: data.program !== null ? data.program : data.programUrl,
-      } : null,
-      paper: data.program ? {
+      },
+      paper: (!data.paper && !data.paperUrl) ? null : {
         isUrl: data.paper === null,
         data: data.paper !== null ? data.paper : data.paperUrl,
-      } : null,
-      code: data.code ? {
+      },
+      code: (!data.code && !data.codeUrl) ? null : {
         isUrl: data.code === null,
         data: data.code !== null ? data.code : data.codeUrl,
-      } : null,
+      },
       tags: data.tags.length !== 0 ? data.tags : null,
       contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
     }
@@ -919,7 +919,6 @@ export default function Main({ category }) {
           </CardContainer>
           <CardContainer>
             <CardTitle title={"Files"} subtitle={"Compilation of files essential."} />
-            <CardSubtitle text={"You can upload to max. 3 images."} />
             <div className="flex flex-col gap-2">
               <CardLabel text={"Program"} />
               <CardSubtitle text={"Could be the software, website, etc."} />
