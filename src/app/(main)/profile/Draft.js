@@ -60,24 +60,28 @@ export default function Draft() {
 	return !dataProject ? (<div className="flex justify-center"><Loading /></div>) : (
 		<div className="flex flex-col gap-6 items-center text-white">
 			{dataProject.map((item, index) => (
-				<Link href={"project/edit/" + item.id}>
+				// <Link href={"project/edit/" + item.id}>
 					<div className="p-6 bg-slate-900 rounded-lg w-96 " key={index}>
 						<div className="flex items-center my-4 gap-2">
 							<p className={`${font.Satoshi_h5bold}`}>{item.title}</p>
 						</div>
-						{item.categories[0] !== null ? (
-							<div className="flex flex-wrap items-center gap-2">
-								{item["categories"].map((item) => (
-									<div
-										className={` ${font.Satoshi_c3bold} flex justify-center w-20 rounded-full border border-slate-500 py-1 px-2`}
-									>
-										{item.name}
+						{
+							item.categories ? ( 
+								item.categories[0] !== null ? (
+									<div className="flex flex-wrap items-center gap-2">
+										{item["categories"].map((item) => (
+											<div
+												className={` ${font.Satoshi_c3bold} flex justify-center w-20 rounded-full border border-slate-500 py-1 px-2`}
+											>
+												{item.name}
+											</div>
+										))}
 									</div>
-								))}
-							</div>
-						) : (
-							<></>
-						)}
+								) : (
+									<></>
+								)
+							) : (<></>)
+						}
 						<div className="my-4 text-justify">
 							<p className={`${font.Satoshi_c2medium}`}>{item.description}</p>
 						</div>
@@ -100,7 +104,7 @@ export default function Draft() {
 							)}
 						</div>
 					</div>
-				</Link>
+				// </Link>
 			))}
 		</div>
 	);
