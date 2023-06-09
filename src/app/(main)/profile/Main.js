@@ -12,7 +12,6 @@ import { FaUserEdit, FaLink, FaEnvelope, FaRegEnvelope, FaRegCalendarAlt } from 
 import font from '@/app/font.module.css';
 import BgGradient from '@/components/main/BgGradient';
 import styles from '@/components/main/profile/profile.module.css';
-import listCard from '@/components/main/profile/listCard';
 
 import Profile from '@/api/profile/profile';
 import Follow from '@/api/activity/user/follow';
