@@ -220,7 +220,7 @@ export default function Projects({ userId }) {
                     </div>
                     <div
                       className="px-10 cursor-pointer "
-                      onClick={() => copylink(item.owner_username)}
+                      onClick={() => copylink(item.id)}
                     >
                       <FaShare className="hover:fill-green-400" />
                     </div>

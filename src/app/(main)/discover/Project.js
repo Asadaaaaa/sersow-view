@@ -65,7 +65,7 @@ export default function Project() {
     }
   }
 
-  const copylink = (username) => {
+  const copylinkProject = (id) => {
     toast.success("Link Copied!", {
       position: "top-center",
       autoClose: 3000,
@@ -77,7 +77,7 @@ export default function Project() {
       theme: "colored",
     });
     navigator.clipboard.writeText(
-      `https://stg.sersow.otech.id/profile/${username}`
+      `https://stg.sersow.otech.id/project/${id}`
     );
   };
 
@@ -296,7 +296,7 @@ export default function Project() {
                       </div>
                       <div
                         className="px-10 cursor-pointer "
-                        onClick={() => copylink(item.owner_username)}
+                        onClick={() => copylinkProject(item.id)}
                       >
                         <FaShare className="hover:fill-green-400" />
                       </div>
@@ -441,7 +441,7 @@ export default function Project() {
                       </div>
                       <div
                         className="px-10 cursor-pointer "
-                        onClick={() => copylink(item.owner_username)}
+                        onClick={() => copylinkProject(item.id)}
                       >
                         <FaShare className="hover:fill-green-400" />
                       </div>

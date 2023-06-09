@@ -20,21 +20,21 @@ export default function Credits() {
       {
         image: Azka,
         color: "rgb(46, 16, 101)",
-        url: "./#",
+        url: "https://stg.sersow.otech.id/profile/zka",
         jobdesk: "Tech Manager",
         nama: "Azka Ahmad"
       },
       {
         image: Mikey,
         color: "rgb(69, 10, 10)",
-        url: "./#",
+        url: "https://stg.sersow.otech.id/profile/asada",
         jobdesk: "Tech Lead",
         nama: "Mikail Asada"
       },
       {
         image: Adit,
         color: "rgb(80, 7, 36)",
-        url: "./#",
+        url: "https://stg.sersow.otech.id/profile/dit_aspd",
         jobdesk: "Tech Design",
         nama: "Aditya Syawal"
       }
