@@ -211,10 +211,24 @@ export default function Main({ username }) {
                   </div>
                   <div className="flex flex-col gap-1">
                     <div className="flex items-center gap-1">
-                      <div className={`${font.Satoshi_c2regular} text-slate-400`}>
+                      <>
+                      <Popover placement="left-top">
+                        <Popover.Trigger>
+                        <div className={`${font.Satoshi_c2regular} text-slate-400`}>
                         <span className={`${font.Satoshi_c2medium} text-white`}>{dataProfile.total_follower}</span>
                         {" "}followers
                       </div>
+                        </Popover.Trigger>
+                        <Popover.Content css={{ overflow: "hidden" }}>
+                          <OptionsCard
+                            id={item.id}
+                            username={item.idname}
+                            isMyProject={item.isMyProject}
+                            title={item.title}
+                          />
+                        </Popover.Content>
+                      </Popover>
+                      </>
                       <hr className="w-2 border-slate-700" />
                       <div className={`${font.Satoshi_c2regular} text-slate-400`}>
                         <span className={`${font.Satoshi_c2medium} text-white`}>{dataProfile.total_following}</span>
