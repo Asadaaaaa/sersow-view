@@ -1,10 +1,10 @@
-export default async function getForyou(auth = null) {
+export default async function projectTrends(auth = null) {
   try {
     const res = await fetch(
       process.env.NEXT_PUBLIC_HOST +
         "/" +
         process.env.NEXT_PUBLIC_VERSION +
-        "/project/get/foryou?offset=1&limit=6",
+        "/project/trends/project",
       {
         method: "GET",
         headers: {

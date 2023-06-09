@@ -88,7 +88,7 @@ export default function FileContainer({ children, status, subtitle, clickHandler
               spellCheck={"false"}
               className={`${font.Satoshi_c1regular} w-full py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg border-slate-700 hover:border-slate-500`} 
               type={"text"} 
-              placeholder={"example.com/file"}
+              placeholder={"https://example.com/file"}
               value={value}
               onChange={onChange}
             />

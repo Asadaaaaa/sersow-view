@@ -5,7 +5,11 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'stg.api.sersow.otech.id',
+        hostname: '*',
+      },
+      {
+        protocol: 'http',
+        hostname: '*',
       },
     ],
   },
