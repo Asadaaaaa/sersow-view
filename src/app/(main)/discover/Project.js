@@ -2,10 +2,17 @@ import Link from "next/link";
 import Image from "next/image";
 import { toast } from "react-toastify";
 import { getCookie } from "cookies-next";
+import { Loading } from '@nextui-org/react';
 import { Popover } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 import { useState, useContext, useEffect } from "react";
-import { FaChartLine, FaEllipsisH, FaHeart, FaComment, FaShare } from "react-icons/fa";
+import {
+  FaChartLine,
+  FaEllipsisH,
+  FaHeart,
+  FaComment,
+  FaShare,
+} from "react-icons/fa";
 
 import font from "@/app/font.module.css";
 import Category from "@/api/project/category";
@@ -22,9 +29,8 @@ export default function Project() {
   const { isLogin } = useContext(IsLogin);
 
   const [dataProject, setdataProject] = useState([]);
-  const [filterCategory, setFilterCategory] = useState({ name: "All"});
+  const [filterCategory, setFilterCategory] = useState({ name: "All" });
   const [dataCategory, setDataCategory] = useState([{ name: "All" }]);
-
 
   async function like(projectId) {
     if (isLogin) {
@@ -73,7 +79,6 @@ export default function Project() {
     );
   };
 
-
   useEffect(() => {
     if (dataCategory.length !== 0) {
       setFilterCategory(dataCategory[0]);
@@ -93,7 +98,7 @@ export default function Project() {
         if (res.status === "unauth") {
           deleteCookie("auth");
           deleteCookie("refreshAuth");
-  
+
           location.reload();
         }
         if (res.status === "notfound") {
@@ -117,7 +122,9 @@ export default function Project() {
 
   return (
     <div className="flex flex-col justify-center px-24 mt-24 gap-12 text-white">
-      <div className={`${styles.discoverCategory} flex w-full min-w-full pb-3 pt-12 gap-4 bg-gradient-b  from-slate-900/60 to-slate-900/20 backdrop-blur-md overflow-x-auto `}>
+      <div
+        className={`${styles.discoverCategory} flex w-full min-w-full pb-3 pt-12 gap-4 bg-gradient-b  from-slate-900/60 to-slate-900/20 backdrop-blur-md overflow-x-auto `}
+      >
         {dataCategory.map((item) => (
           <div
             className={
@@ -137,132 +144,145 @@ export default function Project() {
           <FaChartLine fill="white" />
           <p className={`${font.Satoshi_b2medium} text-white`}>TRENDS</p>
         </div>
-
-        <div className="flex flex-wrap gap-6 items-start">
-          {dataProject.map((item, index) => {
-            if ( item.categories.map((item) => item.id).includes(filterCategory.id) || filterCategory.name === "All" ) 
-            {
-              return (
-                <div className="p-6 bg-slate-900 rounded-lg w-96" key={index}>
-                  <div className="border-b border-slate-700 flex items-center justify-between pb-4">
-                    <Link
-                      href={`/profile/${item.owner_username}`}
-                      className="flex items-center gap-2 "
-                    >
-                      <Image
-                         src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item.owner_image }
-                        width={120}
-                        height={120}
-                        className="rounded-full w-12 h-12 object-cover"
-                      />
-                      <p className={`${font.Satoshi_c2medium}`}>
-                        @{item.owner_username}
-                      </p>
-                    </Link>
-                    <Popover placement="left-top">
-                      <Popover.Trigger>
-                        <div className="cursor-pointer">
-                          <FaEllipsisH />
-                        </div>
-                      </Popover.Trigger>
-                      <Popover.Content css={{overflow:"hidden"}}>
-                        <OptionsCard
-                          username={item.owner_username}
-                          isMyProject={item.isMyProject}
-                          title={item.title}
+        {dataProject ? (
+          <div className="flex flex-wrap gap-6 items-start">
+            {dataProject.map((item, index) => {
+              if ( item.categories.map((item) => item.id).includes(filterCategory.id) || filterCategory.name === "All") {
+                return (
+                  <div className="p-6 bg-slate-900 rounded-lg w-96" key={index}>
+                    <div className="border-b border-slate-700 flex items-center justify-between pb-4">
+                      <Link
+                        href={`/profile/${item.owner_username}`}
+                        className="flex items-center gap-2 "
+                      >
+                        <Image
+                          src={
+                            process.env.NEXT_PUBLIC_HOST +
+                            "/" +
+                            process.env.NEXT_PUBLIC_VERSION +
+                            item.owner_image
+                          }
+                          width={120}
+                          height={120}
+                          className="rounded-full w-12 h-12 object-cover"
                         />
-                      </Popover.Content>
-                    </Popover>
-                  </div>
-
-                  <div className="flex items-center my-4 gap-2">
-                    {item.logo !== null ? (
-                      <Image
-                        src={
-                          process.env.NEXT_PUBLIC_HOST +
-                          "/" +
-                          process.env.NEXT_PUBLIC_VERSION +
-                          item.logo
-                        }
-                        width={220}
-                        height={220}
-                        className="w-11 h-11 object-cover rounded-full"
-                      />
-                    ) : (
-                      <></>
-                    )}
-                    <p className={`${font.Satoshi_h5bold}`}>{item.title}</p>
-                  </div>
-
-                  {item.categories[0] !== null ? (
-                    <div className="flex flex-wrap items-center gap-2">
-                      {item["categories"].map((item) => (
-                        <div
-                          className={` ${font.Satoshi_c3bold} flex justify-center w-20 rounded-full border border-slate-500 py-1 px-2`}
-                        >
-                          {item.name}
-                        </div>
-                      ))}
+                        <p className={`${font.Satoshi_c2medium}`}>
+                          @{item.owner_username}
+                        </p>
+                      </Link>
+                      <Popover placement="left-top">
+                        <Popover.Trigger>
+                          <div className="cursor-pointer">
+                            <FaEllipsisH />
+                          </div>
+                        </Popover.Trigger>
+                        <Popover.Content css={{ overflow: "hidden" }}>
+                          <OptionsCard
+                            id={item.id}
+                            username={item.owner_username}
+                            isMyProject={item.isMyProject}
+                            title={item.title}
+                          />
+                        </Popover.Content>
+                      </Popover>
                     </div>
-                  ) : (
-                    <></>
-                  )}
-                  <div className="my-4 text-justify">
-                    <p className={`${font.Satoshi_c2medium}`}>
-                      {item.description}
-                    </p>
-                  </div>
 
-                  <div>
-                    {item.thumbnail !== null ? (
-                      <Image
-                        src={
-                          process.env.NEXT_PUBLIC_HOST +
-                          "/" +
-                          process.env.NEXT_PUBLIC_VERSION +
-                          item.thumbnail["data"]
-                        }
-                        width={1020}
-                        height={1020}
-                        className="h-40 w-80 object-cover"
-                      />
-                    ) : (
-                      <></>
-                    )}
-                  </div>
-
-                  <div className="flex mt-12 bg-slate-800 rounded-xl py-2 justify-evenly">
-                    {item.isLiked ? (
-                      <div
-                        className="px-10 border-r border-slate-600 group cursor-pointer "
-                        onClick={() => unlike(item.id)}
-                      >
-                        <FaHeart className="fill-pink-600 hover:fill-white" />
-                      </div>
-                    ) : (
-                      <div
-                        className="px-10 border-r border-slate-600 group cursor-pointer "
-                        onClick={() => like(item.id)}
-                      >
-                        <FaHeart className="stroke-white group-hover:fill-pink-600" />
-                      </div>
-                    )}
-
-                    <div className="px-10 border-r border-slate-600 group cursor-pointer">
-                      <FaComment className="stroke-white group-hover:fill-cyan-400" />
-                    </div>
-                    <div
-                      className="px-10 cursor-pointer "
-                      onClick={() => copylink(item.owner_username)}
+                    <Link
+                      href={`/project/${item.id}`}
+                      className="flex items-center my-4 gap-2"
                     >
-                      <FaShare className="hover:fill-green-400" />
+                      {item.logo !== null ? (
+                        <Image
+                          src={
+                            process.env.NEXT_PUBLIC_HOST +
+                            "/" +
+                            process.env.NEXT_PUBLIC_VERSION +
+                            item.logo
+                          }
+                          width={220}
+                          height={220}
+                          className="w-11 h-11 object-cover rounded-full"
+                        />
+                      ) : (
+                        <></>
+                      )}
+                      <p className={`${font.Satoshi_h5bold}`}>{item.title}</p>
+                    </Link>
+
+                    {item.categories[0] !== null ? (
+                      <div className="flex flex-wrap items-center gap-2">
+                        {item["categories"].map((item) => (
+                          <div
+                            className={` ${font.Satoshi_c3bold} flex justify-center w-20 rounded-full border border-slate-500 py-1 px-2`}
+                          >
+                            {item.name}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+                    <div className="my-4 text-justify">
+                      <p className={`${font.Satoshi_c2medium}`}>
+                        {item.description}
+                      </p>
+                    </div>
+
+                    <div>
+                      {item.thumbnail !== null ? (
+                        <Image
+                          src={
+                            process.env.NEXT_PUBLIC_HOST +
+                            "/" +
+                            process.env.NEXT_PUBLIC_VERSION +
+                            item.thumbnail["data"]
+                          }
+                          width={1020}
+                          height={1020}
+                          className="h-40 w-80 object-cover"
+                        />
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+
+                    <div className="flex mt-12 bg-slate-800 rounded-xl py-2 justify-evenly">
+                      {item.isLiked ? (
+                        <div
+                          className="px-10 border-r border-slate-600 group cursor-pointer "
+                          onClick={() => unlike(item.id)}
+                        >
+                          <FaHeart className="fill-pink-600 hover:fill-white" />
+                        </div>
+                      ) : (
+                        <div
+                          className="px-10 border-r border-slate-600 group cursor-pointer "
+                          onClick={() => like(item.id)}
+                        >
+                          <FaHeart className="stroke-white group-hover:fill-pink-600" />
+                        </div>
+                      )}
+
+                      <div className="px-10 border-r border-slate-600 group cursor-pointer">
+                        <FaComment className="stroke-white group-hover:fill-cyan-400" />
+                      </div>
+                      <div
+                        className="px-10 cursor-pointer "
+                        onClick={() => copylink(item.owner_username)}
+                      >
+                        <FaShare className="hover:fill-green-400" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              );
-            }
-          })}
-        </div>
+                );
+              }
+            })}
+          </div>
+        ) : (
+          <div className="pt-12 flex justify-center">
+            <Loading />
+          </div>
+        )}
       </div>
     </div>
   );
