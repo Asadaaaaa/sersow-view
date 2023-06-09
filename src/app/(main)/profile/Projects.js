@@ -113,9 +113,14 @@ export default function Projects({ userId }) {
                         height={120}
                         className="rounded-full w-12 h-12 object-cover"
                       />
-                      <p className={`${font.Satoshi_c2medium}`}>
-                        @{item.owner_username}
-                      </p>
+                      <div className="flex flex-col justify-center w-32 h-10">
+                          <h3 className={`${font.Satoshi_c2regular} text-white`}>
+                            {item.owner_name}
+                          </h3>
+                          <p className={`${font.Satoshi_c1medium} text-slate-300`}>
+                            @{item.owner_username}
+                          </p>
+                        </div>
                     </Link>
                     <Popover placement="left-top">
                       <Popover.Trigger>
@@ -175,7 +180,7 @@ export default function Projects({ userId }) {
                     </p>
                   </div>
 
-                  <div>
+                  <div className="flex justify-center items-center">
                     {item.thumbnail !== null ? (
                       <Image
                         src={
