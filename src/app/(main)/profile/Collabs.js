@@ -11,12 +11,12 @@ import { FaEllipsisH, FaHeart, FaComment, FaShare } from "react-icons/fa";
 import font from "@/app/font.module.css";
 import Like from "@/api/activity/project/like";
 import Unlike from "@/api/activity/project/unlike";
-import userProject from "@/api/project/userproject";
+import getCollabProject from "@/api/project/collabproject";
 import { IsLogin } from "@/components/main/LoginContext";
 import styles from "@/components/main/discover/discover.module.css";
 import { OptionsCard } from "@/components/main/discover/projectOptionsCard";
 
-export default function Projects({ userId }) {
+export default function Collabs({ userId }) {
   const router = useRouter();
 
   const { isLogin } = useContext(IsLogin);
@@ -78,7 +78,7 @@ export default function Projects({ userId }) {
 
   useEffect(() => {
     async function fetchData() {
-      const res = await userProject(userId, getCookie("auth"));
+      const res = await getCollabProject(userId, getCookie("auth"));
 
       if (res) {
         if (res.status === "200") {

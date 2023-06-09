@@ -18,7 +18,7 @@ import Unfollow from '@/api/activity/user/unfollow';
 import Link from 'next/link';
 import Draft from './Draft';
 import Projects from './Projects';
-import Collab from './Collab';
+import Collabs from './Collabs';
 
 
 export default function Main({ username }) {
@@ -281,7 +281,7 @@ export default function Main({ username }) {
                 }
                 {
                   page === 2 && (
-                    <Collab userId={dataProfile.id} />
+                    <Collabs userId={dataProfile.id} />
                   )
                 }</>
                 ) : null
