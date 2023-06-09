@@ -120,12 +120,13 @@ export default function Foryou() {
                       username={item.owner_username}
                       isMyProject={item.isMyProject}
                       title={item.title}
+                      id={item.id}
                     />
                   </Popover.Content>
                 </Popover>
               </div>
 
-              <div className="flex items-center my-4 gap-2">
+              <Link href={`/project/${item.id}`} className="flex items-center my-4 gap-2">
                 {item.logo !== null ? (
                   <Image
                     src={
@@ -142,7 +143,7 @@ export default function Foryou() {
                   <></>
                 )}
                 <p className={`${font.Satoshi_h5bold}`}>{item.title}</p>
-              </div>
+              </Link>
               {item.categories[0] !== null ? (
                 <div className="flex flex-wrap items-center gap-2">
                   {item["categories"].map((item) => (
@@ -154,7 +155,7 @@ export default function Foryou() {
                   ))}
                 </div>
               ) : (
-                <></>
+                null
               )}
               <div className="my-4 text-justify">
                 <p className={`${font.Satoshi_c2medium}`}>{item.description}</p>
