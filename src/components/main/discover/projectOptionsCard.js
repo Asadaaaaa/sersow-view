@@ -6,7 +6,7 @@ import { FaUserPlus, FaLink, FaEdit } from "react-icons/fa";
 import font from "@/app/font.module.css";
 import Link from "next/link";
 
-export const OptionsCard = ({ username, title ,isMyProject }) => {
+export const OptionsCard = ({ id, username,title ,isMyProject }) => {
   const copylink = () => {
     toast.success("Link Copied!", {
       position: "top-center",
@@ -30,7 +30,7 @@ export const OptionsCard = ({ username, title ,isMyProject }) => {
       <div className="flex flex-col p-0 text-slate-400  border-t-slate-400 border-t-[1px]">
         {isMyProject ? (
           <Link
-            href={`/profile/${username}`}
+            href={`/project/${id}`}
             className="flex items-center gap gap-2 py-2 px-4 cursor-pointer"
           >
             <FaEdit className="w-5 h-4 " />

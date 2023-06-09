@@ -14,7 +14,7 @@ import CardSubtitle from '@/components/main/settings/CardSubtitle';
 import CardContainer from '@/components/main/settings/CardContainer';
 import FileContainer from '@/components/main/settings/FileContainer';
 import CardMainButton from '@/components/main/settings/CardMainButton';
-import styles from '@/components/main/publish-project/pubpro.module.css';
+import styles from '@/components/main/project/project.module.css';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 
 import PublishProject from '@/api/project/publish-project';
@@ -276,18 +276,18 @@ export default function Main({ category }) {
       image1: data.image1,
       image2: data.image2,
       image3: data.image3,
-      program: data.program ? {
+      program: (!data.program && !data.programUrl) ? null : {
         isUrl: data.program === null,
         data: data.program !== null ? data.program : data.programUrl,
-      } : null,
-      paper: data.program ? {
+      },
+      paper: (!data.paper && !data.paperUrl) ? null : {
         isUrl: data.paper === null,
         data: data.paper !== null ? data.paper : data.paperUrl,
-      } : null,
-      code: data.code ? {
+      },
+      code: (!data.code && !data.codeUrl) ? null : {
         isUrl: data.code === null,
         data: data.code !== null ? data.code : data.codeUrl,
-      } : null,
+      },
       tags: data.tags.length !== 0 ? data.tags : null,
       contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
     }
@@ -407,18 +407,18 @@ export default function Main({ category }) {
       image1: data.image1,
       image2: data.image2,
       image3: data.image3,
-      program: data.program ? {
+      program: (!data.program && !data.programUrl) ? null : {
         isUrl: data.program === null,
         data: data.program !== null ? data.program : data.programUrl,
-      } : null,
-      paper: data.program ? {
+      },
+      paper: (!data.paper && !data.paperUrl) ? null : {
         isUrl: data.paper === null,
         data: data.paper !== null ? data.paper : data.paperUrl,
-      } : null,
-      code: data.code ? {
+      },
+      code: (!data.code && !data.codeUrl) ? null : {
         isUrl: data.code === null,
         data: data.code !== null ? data.code : data.codeUrl,
-      } : null,
+      },
       tags: data.tags.length !== 0 ? data.tags : null,
       contributors: data.contributors.length !== 0 ? data.contributors.map((item) => item.id) : null,
     }
@@ -484,7 +484,7 @@ export default function Main({ category }) {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="w-[456px] h-full pt-24">
+      <div className="w-[350px] md:w-[456px] h-full pt-24">
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Main"} subtitle={"This information is required."} />
@@ -919,7 +919,6 @@ export default function Main({ category }) {
           </CardContainer>
           <CardContainer>
             <CardTitle title={"Files"} subtitle={"Compilation of files essential."} />
-            <CardSubtitle text={"You can upload to max. 3 images."} />
             <div className="flex flex-col gap-2">
               <CardLabel text={"Program"} />
               <CardSubtitle text={"Could be the software, website, etc."} />

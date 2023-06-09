@@ -16,11 +16,16 @@ import Profile from '@/api/profile/profile';
 import Follow from '@/api/activity/user/follow';
 import Unfollow from '@/api/activity/user/unfollow';
 import Link from 'next/link';
+import Draft from './Draft';
+import Projects from './Projects';
+import Collabs from './Collabs';
+
 
 export default function Main({ username }) {
 
   const router = useRouter();
 
+  const [page, setPage] = useState(1);
   const [isFollowed, setIsFollowed] = useState(false);
   const [dataProfile, setDataProfile] = useState(null);
   const urlProfile = "https://stg.sersow.otech.id/profile/" + username;
@@ -80,7 +85,9 @@ export default function Main({ username }) {
         }
       }
     }
-    fetchData();
+    if (username !== null) {
+      fetchData();
+    }
   }, []);
 
   return (
@@ -195,7 +202,9 @@ export default function Main({ username }) {
                       dataProfile.website && (
                         <div className="flex gap-2 items-center">
                           <div><FaLink className="w-3 h-3 text-slate-600" /></div>
-                          <h4 className={`${font.Satoshi_c2regular} text-slate-400`}>{dataProfile.website}</h4>
+                          <a href={dataProfile.website} target='_blank'>
+                            <h4 className={`${font.Satoshi_c2regular} text-slate-400`}>{dataProfile.website}</h4>
+                          </a>
                         </div>
                       )
                     }
@@ -232,13 +241,53 @@ export default function Main({ username }) {
             }
           </div>
           <div className="w-[560px] h-full">
-            <div className={`${font.Satoshi_b2bold} text-slate-400 pb-2 flex gap-2 border-solid border-slate-700 border-b-[1px]`}>
-              <div className="py-2 px-4">Projects</div>
-              <div className="py-2 px-4">Collabs</div>
-              <div className="py-2 px-4">Likes</div>
+            <div className={`${font.Satoshi_b2bold} pb-2 flex gap-2 border-solid border-slate-700 border-b-[1px]`}>
+              {
+                (dataProfile && dataProfile.isMyProfile) && (
+                  <div 
+                    className={"py-2 px-4 cursor-pointer " + (page === 0 ? "text-cyan-400" : "text-slate-400")}
+                    onClick={() => setPage(0)}
+                  >
+                    Draft
+                  </div>
+                )
+              }
+              <div 
+                className={"py-2 px-4 cursor-pointer " + (page === 1 ? "text-cyan-400" : "text-slate-400")}
+                onClick={() => setPage(1)}
+              >
+                Projects
+              </div>
+              <div 
+                className={"py-2 px-4 cursor-pointer " + (page === 2 ? "text-cyan-400" : "text-slate-400")}
+                onClick={() => setPage(2)}
+              >
+                Collabs
+              </div>
             </div>
             <div className={`${styles.profileScrollbar} pt-6 overflow-y-auto h-full`}>
-              <div className="h-[5000px]">a</div>
+              {
+                dataProfile !== null ? (
+                  <>
+                  {
+                  page === 0 && (
+                    <Draft />
+                  ) 
+                } 
+                {
+                  page === 1 && (
+                    <Projects userId={dataProfile.id}/>
+                  )
+                }
+                {
+                  page === 2 && (
+                    <Collabs userId={dataProfile.id} />
+                  )
+                }</>
+                ) : null
+              }
+                
+               
             </div>
           </div>
         </div>

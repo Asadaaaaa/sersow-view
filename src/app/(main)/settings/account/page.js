@@ -535,7 +535,7 @@ export default function Account() {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="w-[456px] h-full pt-24">
+      <div className="w-[350px] md:w-[456px] h-full pt-24">
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Username"} />
@@ -616,7 +616,7 @@ export default function Account() {
               />
             </div>
             {passwordWarningText && (
-                <div className="w-full max-w-[408px]">
+                <div className="w-full max-w-[302px] md:max-w-[408px]">
                   <p className={`${font.Satoshi_b2regular} text-red-500`}>{passwordWarningText}</p>
                 </div>
               )}

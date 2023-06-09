@@ -1,9 +1,0 @@
-.contributors::-webkit-scrollbar {
-  width: 5px;
-  background-color: transparent;
-}
-
-.contributors::-webkit-scrollbar-thumb {
-  background-color: #64748b;
-  border-radius: 4px;
-}

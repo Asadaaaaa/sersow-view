@@ -864,12 +864,44 @@ and (min-width: 0px) {
   letter-spacing: 0.02em;
 }
 
-.Satoshi_h6bold {
-  font-family: Satoshi;
-  font-size: 1.25rem; /* 20px */
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: 0.02em;
+@media screen and (min-width: 1393px) {
+  .Satoshi_h6bold {
+    font-family: Satoshi;
+    font-size: 1.25rem; /* 20px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media  screen and (max-width: 1392.9px)
+and (min-width: 1024px) {
+  .Satoshi_h6bold {
+    font-family: Satoshi;
+    font-size: 1.12rem; /* 20px */
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 0.02em;
+  }
+}
+@media screen and (max-width: 1023.9px)
+  and (min-width: 768px) {
+    .Satoshi_h6bold {
+      font-family: Satoshi;
+      font-size: 1rem; /* 20px */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
+}
+@media screen and (max-width: 767.9px)
+  and (min-width: 0px) {
+    .Satoshi_h6bold {
+      font-family: Satoshi;
+      font-size: .95rem; /* 20px */
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.02em;
+    }
 }
 
 .Satoshi_h1medium {
