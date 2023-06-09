@@ -262,6 +262,23 @@ export default function Main({ category }) {
       return;
     }
 
+    if (data.categories.length < 1) {
+      toast.error("Choose at least 1 category", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      setDraftLoading(false);
+
+      return;
+    }
+
     const dataSend = {
       id: null,
       title: data.title,
@@ -378,6 +395,23 @@ export default function Main({ category }) {
       setDataError({ ...dataError, description: true});
 
       toast.error("Description can't be empty", {
+        position: 'top-center',
+        autoClose: 2500,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+
+      setPublishLoading(false);
+
+      return;
+    }
+
+    if (data.categories.length < 1) {
+      toast.error("Choose at least 1 category", {
         position: 'top-center',
         autoClose: 2500,
         hideProgressBar: true,

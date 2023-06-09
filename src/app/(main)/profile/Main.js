@@ -22,7 +22,7 @@ export default function Main({ username }) {
 
   const router = useRouter();
 
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isFollowed, setIsFollowed] = useState(false);
   const [dataProfile, setDataProfile] = useState(null);
   const urlProfile = "https://stg.sersow.otech.id/profile/" + username;
