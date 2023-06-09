@@ -17,6 +17,9 @@ import Follow from '@/api/activity/user/follow';
 import Unfollow from '@/api/activity/user/unfollow';
 import Link from 'next/link';
 import Draft from './Draft';
+import Projects from './Projects';
+import Collabs from './Collabs';
+
 
 export default function Main({ username }) {
 
@@ -264,10 +267,27 @@ export default function Main({ username }) {
             </div>
             <div className={`${styles.profileScrollbar} pt-6 overflow-y-auto h-full`}>
               {
-                page === 0 && (
-                  <Draft />
-                )
+                dataProfile !== null ? (
+                  <>
+                  {
+                  page === 0 && (
+                    <Draft />
+                  ) 
+                } 
+                {
+                  page === 1 && (
+                    <Projects userId={dataProfile.id}/>
+                  )
+                }
+                {
+                  page === 2 && (
+                    <Collabs userId={dataProfile.id} />
+                  )
+                }</>
+                ) : null
               }
+                
+               
             </div>
           </div>
         </div>
