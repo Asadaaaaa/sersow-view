@@ -17,12 +17,15 @@ import Follow from '@/api/activity/user/follow';
 import Unfollow from '@/api/activity/user/unfollow';
 import Link from 'next/link';
 import Draft from './Draft';
+import Projects from './Projects';
+import Collab from './Collab';
+
 
 export default function Main({ username }) {
 
   const router = useRouter();
 
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [isFollowed, setIsFollowed] = useState(false);
   const [dataProfile, setDataProfile] = useState(null);
   const urlProfile = "https://stg.sersow.otech.id/profile/" + username;
@@ -264,10 +267,27 @@ export default function Main({ username }) {
             </div>
             <div className={`${styles.profileScrollbar} pt-6 overflow-y-auto h-full`}>
               {
-                page === 0 && (
-                  <Draft />
-                )
+                dataProfile !== null ? (
+                  <>
+                  {
+                  page === 0 && (
+                    <Draft />
+                  ) 
+                } 
+                {
+                  page === 1 && (
+                    <Projects userId={dataProfile.id}/>
+                  )
+                }
+                {
+                  page === 2 && (
+                    <Collab userId={dataProfile.id} />
+                  )
+                }</>
+                ) : null
               }
+                
+               
             </div>
           </div>
         </div>
