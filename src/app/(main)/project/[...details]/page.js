@@ -101,7 +101,6 @@ export default function DetailProject({ params }) {
 			if (res) {
 				if (res.status === "200") {
 					setDataProject(res.data);
-					console.log(res.data);
 				} else if (res.status === "unauth") {
 					deleteCookie("auth");
 					deleteCookie("refreshAuth");
