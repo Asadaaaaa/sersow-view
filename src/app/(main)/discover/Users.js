@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { Loading } from "@nextui-org/react";
 import { FaChartLine } from "react-icons/fa";
 import { useState, useEffect, useContext } from "react";
-import { getCookie, deleteCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 
 import CardContainer from "@/components/main/discover/CardContainer";
 import CardLabelName from "@/components/main/discover/CardLabelName";
@@ -62,9 +62,6 @@ export default function User() {
       if (res.status === "200") {
         return res;
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-
         location.reload();
       } else if (res.status === "notfound") {
         router.push("user-not-found");

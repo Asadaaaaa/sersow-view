@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Loading } from "@nextui-org/react";
-import { getCookie, deleteCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { toast, ToastContainer } from 'react-toastify';
 import { FaUserEdit, FaLink, FaEnvelope, FaRegEnvelope, FaRegCalendarAlt } from 'react-icons/fa';
 
@@ -66,9 +66,6 @@ export default function Main({ username }) {
       if (res.status === "200") {
         return res;
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-
         location.reload();
       } 
       else if (res.status === "notfound") {

@@ -112,9 +112,6 @@ export default function Project() {
           }
         }
         if (res.status === "unauth") {
-          deleteCookie("auth");
-          deleteCookie("refreshAuth");
-
           location.reload();
         }
         if (res.status === "notfound") {

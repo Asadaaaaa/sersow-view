@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { useContext, useRef, useState } from 'react';
-import { getCookie, deleteCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { FaCloudUploadAlt, FaSyncAlt, FaTrashAlt } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
@@ -91,9 +91,6 @@ export default function Profile() {
           theme: "colored",
         });
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "type") {
         toast.error("Avatar type not supported", {

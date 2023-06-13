@@ -35,9 +35,6 @@ export default function SettingsLayout({ children }) {
       if (res.status === "200") {
         return res;
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-
         location.reload();
       }
     }

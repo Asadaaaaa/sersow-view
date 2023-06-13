@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { Loading } from '@nextui-org/react';
-import { deleteCookie, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useEffect, useRef, useState } from 'react';
 import { FaCloudUploadAlt, FaTrashAlt, FaPlus } from 'react-icons/fa';
 
@@ -127,8 +127,6 @@ export default function Main({ category }) {
           if (res.status === '200') {
             setSearchContributors(res.data);
           } else if (res.status === 'unauth') {
-            deleteCookie('auth');
-            deleteCookie('refreshAuth');
             location.reload();
           } else {
             toast.error('Failed to fetch user', {
@@ -326,9 +324,6 @@ export default function Main({ category }) {
 
         clearForm();
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.message) {
         toast.error(res.message, {
@@ -474,9 +469,6 @@ export default function Main({ category }) {
 
         clearForm();
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.message) {
         toast.error(res.message, {
