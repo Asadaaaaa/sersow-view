@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from 'react-toastify';
-import { getCookie, deleteCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useState, useContext, useEffect } from 'react';
 import { FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
 
@@ -101,9 +101,6 @@ export default function Account() {
           location.reload();
         }, 500);
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "notchange") {
         toast.warning("New username must be different from old username", {
@@ -187,9 +184,6 @@ export default function Account() {
         setEmailPopup(false);
         setEmailVerifPopup(true);
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "verified") {
         toast.error("Email Already Verified", {
@@ -289,9 +283,6 @@ export default function Account() {
           location.reload();
         }, 500);
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "wrong") {
         setDataError({ ...dataError, emailVerif: true});
@@ -361,9 +352,6 @@ export default function Account() {
           theme: "colored",
         });
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "verified") {
         toast.error("Email Already Verified", {

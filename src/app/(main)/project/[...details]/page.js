@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { deleteCookie, getCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useEffect, useState, useContext } from 'react';
 import { FaEdit, FaRegHeart, FaHeart } from 'react-icons/fa';
 
@@ -42,9 +42,6 @@ export default function DetailProject({ params }) {
 				if (res.status === "200") {
 					setDataProject({ ...dataProject, isLiked: true, totalLikes: dataProject.totalLikes+1});
 				} else if (res.status === "unauth") {
-					deleteCookie("auth");
-					deleteCookie("refreshAuth");
-		
 					location.reload();
 				} else {
 					toast.error("Failed, Server error", {
@@ -72,9 +69,6 @@ export default function DetailProject({ params }) {
 				if (res.status === "200") {
 					setDataProject({ ...dataProject, isLiked: false, totalLikes: dataProject.totalLikes-1});
 				} else if (res.status === "unauth") {
-					deleteCookie("auth");
-					deleteCookie("refreshAuth");
-		
 					location.reload();
 				} else {
 					toast.error("Failed, Server error", {
@@ -102,9 +96,6 @@ export default function DetailProject({ params }) {
 				if (res.status === "200") {
 					setDataProject(res.data);
 				} else if (res.status === "unauth") {
-					deleteCookie("auth");
-					deleteCookie("refreshAuth");
-
 					location.reload();
 				} else if (res.status === "notfound") {
 					setDataProject("notfound");

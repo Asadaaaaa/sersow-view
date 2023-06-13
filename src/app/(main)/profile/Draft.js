@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaEllipsisH, FaHeart, FaComment, FaShare } from "react-icons/fa";
 import { Loading, Popover } from "@nextui-org/react";
-import { deleteCookie, getCookie } from "cookies-next";
+import { getCookie } from "cookies-next";
 
 import { toast } from "react-toastify";
 import font from "@/app/font.module.css";
@@ -25,9 +25,6 @@ export default function Draft() {
 					console.log(res.data);
 					setDataProject(res.data);
 				} else if (res.status === "unauth") {
-					deleteCookie("auth");
-					deleteCookie("refreshAuth");
-
 					location.reload();
 				} else {
 					toast.error('Failed to fetch draft', {
