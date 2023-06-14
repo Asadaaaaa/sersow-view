@@ -91,6 +91,8 @@ export default function Project() {
         ProjectEven.push(item)
       )
     })
+    console.log(ProjectOdd)
+    console.log(ProjectEven)
     setdataProjectOdd([...ProjectOdd])
     setdataProjectEven([...ProjectEven])
   }, [dataProject])
@@ -161,7 +163,7 @@ export default function Project() {
         {dataProject ? (
           <>
           <div className="flex flex-col gap-6 items-start">
-            {dataProjectOdd.map((item, index) => {
+            {dataProjectEven.map((item, index) => {
               if (
                 item.categories
                   .map((item) => item.id)
@@ -306,7 +308,7 @@ export default function Project() {
 
 
           <div className="flex flex-col gap-6 items-start">
-            {dataProjectEven.map((item, index) => {
+            {dataProjectOdd.map((item, index) => {
               if (
                 item.categories
                   .map((item) => item.id)
