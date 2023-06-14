@@ -2,20 +2,25 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect , useContext} from 'react';
 import { Loading } from "@nextui-org/react";
 import { getCookie } from 'cookies-next';
 import { toast, ToastContainer } from 'react-toastify';
-import { FaUserEdit, FaLink, FaEnvelope, FaRegEnvelope, FaRegCalendarAlt } from 'react-icons/fa';
+import { FaUserEdit, FaLink, FaEnvelope, FaRegEnvelope, FaRegCalendarAlt, FaTimes } from 'react-icons/fa';
 
 
 import font from '@/app/font.module.css';
 import BgGradient from '@/components/main/BgGradient';
 import styles from '@/components/main/profile/profile.module.css';
+import CardLabelName from "@/components/main/discover/CardLabelName";
+import CardLabelUsername from "@/components/main/discover/CardLabelUsername";
 
 import Profile from '@/api/profile/profile';
 import Follow from '@/api/activity/user/follow';
 import Unfollow from '@/api/activity/user/unfollow';
+import GetFollower from '@/api/profile/get/follower';
+import GetFollowing from '@/api/profile/get/following';
+import { IsLogin } from "@/components/main/LoginContext";
 import Link from 'next/link';
 import Draft from './Draft';
 import Projects from './Projects';
@@ -25,8 +30,12 @@ import Collabs from './Collabs';
 export default function Main({ username }) {
 
   const router = useRouter();
+  const { isLogin } = useContext(IsLogin);
+  const  [ListCard, setListCard] = useState(false);
 
   const [page, setPage] = useState(1);
+  const [listFollow, setListFollow] = useState(null);
+  const [dataUser, setDataUser] = useState([]);
   const [isFollowed, setIsFollowed] = useState(false);
   const [dataProfile, setDataProfile] = useState(null);
   const urlProfile = "https://stg.sersow.otech.id/profile/" + username;
@@ -39,9 +48,17 @@ export default function Main({ username }) {
     return formattedDate;
   }
 
-  async function follow() {
-    const res = await Follow(dataProfile.id, getCookie("auth"));
-
+  async function follow(userId) {
+    if (isLogin) {
+      setDataUser(
+        dataUser.map((item) =>
+          item.id === userId ? { ...item, isFollowed: true } : item
+        )
+      );
+    }
+    
+    const res = await Follow(userId, getCookie("auth"));
+  
     if (res.status === "200") {
       setIsFollowed(true);
     } else if (res.status === "unauth") {
@@ -49,8 +66,16 @@ export default function Main({ username }) {
     }
   }
 
-  async function unfollow() {
-    const res = await Unfollow(dataProfile.id, getCookie("auth"));
+  async function unfollow(userId) {
+    if (isLogin) {
+      setDataUser(
+        dataUser.map((item) =>
+          item.id === userId ? { ...item, isFollowed: false } : item
+        )
+      );
+    }
+
+    const res = await Unfollow(userId, getCookie("auth"));
 
     if (res.status === "200") {
       setIsFollowed(false);
@@ -58,6 +83,45 @@ export default function Main({ username }) {
       router.push("login");
     }
   } 
+
+  useEffect(() => {
+    async function getUserFollowing() {
+      const res = await GetFollowing(getCookie("auth"), dataProfile.id);
+      console.log(res.data)
+      if (res.status === "200") {
+        setDataUser(res.data)
+      } else if (res.status === "unauth") {
+        location.reload();
+      } else if (res.status === "notfound") {
+        router.push("user-not-found");
+      }
+    }
+    async function getUserFollower() {
+      const res = await GetFollower(getCookie("auth"), dataProfile.id);
+      console.log(res.data)
+      if (res.status === "200") {
+        setDataUser(res.data)
+      } else if (res.status === "unauth") {
+        location.reload();
+      } else if (res.status === "notfound") {
+        router.push("user-not-found");
+      }
+    }
+    
+    async function fetchData() {
+      const res = listFollow ? (await getUserFollower()) : (await getUserFollowing())
+
+      if (res) {
+        if (res.status === "200") {
+          setDataUser(res);
+          console.log(dataUser);
+        }
+      }
+    }
+    if(dataProfile !== null){
+      fetchData();
+    }
+  },[listFollow])
 
   useEffect(() => {
     async function getProfile() {
@@ -83,9 +147,36 @@ export default function Main({ username }) {
         }
       }
     }
-    if (username !== null) {
-      fetchData();
+    fetchData();
+  }, [dataUser])
+
+  useEffect(() => {
+   
+    async function getProfile() {
+      const res = await Profile(username, getCookie("auth"));
+
+      if (res.status === "200") {
+        return res;
+      } else if (res.status === "unauth") {
+        location.reload();
+      } 
+      else if (res.status === "notfound") {
+        router.push("user-not-found");
+      }
     }
+
+    async function fetchData() {
+      const res = await getProfile();
+
+      if (res) {
+        if (res.status === "200") {
+          setDataProfile(res.data);
+          setIsFollowed(res.data.isFollowed);
+        }
+      }
+    }
+    if (username !== null) {
+      fetchData();    }
   }, []);
 
   return (
@@ -119,14 +210,14 @@ export default function Main({ username }) {
                           isFollowed ? (
                             <button 
                               className={`${font.Satoshi_c2bold} w-[136px] py-2 text-slate-200 border-solid border-slate-700 border-[1px] rounded-3xl`}
-                              onClick={unfollow}
+                              onClick={() => unfollow(dataProfile.id)}
                             >
                               Following
                             </button>
                           ) : (
                             <button 
                               className={`${font.Satoshi_c2bold} w-[136px] py-2 text-slate-700 bg-slate-200 border-solid border-white border-[1px] rounded-3xl`}
-                              onClick={follow}
+                              onClick={() => follow(dataProfile.id)}
                             >
                               Follow
                             </button>
@@ -209,14 +300,108 @@ export default function Main({ username }) {
                   </div>
                   <div className="flex flex-col gap-1">
                     <div className="flex items-center gap-1">
+     
+                        <div className={`${font.Satoshi_c2regular} text-slate-400 cursor-pointer`} 
+                          onClick={() => {setListCard(true)
+                                          setListFollow(true);
+                          }}>
+                          <span className={`${font.Satoshi_c2medium} text-white`}>{dataProfile.total_follower}</span>
+                          {" "}followers
+                        </div>
+                        {
+                          ListCard && (
+                          <>
+                          <div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/50 border-solid border-slate-700 border-r-[1px]">
+                            <div className="flex flex-col p-6 gap-2 bg-slate-900  rounded-xl border-slate-700 border-[1px]">
+                              <div className="flex justify-between items-start pb-3 border-b-slate-700 border-b-2">
+                                  <div className={`${font.Satoshi_b2bold} text-white cursor-pointer`}>@{dataProfile.username}</div>
+                                  <div className="cursor-pointer pt-1" onClick={() => setListCard(false)}>
+                                    <FaTimes className="w-4 h-4 text-white" />
+                                  </div>
+                              </div>
+                              <div className="flex items-center py-3"> 
+                                <div className={`flex flex-auto justify-center items-center px-6 cursor-pointer ` + (listFollow ? ("text-cyan-400") : ("text-slate-400"))} onClick={() => setListFollow(true)}>
+                                  Followers
+                                </div>
+                                {/* <div className=" border-l-slate-700 border-l-[1px] " >|</div> */}
+                                <div className={"flex flex-auto justify-center items-center px-6 border-l-slate-700 border-l-[1px] cursor-pointer " + (!listFollow ? ("text-cyan-400") : ("text-slate-400"))} onClick={() => setListFollow(false)}>
+                                  Followings
+                                </div>
+                              </div>
+                              <div className={`${styles.listFollowScrollbar} max-h-[400px] overflow-y-auto`}>
 
-                        <div className={`${font.Satoshi_c2regular} text-slate-400`}>
-                        <span className={`${font.Satoshi_c2medium} text-white`}>{dataProfile.total_follower}</span>
-                        {" "}followers
-                      </div>
+                                <div className={` flex flex-col justify-center gap-6 p-0 `}>
+                                {
+                                  dataUser.length !== 0 ? (
+                                  <>
+                                    {  
+                                      dataUser.map((item, index) => (
+                                        <div className='flex justify-between items-center w-[400px] gap-4 pr-2 bg-slate-900 rounded-lg' key={index}>
+                                          <Link
+                                            href={`/profile/${item.username}`}
+                                            className="flex items-center gap-2"
+                                          >
+                                            <Image
+                                              alt="Avatar User"
+                                              className="w-12 h-12 object-cover rounded-full "
+                                              src={
+                                                process.env.NEXT_PUBLIC_HOST +
+                                                "/" +
+                                                process.env.NEXT_PUBLIC_VERSION +
+                                                item.image
+                                              }
+                                              width={220}
+                                              height={220}
+                                            />
+                                            <div className="flex flex-col justify-center w-32 h-10">
+                                              <CardLabelName name={item.name} />
+                                              <CardLabelUsername username={"@" + item.username} />
+                                            </div>
+                                          </Link>
+                                          { item.isFollowed ? (
+                                            <button
+                                              className={`${font.Satoshi_c2bold} w-20 h-8 py-2 text-slate-200 border-solid border-slate-700 border-[1px] rounded-3xl`}
+                                              onClick={() => {
+                                                unfollow(item.id);
+                                              }}
+                                            >
+                                              Following
+                                            </button>
+                                          ) : (
+                                            <button
+                                              className={`${font.Satoshi_c2bold} w-16 h-8 py-2 text-slate-700 bg-slate-200 border-solid border-white border-[1px] rounded-3xl`}
+                                              onClick={() => {
+                                                follow(item.id);
+                                              }}
+                                            >
+                                              Follow
+                                            </button>
+                                          )}
+                                        </div>
+                                      ))
+                                    }
+                                  </>
+                                  ) : (
+                                    <div className="flex w-[400px] items-center justify-center overflow-hidden">
+                                      <Loading />
+                                    </div>
+
+                                  )
+                                }
+                                
+                              </div>
+                              </div>
+                            </div>
+                          </div>
+                          </>
+                          )
+                        }
                        
                       <hr className="w-2 border-slate-700" />
-                      <div className={`${font.Satoshi_c2regular} text-slate-400`}>
+                      <div className={`${font.Satoshi_c2regular} text-slate-400 cursor-pointer`} 
+                        onClick={() => {setListCard(true)
+                                        setListFollow(false);
+                      }}>
                         <span className={`${font.Satoshi_c2medium} text-white`}>{dataProfile.total_following}</span>
                         {" "}following
                       </div>
