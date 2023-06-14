@@ -91,8 +91,6 @@ export default function Project() {
         ProjectEven.push(item)
       )
     })
-    console.log(ProjectOdd)
-    console.log(ProjectEven)
     setdataProjectOdd([...ProjectOdd])
     setdataProjectEven([...ProjectEven])
   }, [dataProject])

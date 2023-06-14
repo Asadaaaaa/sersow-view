@@ -11,9 +11,7 @@ import { FaUserEdit, FaLink, FaEnvelope, FaRegEnvelope, FaRegCalendarAlt, FaTime
 
 import font from '@/app/font.module.css';
 import BgGradient from '@/components/main/BgGradient';
-import ListFollow from '@/components/main/profile/ListFollow';
 import styles from '@/components/main/profile/profile.module.css';
-import CardContainer from "@/components/main/discover/CardContainer";
 import CardLabelName from "@/components/main/discover/CardLabelName";
 import CardLabelUsername from "@/components/main/discover/CardLabelUsername";
 
@@ -33,8 +31,6 @@ export default function Main({ username }) {
 
   const router = useRouter();
   const { isLogin } = useContext(IsLogin);
-
-
   const  [ListCard, setListCard] = useState(false);
 
   const [page, setPage] = useState(1);
@@ -60,7 +56,7 @@ export default function Main({ username }) {
         )
       );
     }
-
+    
     const res = await Follow(userId, getCookie("auth"));
   
     if (res.status === "200") {
