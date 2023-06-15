@@ -1,5 +1,5 @@
 import OwnerProject from "@/components/main/card/Project/OwnerProject";
-import TitleProject from "@/components/main/card/Project/TtitleProject";
+import TitleProject from "@/components/main/card/Project/TitleProject";
 import CategoryProject from "@/components/main/card/Project/CategoryProject";
 import ThumbnailProject from "@/components/main/card/Project/ThumbnailProject";
 import InteractionProjcet from "@/components/main/card/Project/InteractionProject";
