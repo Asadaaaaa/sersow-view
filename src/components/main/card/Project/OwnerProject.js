@@ -8,7 +8,6 @@ import { OptionsCard } from "@/components/main/discover/projectOptionsCard";
 
 
 export default function OwnerProject({ id, owner_username, owner_image, owner_name, title ,isMyProject}) {
-  // console.log(isMyProject)
   return (
     <div className="border-b border-slate-700 flex items-center justify-between pb-4">
       <Link
@@ -25,7 +24,7 @@ export default function OwnerProject({ id, owner_username, owner_image, owner_na
           <h3 className={`${font.Satoshi_c2regular} text-white`}>
             {owner_name}
           </h3>
-          <p className={`${font.Satoshi_c1medium} text-slate-300`}>
+          <p className={`${font.Satoshi_c1medium} text-slate-400`}>
             @{owner_username}
           </p>
         </div>

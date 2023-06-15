@@ -28,7 +28,7 @@ export default function Home() {
               <Following />
             ) : null
           }
-      </div>
+        </div>
       </div>
       <ToastContainer
         position="bottom-right"
