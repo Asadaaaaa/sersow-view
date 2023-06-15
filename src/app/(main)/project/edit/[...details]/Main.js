@@ -122,7 +122,6 @@ export default function Main({ category, params }) {
 
 			if (res) {
 				if (res.status === "200") {
-          console.log(res.data);
 					setData({
             ...data,
             title: res.data.title,

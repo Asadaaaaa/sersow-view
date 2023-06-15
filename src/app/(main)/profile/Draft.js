@@ -22,7 +22,6 @@ export default function Draft() {
 			
 			if (res) {
 				if (res.status === "200") {
-					console.log(res.data);
 					setDataProject(res.data);
 				} else if (res.status === "unauth") {
 					location.reload();

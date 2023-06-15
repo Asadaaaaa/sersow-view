@@ -8,7 +8,6 @@ import { OptionsCard } from "@/components/main/discover/projectOptionsCard";
 
 
 export default function OwnerProject({ id, owner_username, owner_image, owner_name, title ,isMyProject}) {
-  // console.log(isMyProject)
   return (
     <div className="border-b border-slate-700 flex items-center justify-between pb-4">
       <Link
