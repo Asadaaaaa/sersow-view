@@ -19,7 +19,7 @@ export default function Avatar({username, name, image}) {
       />
       <div className="flex flex-col justify-center w-32 h-10">
         <h3 className={`${font.Satoshi_c2regular} text-white`}>{name}</h3>
-        <p className={`${font.Satoshi_c1medium} text-slate-300`}>{username}</p>
+        <p className={`${font.Satoshi_c1medium} text-slate-400`}>@{username}</p>
       </div>
     </Link>
   );

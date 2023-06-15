@@ -148,7 +148,7 @@ export default function Main({ username }) {
       }
     }
     fetchData();
-  }, [dataUser])
+  }, [dataUser,ListCard])
 
   useEffect(() => {
    

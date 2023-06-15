@@ -24,7 +24,7 @@ export default function OwnerProject({ id, owner_username, owner_image, owner_na
           <h3 className={`${font.Satoshi_c2regular} text-white`}>
             {owner_name}
           </h3>
-          <p className={`${font.Satoshi_c1medium} text-slate-300`}>
+          <p className={`${font.Satoshi_c1medium} text-slate-400`}>
             @{owner_username}
           </p>
         </div>
