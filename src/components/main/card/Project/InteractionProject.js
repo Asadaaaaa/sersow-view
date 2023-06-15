@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import { getCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
 import { useState, useContext } from "react";
-import { FaHeart, FaComment, FaShare } from "react-icons/fa";
+import { FaHeart, FaRegHeart, FaComment, FaShare } from "react-icons/fa";
 
 import Like from "@/api/activity/project/like";
 import Unlike from "@/api/activity/project/unlike";
@@ -60,15 +60,15 @@ export default function InteractionProjcet({ id, isLiked}) {
     <div className="flex mt-12 bg-slate-800 rounded-xl py-2 justify-evenly">
       {isLikedProject ? (
         <div className="px-10 border-r border-slate-600 group cursor-pointer "
-          onClick={() => unlike(id)}
+          onClick={async() => await unlike(id)}
         >
-          <FaHeart className="fill-pink-600 hover:fill-white" />
+          <FaHeart className="fill-pink-600" />
         </div>
       ) : (
         <div className="px-10 border-r border-slate-600 group cursor-pointer "
-          onClick={() => like(id)}
+          onClick={async() => await like(id)}
         >
-          <FaHeart className="stroke-white group-hover:fill-pink-600" />
+          <FaRegHeart className="stroke-white" />
         </div>
       )}
 

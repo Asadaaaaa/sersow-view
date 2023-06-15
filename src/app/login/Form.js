@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { setCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { Loading } from '@nextui-org/react';
@@ -13,8 +13,10 @@ import Input from '@/components/form/Input';
 import login from '@/api/auth/login';
 
 export default function Form () {
-
+	const userRef = useRef(null);
 	const router = useRouter();
+
+	
 
 	const [data, setData] = useState({
 		identity: "",
@@ -31,6 +33,12 @@ export default function Form () {
 
 	const [loading, setLoading] = useState(false);
 
+	useEffect(() => {
+		if(userRef.current){
+			userRef.current.focus();
+		}
+	}, [])
+
 	return (
 		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-4 items-center">
@@ -46,6 +54,7 @@ export default function Form () {
 						setDataError({ ...dataError, identity: false, password: false});
 						setWarningText("");
 					}}
+					refs={userRef}
 				/>
 				<div className="relative">
 					<Input 

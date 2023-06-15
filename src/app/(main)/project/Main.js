@@ -1194,7 +1194,7 @@ export default function Main({ category }) {
               value={data.tempTags} 
               onChange={(e) => {
                 const value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
-                setData({ ...data, tempTags: value});
+                setData({ ...data, tempTags: value.toLowerCase()});
               }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') {
