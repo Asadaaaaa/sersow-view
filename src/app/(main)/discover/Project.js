@@ -1,21 +1,42 @@
 import { getCookie } from "cookies-next";
 import { Loading } from "@nextui-org/react";
 import { FaChartLine } from "react-icons/fa";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import font from "@/app/font.module.css";
 import Category from "@/api/project/category";
-import projectTrends from "@/api/project/projectTrends";
+import ProjectTrends from "@/api/project/projectTrends";
+import { ContentFilter } from "@/components/main/discover/Context";
 import styles from "@/components/main/discover/discover.module.css";
 import ContainerProject from "@/components/main/card/Project/ContainerProject";
 
 export default function Project() {
 
-  const [dataProject, setdataProject] = useState([]);
-  const [dataProjectOdd, setdataProjectOdd] = useState([]);
-  const [dataProjectEven, setdataProjectEven] = useState([]);
+  const { projectContent } = useContext(ContentFilter);
+
+  const [dataProject, setDataProject] = useState([]);
+  const [dataProjectOdd, setDataProjectOdd] = useState([]);
+  const [dataProjectEven, setDataProjectEven] = useState([]);
   const [dataCategory, setDataCategory] = useState([{ name: "All" }]);
   const [filterCategory, setFilterCategory] = useState({ name: "All" });
+
+  async function fetchData() {
+    const res = await ProjectTrends(getCookie("auth"));
+
+    if (res) {
+      if (res.status === "200") {
+        setDataProject(res.data);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (projectContent) {
+      setDataProject(projectContent);
+    } else {
+      fetchData();
+    }
+  }, [projectContent]);
 
   useEffect(() => {
     const ProjectOdd = [];
@@ -27,8 +48,8 @@ export default function Project() {
         ProjectEven.push(item)
       )
     })
-    setdataProjectOdd([...ProjectOdd])
-    setdataProjectEven([...ProjectEven])
+    setDataProjectOdd([...ProjectOdd])
+    setDataProjectEven([...ProjectEven])
   }, [dataProject])
 
   useEffect(() => {
@@ -56,15 +77,6 @@ export default function Project() {
       }
     }
 
-    async function fetchData() {
-      const res = await projectTrends(getCookie("auth"));
-
-      if (res) {
-        if (res.status === "200") {
-          setdataProject(res.data);
-        }
-      }
-    }
     getCategory();
     fetchData();
   }, []);
@@ -87,10 +99,14 @@ export default function Project() {
         ))}
       </div>
       <div className="flex flex-col w-full h-full gap-6 ">
-        <div className="flex items-center gap-2">
-          <FaChartLine fill="white" />
-          <p className={`${font.Satoshi_b2medium} text-white`}>TRENDS</p>
-        </div>
+        {
+          !projectContent && (
+            <div className="flex items-center gap-2">
+              <FaChartLine fill="white" />
+              <p className={`${font.Satoshi_b2medium} text-white`}>TRENDS</p>
+            </div>
+          )
+        }
         <div className="flex flex-wrap justify-center gap-10">
         {dataProject ? (
           <>

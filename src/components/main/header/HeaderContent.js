@@ -32,13 +32,11 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page !== "Settings" && page !== "Project" && page !== "Profile") && (
-          <Searchbar />
-        )
-      }
-      {
         (page === "Discover") && (
-          <DiscoverToggleFilter />
+          <>
+            <Searchbar />
+            <DiscoverToggleFilter />
+          </>
         )
       }
       {

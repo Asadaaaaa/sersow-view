@@ -2,7 +2,7 @@
 
 import User from "./Users";
 import Project from "./Project";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import Header from '@/components/main/header/Header';
 import BgGradient from "@/components/main/BgGradient";
@@ -12,9 +12,16 @@ import styles from '@/components/main/settings/settings.module.css';
 
 export default function Discover() {
   const [contentFilter, setContentFilter] = useState(0);
+  const [projectContent, setProjectContent] = useState("");
+  const [userContent, setUserContent] = useState("");
+
+  useEffect(() => {
+    setProjectContent("");
+    setUserContent("");
+  }, [contentFilter])
 
   return (
-    <ContentFilter.Provider value={{ contentFilter, setContentFilter }} >
+    <ContentFilter.Provider value={{ contentFilter, setContentFilter, projectContent, setProjectContent, userContent, setUserContent }} >
       <Header />
       <div className="w-full relative h-screen">
         <BgGradient />
