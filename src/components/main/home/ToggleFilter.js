@@ -21,7 +21,7 @@ export default function ToggleFilter() {
   ]
 
   return (
-    <div className="flex items-center gap-2 pr-12 border-solid border-slate-700 border-r-[1px]">
+    <div className="flex items-center gap-2 pr-12">
       {navbarMenu.map((item) => (
         <div 
           key={item.value}
