@@ -118,7 +118,7 @@ export default function Main({ username }) {
         }
       }
     }
-    if(dataProfile !== null){
+    if (isLogin) {
       fetchData();
     }
   },[listFollow])
@@ -147,8 +147,10 @@ export default function Main({ username }) {
         }
       }
     }
-    fetchData();
-  }, [dataUser,ListCard])
+    if (isLogin) {
+      fetchData();
+    }
+  }, [dataUser, ListCard])
 
   useEffect(() => {
    
@@ -175,8 +177,9 @@ export default function Main({ username }) {
         }
       }
     }
-    if (username !== null) {
-      fetchData();    }
+    if (isLogin) {
+      fetchData();
+    }
   }, []);
 
   return (
