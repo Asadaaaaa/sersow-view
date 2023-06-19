@@ -1,11 +1,11 @@
 "use client";
 
 import Image from 'next/image';
-import { toast } from 'react-toastify';
+import { ToastContainer,toast } from 'react-toastify';
 import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { getCookie } from 'cookies-next';
-import { useEffect, useState, useContext } from 'react';
+import { useEffect, useState, useContext, useRef } from 'react';
 import { FaEdit, FaRegHeart, FaHeart } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
@@ -26,6 +26,7 @@ export default function DetailProject({ params }) {
 
 	const { isLogin } = useContext(IsLogin);
 	const router = useRouter();
+	const commentRef = useRef(null);
 
 	const [dataProject, setDataProject] = useState(null);
 	const [dataUser, setDataUser] = useState(null);
@@ -46,11 +47,22 @@ export default function DetailProject({ params }) {
 			if(res){
 				if (res.status === "200") {
 					setFieldComment("");
-					// setDataUser({...dataUser, comment:fieldComment})
 					setcommentsList([{...dataUser, comment:fieldComment }, ...commentsList])
 				} else if (res.status === "unauth") {
 					router.push("login");
-				} 
+				} else if (res.status === "spam") {
+					// console.log("test");
+					toast.error("Failed, Comment Spam Detected", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+				}
 			}
 		}
   }
@@ -109,11 +121,17 @@ export default function DetailProject({ params }) {
 		}
 	}
 
-	// useEffect(() => {
-	// 	if(!dataUser && !commentsList ){
-	// 		setcommentsList([dataUser,...commentsList])
-	// 	}
-	// },[dataUser])
+	const scrollToSection = (id) => {
+		const element = document.getElementById(id);
+		element.scrollIntoView({ behavior: 'smooth', block: "center"})
+	}
+
+	useEffect(()=> {
+		if(window.location.hash === "#comment" && dataProject !== null )
+			{
+				scrollToSection("comment");
+			}
+	},[dataProject])
 
 	useEffect(() => {
 		async function detailsProject() {
@@ -123,7 +141,7 @@ export default function DetailProject({ params }) {
 				if (res.status === "200") {
 					setDataProject(res.data);
 					setDataUser(res.data.myIdentity);
-					setcommentsList(res.data.comments);
+					setcommentsList(res.data.comments);					
 				} else if (res.status === "unauth") {
 					location.reload();
 				} else if (res.status === "notfound") {
@@ -360,7 +378,7 @@ export default function DetailProject({ params }) {
 										</div>
 										<div className="flex flex-col gap-6">
 												<div className="flex flex-col gap-4 ">
-													<h1 className={`${font.Satoshi_h5bold} text-white`}>Comments</h1>
+													<h1 id="comment" className={`${font.Satoshi_h5bold} text-white`} >Comments</h1>
 													{
 														dataProject.myIdentity && (
 														<div className="flex flex-col items-end gap-2 ">
@@ -372,7 +390,7 @@ export default function DetailProject({ params }) {
 																		width={220}
 																		height={220}
 																	/>
-																	<input 
+																	<input 					
 																		placeholder={"Type your comments here..."} 
 																		className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
 																		maxLength={200}
@@ -440,6 +458,18 @@ export default function DetailProject({ params }) {
 					</div>
         </div>
       </div>
+			<ToastContainer
+        position="bottom-right"
+        autoClose={1250}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
 	);
 }
