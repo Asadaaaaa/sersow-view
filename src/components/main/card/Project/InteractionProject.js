@@ -7,6 +7,7 @@ import { FaHeart, FaRegHeart, FaComment, FaShare } from "react-icons/fa";
 import Like from "@/api/activity/project/like";
 import Unlike from "@/api/activity/project/unlike";
 import { IsLogin } from "@/components/main/LoginContext";
+import Link from "next/link";
 
 export default function InteractionProjcet({ id, isLiked}) {
 
@@ -58,23 +59,20 @@ export default function InteractionProjcet({ id, isLiked}) {
 
   return (
     <div className="flex mt-12 bg-slate-800 rounded-xl py-2 justify-evenly">
+      
+      <div className="px-10 border-r border-slate-600 group cursor-pointer " >
       {isLikedProject ? (
-        <div className="px-10 border-r border-slate-600 group cursor-pointer "
-          onClick={async() => await unlike(id)}
-        >
-          <FaHeart className="fill-pink-600" />
-        </div>
-      ) : (
-        <div className="px-10 border-r border-slate-600 group cursor-pointer "
-          onClick={async() => await like(id)}
-        >
-          <FaRegHeart className="stroke-white" />
-        </div>
-      )}
-
+          <FaHeart className="fill-pink-600" onClick={async() => await unlike(id)} />
+        ) : (
+          <FaHeart className="stroke-white" onClick={async() => await like(id)}/>
+        )
+      }
+      </div>
+      <Link href={`/project/${ id }#comment`} scroll={false}>
       <div className="px-10 border-r border-slate-600 group cursor-pointer">
         <FaComment className="stroke-white group-hover:fill-cyan-400" />
       </div>
+      </Link>
       <div className="px-10 cursor-pointer "
         onClick={() => copylinkProject(id)}
       >
