@@ -555,7 +555,7 @@ export default function Main({ category }) {
                   category.map((item) => (
                     <div 
                       key={item.id}
-                      className={`${font.Satoshi_c2bold} py-1 px-2 border-2 rounded-3xl cursor-pointer ` + (selectedCategories.includes(item.id) ? "bg-white text-slate-900" : "text-slate-100 border-slate-500 hover:bg-slate-800 hover:border-slate-400") }
+                      className={`${font.Satoshi_c2bold} py-1 px-2 border-2 rounded-3xl cursor-pointer select-none ` + (selectedCategories.includes(item.id) ? "bg-white text-slate-900" : "text-slate-100 border-slate-500 hover:bg-slate-800 hover:border-slate-400") }
                       onClick={() => {
                         if (selectedCategories.includes(item.id)) {
                           const index = getCategoryIndex(item.id);
@@ -590,7 +590,7 @@ export default function Main({ category }) {
                   <Input 
                     type={"text"} 
                     placeholder={"Type new categories here..."} 
-                    maxLength={15}
+                    maxLength={30}
                     value={data.otherCtg} 
                     onChange={(e) => {setData({ ...data, otherCtg: e.target.value})}} 
                     error={dataError.otherCtg}
