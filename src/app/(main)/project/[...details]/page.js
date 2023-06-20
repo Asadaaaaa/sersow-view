@@ -293,7 +293,7 @@ export default function DetailProject({ params }) {
 											</div>
 										</div>
 										<div className="flex flex-col gap-1">
-											<h1 className={`${font.Satoshi_c2medium} text-white`}>{dataProject.published ? "Published on" : "Created on"}</h1>
+											<h1 className={`${font.Satoshi_c2medium} text-white`}>{dataProject.published ? "Published in" : "Created in"}</h1>
 											<div>
 												<p className={`${font.Satoshi_c2medium} text-slate-400`}>{formatTimestamp(dataProject.published_datetime)}</p>
 											</div>
