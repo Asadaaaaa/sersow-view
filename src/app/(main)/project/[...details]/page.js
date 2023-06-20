@@ -207,12 +207,14 @@ export default function DetailProject({ params }) {
 											{
 												dataProject.isMyProject && (
 													<div>
-														<CardPrimaryButton>
-															<div className="flex gap-2">
-																<FaEdit className="w-4 h-4 text-white" />
-																<h2>Edit Project</h2>
-															</div>
-														</CardPrimaryButton>
+														<Link href={"/project/edit/" + dataProject.id}>
+															<CardPrimaryButton>
+																<div className="flex gap-2">
+																	<FaEdit className="w-4 h-4 text-white" />
+																	<h2>{dataProject.published ? "Edit Project" : "Edit Draft"}</h2>
+																</div>
+															</CardPrimaryButton>
+														</Link>
 													</div>
 												)
 											}
@@ -291,7 +293,7 @@ export default function DetailProject({ params }) {
 											</div>
 										</div>
 										<div className="flex flex-col gap-1">
-											<h1 className={`${font.Satoshi_c2medium} text-white`}>Published on</h1>
+											<h1 className={`${font.Satoshi_c2medium} text-white`}>{dataProject.published ? "Published on" : "Created on"}</h1>
 											<div>
 												<p className={`${font.Satoshi_c2medium} text-slate-400`}>{formatTimestamp(dataProject.published_datetime)}</p>
 											</div>
@@ -357,98 +359,104 @@ export default function DetailProject({ params }) {
 												</div>
 											)
 										}
-										<hr className="w-full border-slate-700" />
-										<div className="flex gap-4 px-2 py-[5px] items-center">
-											<div>
-												{
-													dataProject.isLiked ? (
-														<FaHeart 
-															className="w-5 h-5 text-pink-600 cursor-pointer"
-															onClick={async() => await unlike(dataProject.id)}
-														/>
-													) : (
-														<FaRegHeart 
-															className="w-5 h-5 text-white cursor-pointer"
-															onClick={async() => await like(dataProject.id)}
-														/>
-													)
-												}
-											</div>
-											<div className={`${font.Satoshi_b2bold} text-white select-none`}>{dataProject.totalLikes + " Likes"}</div>
-										</div>
-										<div className="flex flex-col gap-6">
-												<div className="flex flex-col gap-4 ">
-													<h1 id="comment" className={`${font.Satoshi_h5bold} text-white`} >Comments</h1>
-													{
-														dataProject.myIdentity && (
-														<div className="flex flex-col items-end gap-2 ">
-															<div className="flex gap-4 items-center">
-																	<Image
-																		alt="Avatar User"
-																		className="w-10 h-10 object-cover rounded-full "
-																		src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataUser.image }
-																		width={220}
-																		height={220}
+										{
+											dataProject.published && (
+												<>
+													<hr className="w-full border-slate-700" />
+													<div className="flex gap-4 px-2 py-[5px] items-center">
+														<div>
+															{
+																dataProject.isLiked ? (
+																	<FaHeart 
+																		className="w-5 h-5 text-pink-600 cursor-pointer"
+																		onClick={async() => await unlike(dataProject.id)}
 																	/>
-																	<input 					
-																		placeholder={"Type your comments here..."} 
-																		className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
-																		maxLength={200}
-																		value={fieldComment}
-																		onChange={(e) => setFieldComment(e.target.value)}
+																) : (
+																	<FaRegHeart 
+																		className="w-5 h-5 text-white cursor-pointer"
+																		onClick={async() => await like(dataProject.id)}
 																	/>
-															</div>
-																	<CardPrimaryButton text={"Post Comment"} clickHandler={() => (comment(dataProject.id))} disabled={!fieldComment}/>
+																)
+															}
 														</div>
-														)
-													}
-												</div>
-											{
-												dataProject["comments"] !== null ? (
-													<>
-													{
-														commentsList.map((item, index) => {
-															return(
-																<>
-																		<div className="flex flex-col gap-2">
-																			<div className="flex gap-4 items-start">
-																			<Image
+														<div className={`${font.Satoshi_b2bold} text-white select-none`}>{dataProject.totalLikes + " Likes"}</div>
+													</div>
+													<div className="flex flex-col gap-6">
+															<div className="flex flex-col gap-4 ">
+																<h1 id="comment" className={`${font.Satoshi_h5bold} text-white`} >Comments</h1>
+																{
+																	dataProject.myIdentity && (
+																	<div className="flex flex-col items-end gap-2 ">
+																		<div className="flex gap-4 items-center">
+																				<Image
 																					alt="Avatar User"
-																					className="mt-4 w-10 h-10 object-cover rounded-full "
-																					src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item.image }
+																					className="w-10 h-10 object-cover rounded-full "
+																					src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataUser.image }
 																					width={220}
 																					height={220}
 																				/>
-																			<div className="flex flex-col w-full p-4 gap-2 bg-slate-800 rounded-r-xl rounded-bl-xl">
-																				<div className="flex gap-2 items-start align-top">
-																					<Link href={`/profile/${item.username}`} >
-																						<h3 className={`${font.Satoshi_c1medium} text-white`}>{item.name}</h3>
-																						<p className={`${font.Satoshi_c1medium} text-slate-400`}>@{item.username}</p>
-																					</Link>
-																					<h3 className={`${font.Satoshi_c1medium} text-slate-500`}>
-																						{
-																							item.gender === 1 ? (
-																								"(He/him)"
-																							) : item.gender === 2 ? (
-																								"(She/her)"
-																							) : ("")
-																						}
-																					</h3>
-																				</div>
-																				<p className={`${font.Satoshi_c1medium} text-slate-200`}>{item.comment}</p>
-																			</div>
-																			</div>
+																				<input 					
+																					placeholder={"Type your comments here..."} 
+																					className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
+																					maxLength={200}
+																					value={fieldComment}
+																					onChange={(e) => setFieldComment(e.target.value)}
+																				/>
 																		</div>
+																				<CardPrimaryButton text={"Post Comment"} clickHandler={() => (comment(dataProject.id))} disabled={!fieldComment}/>
+																	</div>
+																	)
+																}
+															</div>
+														{
+															dataProject["comments"] !== null ? (
+																<>
+																{
+																	commentsList.map((item, index) => {
+																		return(
+																			<>
+																					<div className="flex flex-col gap-2">
+																						<div className="flex gap-4 items-start">
+																						<Image
+																								alt="Avatar User"
+																								className="mt-4 w-10 h-10 object-cover rounded-full "
+																								src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item.image }
+																								width={220}
+																								height={220}
+																							/>
+																						<div className="flex flex-col w-full p-4 gap-2 bg-slate-800 rounded-r-xl rounded-bl-xl">
+																							<div className="flex gap-2 items-start align-top">
+																								<Link href={`/profile/${item.username}`} >
+																									<h3 className={`${font.Satoshi_c1medium} text-white`}>{item.name}</h3>
+																									<p className={`${font.Satoshi_c1medium} text-slate-400`}>@{item.username}</p>
+																								</Link>
+																								<h3 className={`${font.Satoshi_c1medium} text-slate-500`}>
+																									{
+																										item.gender === 1 ? (
+																											"(He/him)"
+																										) : item.gender === 2 ? (
+																											"(She/her)"
+																										) : ("")
+																									}
+																								</h3>
+																							</div>
+																							<p className={`${font.Satoshi_c1medium} text-slate-200`}>{item.comment}</p>
+																						</div>
+																						</div>
+																					</div>
+																			</>
+
+																		)
+																	})
+
+																}
 																</>
-
-															)
-														})
-
-													}
-													</>
-												): (null)
-											}
-										</div>
+															): (null)
+														}
+													</div>
+												</>
+											)
+										}
 									</div>
 								) : (
 									<Loading />
