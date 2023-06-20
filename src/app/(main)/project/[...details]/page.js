@@ -261,7 +261,7 @@ export default function DetailProject({ params }) {
 														{
 															dataProject.thumbnail && (
 																<Image
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url} 
+																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url+ "?key=" + Date.now()} 
 																	alt="sersow project preview"
 																	width={512}
 																	height={288}
@@ -274,7 +274,7 @@ export default function DetailProject({ params }) {
 															dataProject.preview.map((item, index) => (
 																<Image 
 																	key={index}
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item} 
+																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item+ "?key=" + Date.now()} 
 																	alt="sersow project preview"
 																	width={512}
 																	height={288}
