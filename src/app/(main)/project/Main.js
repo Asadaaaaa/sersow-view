@@ -113,7 +113,7 @@ export default function Main({ category }) {
       setDataStatus({ ...dataStatus, image2: "success", image3: "ready" });
     } else if (data.image1 === null && data.image2 !== null) {
       setData({ ...data, image1: data.image2, image2: null });
-      setDataName({ ...data, image1: dataName.image2, image2: null });
+      setDataName({ ...dataName, image1: dataName.image2, image2: null });
       setDataStatus({ ...dataStatus, image1: "success", image2: "ready" });
     }
   }, [data.image1, data.image2, data.image3]);
