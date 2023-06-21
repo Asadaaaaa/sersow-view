@@ -51,7 +51,6 @@ export default function DetailProject({ params }) {
 			const res = await Comment(projectId, fieldComment ,getCookie("auth"));
 			if(res){
 				if (res.status === "200") {
-					console.log(res.data)
 					setFieldComment("");
 					setcommentsList([{...dataUser, comment:fieldComment, isMyComment:true, commentId:res.data.commentId}, ...commentsList])
 				} else if (res.status === "unauth") {
@@ -273,20 +272,20 @@ export default function DetailProject({ params }) {
 								 dataProject ? (
 									<div className="w-full flex flex-col gap-6 max-w-[824px] bg-slate-900 rounded-xl p-6">
 										<div className="flex justify-between items-center pb-3 border-slate-700 border-b-[1px]">
-											<Link href={`/profile/${dataProject.owner_username}`}>
+											<Link href={`/profile/${dataProject.owner.username}`}>
 												<div className="flex gap-4 items-center">
 													<div>
 														<Image 
 															alt="sersow profile photo"
-															src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.owner_image}
+															src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.owner.image}
 															width={96} 
 															height={96} 
 															className="w-12 h-12 rounded-full object-cover"
 														/>
 													</div>
 													<div className="flex flex-col">
-														<h1 className={`${font.Satoshi_c1medium} text-white`}>{dataProject.owner_name}</h1>
-														<h1 className={`${font.Satoshi_c2regular} text-slate-300`}>{"@" + dataProject.owner_username}</h1>
+														<h1 className={`${font.Satoshi_c1medium} text-white`}>{dataProject.owner.name}</h1>
+														<h1 className={`${font.Satoshi_c2regular} text-slate-300`}>{"@" + dataProject.owner.username}</h1>
 													</div>
 												</div>
 											</Link>
@@ -548,6 +547,7 @@ export default function DetailProject({ params }) {
 																<h1 id="comment" className={`${font.Satoshi_h5bold} text-white`} >Comments</h1>
 																{
 																	dataProject.myIdentity && (
+																	<form>
 																	<div className="flex flex-col items-end gap-2 ">
 																		<div className="flex gap-4 items-center">
 																				<Image
@@ -565,8 +565,16 @@ export default function DetailProject({ params }) {
 																					onChange={(e) => setFieldComment(e.target.value)}
 																				/>
 																		</div>
-																				<CardPrimaryButton text={"Post Comment"} clickHandler={() => (comment(dataProject.id))} disabled={!fieldComment}/>
+																		<CardPrimaryButton text={"Post Comment"} 
+																			submit={"submit"}
+																			clickHandler={(e) => {
+																				e.preventDefault();
+																				comment(dataProject.id)
+																			}} 
+																			disabled={!fieldComment}
+																		/>
 																	</div>
+																	</form>
 																	)
 																}
 															</div>

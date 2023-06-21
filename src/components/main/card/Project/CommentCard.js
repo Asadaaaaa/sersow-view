@@ -58,7 +58,6 @@ export default function CommentCard ({data, index, click}){
                           <p>Delete comment</p>
                         </div>
                       ) : (
-                        <>
                         <Link
                           href={`/profile/${data.username}`}
                           className="flex items-center gap gap-2 py-2 px-4 cursor-pointer"
@@ -66,11 +65,6 @@ export default function CommentCard ({data, index, click}){
                           <FaUserPlus className="w-5 h-4 " />
                           <p>@{data.username}</p>
                         </Link>
-                        <div className="flex items-center gap gap-2 py-2 px-4 cursor-pointer">
-                          <FaFlag className="w-5 h-4" />
-                          <p> Report comment</p>
-                        </div>
-                        </>
                       )
                       }
                     </div>
