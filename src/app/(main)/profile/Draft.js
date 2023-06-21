@@ -1,15 +1,15 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
+import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { FaEllipsisH, FaHeart, FaComment, FaShare } from "react-icons/fa";
-import { Loading, Popover } from "@nextui-org/react";
+import { Loading } from "@nextui-org/react";
 import { getCookie } from "cookies-next";
 
-import { toast } from "react-toastify";
-import font from "@/app/font.module.css";
 import MyDraft from "@/api/project/my-draft";
+import TitleProject from "@/components/main/card/Project/TitleProject";
+import CategoryProject from "@/components/main/card/Project/CategoryProject";
+import ThumbnailProject from "@/components/main/card/Project/ThumbnailProject";
+import DescriptionProject from "@/components/main/card/Project/DescriptionProject";
 
 export default function Draft() {
 
@@ -55,51 +55,20 @@ export default function Draft() {
 	return !dataProject ? (<div className="flex justify-center"><Loading /></div>) : (
 		<div className="flex flex-col gap-6 items-center text-white">
 			{dataProject.map((item, index) => (
-				<Link href={"/project/" + item.id}>
-					<div className="p-6 bg-slate-900 rounded-lg w-96 " key={index}>
-						<div className="flex items-center my-4 gap-2">
-							<p className={`${font.Satoshi_h5bold}`}>{item.title}</p>
-						</div>
-						{
-							item.categories ? ( 
-								item.categories[0] !== null ? (
-									<div className="flex flex-wrap items-center gap-2">
-										{item["categories"].map((item) => (
-											<div
-												className={` ${font.Satoshi_c3bold} flex justify-center w-20 rounded-full border border-slate-500 py-1 px-2`}
-											>
-												{item.name}
-											</div>
-										))}
-									</div>
-								) : (
-									<></>
-								)
-							) : (<></>)
-						}
-						<div className="my-4 text-justify">
-							<p className={`${font.Satoshi_c2medium}`}>{item.description}</p>
-						</div>
+				<>
+				<div className="p-6 bg-slate-900 rounded-lg w-96" key={item.id}>
+					<TitleProject 
+						id={item.id}
+						logo={item.logo}
+						title={item.title}
+					/>
 
-						<div>
-							{item.thumbnail !== null ? (
-								<Image
-									src={
-										process.env.NEXT_PUBLIC_HOST +
-										"/" +
-										process.env.NEXT_PUBLIC_VERSION +
-										item.thumbnail["data"]
-									}
-									width={1020}
-									height={1020}
-									className="h-40 w-80 object-cover"
-								/>
-							) : (
-								<></>
-							)}
-						</div>
-					</div>
-				</Link>
+					<CategoryProject categories={item["categories"]} />                  
+					<DescriptionProject description={item.description} />
+					<ThumbnailProject thumbnail={item.thumbnail} />
+				</div>
+				</>
+					// <ContainerProject index={index} data={item} />
 			))}
 		</div>
 	);
