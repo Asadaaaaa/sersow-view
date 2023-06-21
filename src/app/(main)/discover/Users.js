@@ -30,7 +30,6 @@ export default function User() {
 
   useEffect(() => {
     if (userContent) {
-      console.log(userContent);
       setDataProfile(userContent);
     } else {
       getUserTrends();
@@ -56,13 +55,11 @@ export default function User() {
           {dataProfile.length !== 0? (
             <div className="flex flex-wrap justify-center gap-6 p-0">
               {dataProfile.map((item, index) => {
-                console.log(item);
                 return(
-                <UserContainer index={index} style={"h-24 p-6"}>
+                <UserContainer index={item.id} style={"h-24 p-6"}>
                   <Avatar username={item.username} name={item.name} image={item.image} />
                   <ButtonFollow id={item.id} isMyProfile={item.isMyProfile} isFollowed={item.isFollowed} key={item.id} />
                 </UserContainer>
-
                 )
               }
               )}

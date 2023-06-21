@@ -41,16 +41,28 @@ export default function Project() {
   useEffect(() => {
     const ProjectOdd = [];
     const ProjectEven = [];
-    dataProject.map((item, index) => {
-      index % 2 !== 0 ? (
-        ProjectOdd.push(item)
-      ) : (
-        ProjectEven.push(item)
-      )
-    })
+    if(filterCategory.name === "All"){
+      dataProject.map((item, index) => {
+        index % 2 !== 0 ? (
+          ProjectOdd.push(item)
+        ) : (
+          ProjectEven.push(item)
+        )
+      })
+    }else{
+      const categoryDataProject = dataProject.filter((item) => item.categories.map((val) => val.id).includes(filterCategory.id));
+      
+      categoryDataProject.map((val, index) => {
+        index % 2 !== 0 ? (
+          ProjectOdd.push(val)
+        ) : (
+          ProjectEven.push(val)
+        )
+      })
+    }
     setDataProjectOdd([...ProjectOdd])
     setDataProjectEven([...ProjectEven])
-  }, [dataProject])
+  }, [dataProject,filterCategory])
 
   useEffect(() => {
     if (dataCategory.length !== 0) {
@@ -93,6 +105,7 @@ export default function Project() {
                 : "bg-slate-900 text-slate-200")
             }
             onClick={() => setFilterCategory(item)}
+            key={item.id}
           >
             {item.name}
           </div>
@@ -108,36 +121,20 @@ export default function Project() {
           )
         }
         <div className="flex flex-wrap justify-center gap-10">
-        {dataProject ? (
+        {dataProject.length !== 0 ? (
           <>
           <div className="flex flex-col gap-6 items-start">
-            {dataProjectEven.map((item, index) => {
-              if (
-                item.categories
-                  .map((item) => item.id)
-                  .includes(filterCategory.id) ||
-                filterCategory.name === "All"
-              ) {
-                return (
-                  <ContainerProject index={index} data={item} />
-                );
-              }
-            })}
+            {dataProjectEven.map((item, index) => (
+                  <ContainerProject index={index} data={item} key={item.id} />
+              ))
+            }
           </div>
 
           <div className="flex flex-col gap-6 items-start">
-            {dataProjectOdd.map((item, index) => {
-              if (
-                item.categories
-                  .map((item) => item.id)
-                  .includes(filterCategory.id) ||
-                filterCategory.name === "All"
-              ) {
-                return (
-                  <ContainerProject index={index} data={item} />
-                );
-              }
-            })}
+            {dataProjectOdd.map((item, index) => (
+                  <ContainerProject index={index} data={item} key={item.id}/>
+              ))
+            }
           </div>
           </>
         ) : (

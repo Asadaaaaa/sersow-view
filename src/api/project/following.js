@@ -1,10 +1,10 @@
-export default async function getFollowing( auth = null) {
+export default async function getFollowing( auth = null, offset) {
     try {
       const res = await fetch(
         process.env.NEXT_PUBLIC_HOST +
           "/" +
           process.env.NEXT_PUBLIC_VERSION +
-          "/project/get/foryou?offset=1&limit=6&following=true",
+          `/project/get/foryou?offset=${offset}&limit=2&following=true`,
         {
           method: "GET",
           headers: {

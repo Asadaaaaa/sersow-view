@@ -10,7 +10,6 @@ import { getCookie } from "cookies-next";
 import { toast } from "react-toastify";
 import font from "@/app/font.module.css";
 import MyDraft from "@/api/project/my-draft";
-import { OptionsCard } from "@/components/main/discover/projectOptionsCard";
 
 export default function Draft() {
 
