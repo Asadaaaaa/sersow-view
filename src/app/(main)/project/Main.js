@@ -113,7 +113,7 @@ export default function Main({ category }) {
       setDataStatus({ ...dataStatus, image2: "success", image3: "ready" });
     } else if (data.image1 === null && data.image2 !== null) {
       setData({ ...data, image1: data.image2, image2: null });
-      setDataName({ ...data, image1: dataName.image2, image2: null });
+      setDataName({ ...dataName, image1: dataName.image2, image2: null });
       setDataStatus({ ...dataStatus, image1: "success", image2: "ready" });
     }
   }, [data.image1, data.image2, data.image3]);
@@ -555,7 +555,7 @@ export default function Main({ category }) {
                   category.map((item) => (
                     <div 
                       key={item.id}
-                      className={`${font.Satoshi_c2bold} py-1 px-2 border-2 rounded-3xl cursor-pointer ` + (selectedCategories.includes(item.id) ? "bg-white text-slate-900" : "text-slate-100 border-slate-500 hover:bg-slate-800 hover:border-slate-400") }
+                      className={`${font.Satoshi_c2bold} py-1 px-2 border-2 rounded-3xl cursor-pointer select-none ` + (selectedCategories.includes(item.id) ? "bg-white text-slate-900" : "text-slate-100 border-slate-500 hover:bg-slate-800 hover:border-slate-400") }
                       onClick={() => {
                         if (selectedCategories.includes(item.id)) {
                           const index = getCategoryIndex(item.id);
@@ -590,7 +590,7 @@ export default function Main({ category }) {
                   <Input 
                     type={"text"} 
                     placeholder={"Type new categories here..."} 
-                    maxLength={15}
+                    maxLength={30}
                     value={data.otherCtg} 
                     onChange={(e) => {setData({ ...data, otherCtg: e.target.value})}} 
                     error={dataError.otherCtg}
@@ -1292,14 +1292,14 @@ export default function Main({ category }) {
                 disabled={publishLoading || draftLoading}
                 clickHandler={async() => await publishProject()}
               >
-                {publishLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Publish"}
+                {publishLoading ? <Loading type="points-opacity" size="md" color="white" style={{ width: "62.15", height: "20.96px" }} /> : "Publish"}
               </CardMainButton>
               <button 
                 disabled={publishLoading || draftLoading} 
                 className={`${font.Satoshi_c2bold} text-slate-200 px-[25px] py-2`}
                 onClick={async() => await draftProject()}
               >
-                {draftLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Save Draft"}
+                {draftLoading ? <Loading type="points-opacity" size="md" color="white" /> : "Save Draft"}
               </button>
             </div>
           </CardContainer>

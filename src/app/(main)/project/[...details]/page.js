@@ -1,34 +1,40 @@
 "use client";
 
+import Link from 'next/link';
 import Image from 'next/image';
-import { toast } from 'react-toastify';
+import { getCookie } from 'cookies-next';
 import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { getCookie } from 'cookies-next';
+import { ToastContainer,toast } from 'react-toastify';
 import { useEffect, useState, useContext } from 'react';
-import { FaEdit, FaRegHeart, FaHeart } from 'react-icons/fa';
+import { FaEdit, FaRegHeart, FaHeart, FaTrash, FaTimes } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
 import Header from '@/components/main/header/Header';
 import BgGradient from '@/components/main/BgGradient';
 import { IsLogin } from '@/components/main/LoginContext';
 import styles from '@/components/main/project/project.module.css';
+import CardRedButton from '@/components/main/settings/CardRedButton';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 
 import Like from '@/api/activity/project/like';
 import Unlike from '@/api/activity/project/unlike';
 import Comment from '@/api/activity/project/comment';
+import DeleteProject from '@/api/project/delete-project';
 import DetailsProject from '@/api/project/details-project';
-// import Input from '@/components/main/settings/Input';
-import Link from 'next/link';
+import DeleteComment from '@/api/activity/project/deleteComment';
+import CommentCard from '@/components/main/card/Project/CommentCard';
+import ListContributors from '@/components/main/card/Project/ListContributors';
 
 export default function DetailProject({ params }) {
 
-	const { isLogin } = useContext(IsLogin);
 	const router = useRouter();
+	const { isLogin } = useContext(IsLogin);
 
 	const [dataProject, setDataProject] = useState(null);
+  const [toogle, setToogle] = useState(false);
 	const [dataUser, setDataUser] = useState(null);
+	const [deleteLoading, setDeleteLoading] = useState(false);
 	const [fieldComment, setFieldComment] =useState("");
 	const [commentsList, setcommentsList] = useState(null);
 
@@ -46,14 +52,51 @@ export default function DetailProject({ params }) {
 			if(res){
 				if (res.status === "200") {
 					setFieldComment("");
-					// setDataUser({...dataUser, comment:fieldComment})
-					setcommentsList([{...dataUser, comment:fieldComment }, ...commentsList])
+					setcommentsList([{...dataUser, comment:fieldComment, isMyComment:true, commentId:res.data.commentId}, ...commentsList])
 				} else if (res.status === "unauth") {
 					router.push("login");
-				} 
+				} else if (res.status === "spam") {
+					toast.error("Failed, Comment Spam Detected", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+				}
 			}
 		}
   }
+
+	async function deleteComment(commentId, projectId) {
+		if (isLogin) {
+			const res = await DeleteComment(commentId, projectId ,getCookie("auth"));
+			
+			if (res) {
+				if (res.status === "200") {
+					setcommentsList((val) => val.filter((comment) => comment.commentId !== commentId));
+				} else if (res.status === "unauth") {
+					location.reload();
+				} else {
+					toast.error("Failed, Server error", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+				}
+			}
+		} else {
+			router.push("login");
+		}
+	}
 
 	async function like(id) {
 		if (isLogin) {
@@ -109,11 +152,69 @@ export default function DetailProject({ params }) {
 		}
 	}
 
-	// useEffect(() => {
-	// 	if(!dataUser && !commentsList ){
-	// 		setcommentsList([dataUser,...commentsList])
-	// 	}
-	// },[dataUser])
+	async function deleteProject(id) {
+
+		setDeleteLoading(true);
+
+		const res = await DeleteProject(id, getCookie("auth"));
+
+		if (res.status === "200") {
+			if (res) {
+				if (res.status === "200") {
+					toast.success("Success to Delete Project", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+
+					router.push("/profile");
+				} else if (res.status === "unauth") {
+					location.reload();
+				} else {
+					toast.error("Failed, Server error", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+				}
+			} else {
+				toast.error("Failed, Server error", {
+					position: "top-center",
+					autoClose: 2500,
+					hideProgressBar: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "colored",
+				});
+			}
+		}
+
+		setDeleteLoading(false);
+	}
+
+	const scrollToSection = (id) => {
+		const element = document.getElementById(id);
+		element.scrollIntoView({ behavior: 'smooth', block: "center"})
+	}
+
+	useEffect(()=> {
+		if(window.location.hash === "#comment" && dataProject !== null )
+			{
+				scrollToSection("comment");
+			}
+	},[dataProject])
 
 	useEffect(() => {
 		async function detailsProject() {
@@ -123,7 +224,7 @@ export default function DetailProject({ params }) {
 				if (res.status === "200") {
 					setDataProject(res.data);
 					setDataUser(res.data.myIdentity);
-					setcommentsList(res.data.comments);
+					setcommentsList(res.data.comments);					
 				} else if (res.status === "unauth") {
 					location.reload();
 				} else if (res.status === "notfound") {
@@ -155,7 +256,7 @@ export default function DetailProject({ params }) {
 		};
 
 		detailsProject();
-	}, [])
+	}, []);
 
   return (
 		<>
@@ -171,30 +272,52 @@ export default function DetailProject({ params }) {
 								 dataProject ? (
 									<div className="w-full flex flex-col gap-6 max-w-[824px] bg-slate-900 rounded-xl p-6">
 										<div className="flex justify-between items-center pb-3 border-slate-700 border-b-[1px]">
-											<div className="flex gap-4 items-center">
-												<div>
-													<Image 
-														alt="sersow profile photo"
-														src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.owner_image}
-														width={96} 
-														height={96} 
-														className="w-12 h-12 rounded-full object-cover"
-													/>
+											<Link href={`/profile/${dataProject.owner.username}`}>
+												<div className="flex gap-4 items-center">
+													<div>
+														<Image 
+															alt="sersow profile photo"
+															src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.owner.image}
+															width={96} 
+															height={96} 
+															className="w-12 h-12 rounded-full object-cover"
+														/>
+													</div>
+													<div className="flex flex-col">
+														<h1 className={`${font.Satoshi_c1medium} text-white`}>{dataProject.owner.name}</h1>
+														<h1 className={`${font.Satoshi_c2regular} text-slate-300`}>{"@" + dataProject.owner.username}</h1>
+													</div>
 												</div>
-												<div className="flex flex-col">
-													<h1 className={`${font.Satoshi_c1medium} text-white`}>{dataProject.owner_name}</h1>
-													<h1 className={`${font.Satoshi_c2regular} text-slate-300`}>{"@" + dataProject.owner_username}</h1>
-												</div>
-											</div>
+											</Link>
 											{
 												dataProject.isMyProject && (
 													<div>
-														<CardPrimaryButton>
-															<div className="flex gap-2">
-																<FaEdit className="w-4 h-4 text-white" />
-																<h2>Edit Project</h2>
-															</div>
-														</CardPrimaryButton>
+														<div className="flex items-center">
+															<Link href={"/project/edit/" + dataProject.id}>
+																<CardPrimaryButton>
+																	<div className="flex gap-2">
+																		<FaEdit className="w-4 h-4 text-white" />
+																		<h2>{dataProject.published ? "Edit Project" : "Edit Draft"}</h2>
+																	</div>
+																</CardPrimaryButton>
+															</Link>
+															<CardRedButton
+																clickHandler={() => deleteProject(dataProject.id)}
+															>
+																<div className="flex gap-2">
+																{
+																	deleteLoading ? (
+																		<Loading type="points-opacity" size="md" color="white" style={{ width: "106.09", height: "17.99px" }} />
+																	) : (
+																		<>
+																			<FaTrash className="w-4 h-4 text-white" />
+																			<h2>{ dataProject.published ? "Delete Project" : "Delete Draft" }</h2>
+																		</>
+																	)
+																}
+																</div>
+															</CardRedButton>
+														</div>
 													</div>
 												)
 											}
@@ -241,7 +364,7 @@ export default function DetailProject({ params }) {
 														{
 															dataProject.thumbnail && (
 																<Image
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url} 
+																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url+ "?key=" + Date.now()} 
 																	alt="sersow project preview"
 																	width={512}
 																	height={288}
@@ -254,7 +377,7 @@ export default function DetailProject({ params }) {
 															dataProject.preview.map((item, index) => (
 																<Image 
 																	key={index}
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item} 
+																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item+ "?key=" + Date.now()} 
 																	alt="sersow project preview"
 																	width={512}
 																	height={288}
@@ -272,8 +395,66 @@ export default function DetailProject({ params }) {
 												<p className={`${font.Satoshi_c1medium} text-slate-400`}>{dataProject.description}</p>
 											</div>
 										</div>
+										{
+											dataProject.contributors === null ? (<></>) : (
+												<>
+												<div className="flex flex-col gap-2 max-w-fit">
+													<div className="flex items-end gap-3">
+														<h1 className={`${font.Satoshi_h5bold} text-white`}>Contibutors</h1>
+														<span className={`${font.Satoshi_c1medium} text-slate-400`}>{dataProject.contributors.length}</span>
+													</div>
+													<div className="flex flex-wrap max-w-[450px] items-center cursor-pointer gap-3" onClick={() => setToogle(true)}>
+														<>
+														{
+															dataProject.contributors.map((item,index) => {
+																if(index > 10) return(<></>)
+																return(
+																	<Image
+																		key={index} 
+																		alt="sersow profile photo"
+																		src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item}
+																		width={96} 
+																		height={96} 
+																		className={`inline-block rounded-full w-10 h-10 object-cover`}
+																	/>
+																)
+															})
+														}
+														{
+															dataProject.contributors.length > 11 &&(
+																<div className={`${font.Satoshi_c1medium} text-white`}>
+																	+{(dataProject.contributors.length) - 11}
+																</div>
+															)
+														}
+														</>
+
+													</div>
+												</div>	
+												</>
+											)
+										}
+										{
+											toogle &&(
+												<>
+												<div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/50 border-solid border-slate-700 border-r-[1px]">
+													<div className="flex flex-col p-6 gap-4 bg-slate-900  rounded-xl border-slate-700 border-[1px]">
+														<div className="flex justify-between items-start pb-3 border-b-slate-700 border-b-2 gap-3">
+																<div className={`${font.Satoshi_b2bold} text-white cursor-pointer`}>Project Contributors</div>
+																<div className="cursor-pointer pt-1" onClick={() => setToogle(false)}>
+																	<FaTimes className="w-4 h-4 text-white" />
+																</div>
+														</div>
+															{
+																<ListContributors projectId={dataProject.id}/>	
+															}
+													</div>
+												</div>
+												</>
+											)
+										}
 										<div className="flex flex-col gap-1">
-											<h1 className={`${font.Satoshi_c2medium} text-white`}>Published on</h1>
+											<h1 className={`${font.Satoshi_c2medium} text-white`}>{dataProject.published ? "Published in" : "Created in"}</h1>
 											<div>
 												<p className={`${font.Satoshi_c2medium} text-slate-400`}>{formatTimestamp(dataProject.published_datetime)}</p>
 											</div>
@@ -339,98 +520,88 @@ export default function DetailProject({ params }) {
 												</div>
 											)
 										}
-										<hr className="w-full border-slate-700" />
-										<div className="flex gap-4 px-2 py-[5px] items-center">
-											<div>
-												{
-													dataProject.isLiked ? (
-														<FaHeart 
-															className="w-5 h-5 text-pink-600 cursor-pointer"
-															onClick={async() => await unlike(dataProject.id)}
-														/>
-													) : (
-														<FaRegHeart 
-															className="w-5 h-5 text-white cursor-pointer"
-															onClick={async() => await like(dataProject.id)}
-														/>
-													)
-												}
-											</div>
-											<div className={`${font.Satoshi_b2bold} text-white select-none`}>{dataProject.totalLikes + " Likes"}</div>
-										</div>
-										<div className="flex flex-col gap-6">
-												<div className="flex flex-col gap-4 ">
-													<h1 className={`${font.Satoshi_h5bold} text-white`}>Comments</h1>
-													{
-														dataProject.myIdentity && (
-														<div className="flex flex-col items-end gap-2 ">
-															<div className="flex gap-4 items-center">
-																	<Image
-																		alt="Avatar User"
-																		className="w-10 h-10 object-cover rounded-full "
-																		src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataUser.image }
-																		width={220}
-																		height={220}
+										{
+											dataProject.published && (
+												<>
+													<hr className="w-full border-slate-700" />
+													<div className="flex gap-4 px-2 py-[5px] items-center">
+														<div>
+															{
+																dataProject.isLiked ? (
+																	<FaHeart 
+																		className="w-5 h-5 text-pink-600 cursor-pointer"
+																		onClick={async() => await unlike(dataProject.id)}
 																	/>
-																	<input 
-																		placeholder={"Type your comments here..."} 
-																		className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
-																		maxLength={200}
-																		value={fieldComment}
-																		onChange={(e) => setFieldComment(e.target.value)}
+																) : (
+																	<FaRegHeart 
+																		className="w-5 h-5 text-white cursor-pointer"
+																		onClick={async() => await like(dataProject.id)}
 																	/>
-															</div>
-																	<CardPrimaryButton text={"Post Comment"} clickHandler={() => (comment(dataProject.id))} disabled={!fieldComment}/>
+																)
+															}
 														</div>
-														)
-													}
-												</div>
-											{
-												dataProject["comments"] !== null ? (
-													<>
-													{
-														commentsList.map((item, index) => {
-															return(
-																<>
-																		<div className="flex flex-col gap-2">
-																			<div className="flex gap-4 items-start">
-																			<Image
+														<div className={`${font.Satoshi_b2bold} text-white select-none`}>{dataProject.totalLikes + " Likes"}</div>
+													</div>
+													<div className="flex flex-col gap-6">
+															<div className="flex flex-col gap-4 ">
+																<h1 id="comment" className={`${font.Satoshi_h5bold} text-white`} >Comments</h1>
+																{
+																	dataProject.myIdentity && (
+																	<form>
+																	<div className="flex flex-col items-end gap-2 ">
+																		<div className="flex gap-4 items-center">
+																				<Image
 																					alt="Avatar User"
-																					className="mt-4 w-10 h-10 object-cover rounded-full "
-																					src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item.image }
+																					className="w-10 h-10 object-cover rounded-full "
+																					src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataUser.image }
 																					width={220}
 																					height={220}
 																				/>
-																			<div className="flex flex-col w-full p-4 gap-2 bg-slate-800 rounded-r-xl rounded-bl-xl">
-																				<div className="flex gap-2 items-start align-top">
-																					<Link href={`/profile/${item.username}`} >
-																						<h3 className={`${font.Satoshi_c1medium} text-white`}>{item.name}</h3>
-																						<p className={`${font.Satoshi_c1medium} text-slate-400`}>@{item.username}</p>
-																					</Link>
-																					<h3 className={`${font.Satoshi_c1medium} text-slate-500`}>
-																						{
-																							item.gender === 1 ? (
-																								"(He/him)"
-																							) : item.gender === 2 ? (
-																								"(She/her)"
-																							) : ("")
-																						}
-																					</h3>
-																				</div>
-																				<p className={`${font.Satoshi_c1medium} text-slate-200`}>{item.comment}</p>
-																			</div>
-																			</div>
+																				<input 					
+																					placeholder={"Type your comments here..."} 
+																					className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
+																					maxLength={200}
+																					value={fieldComment}
+																					onChange={(e) => setFieldComment(e.target.value)}
+																				/>
 																		</div>
-																</>
-
-															)
-														})
-
-													}
-													</>
-												): (null)
-											}
-										</div>
+																		<CardPrimaryButton text={"Post Comment"} 
+																			submit={"submit"}
+																			clickHandler={(e) => {
+																				e.preventDefault();
+																				comment(dataProject.id)
+																			}} 
+																			disabled={!fieldComment}
+																		/>
+																	</div>
+																	</form>
+																	)
+																}
+															</div>
+																{
+																	dataProject["comments"] !== null ? (
+																	<>
+																		{
+																			commentsList.map((item, index) => {
+																				return(
+																					<CommentCard
+																						key={item.commentId}
+																						data = {item}
+																						index = {index}
+																						click={() => {
+																							deleteComment(item.commentId, dataProject.id)
+																						}}
+																					/>
+																				)
+																			})
+																		}
+																	</>
+																	): (null)
+															}
+													</div>
+												</>
+											)
+										}
 									</div>
 								) : (
 									<Loading />
@@ -440,6 +611,18 @@ export default function DetailProject({ params }) {
 					</div>
         </div>
       </div>
+			<ToastContainer
+        position="bottom-right"
+        autoClose={1250}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
 	);
 }

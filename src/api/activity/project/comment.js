@@ -11,13 +11,18 @@ export default async function Comment(projectId, comment, auth) {
           comment: comment,
         })
       }).then(res => res.json());
-      
       if(res.status === 200) {
-        return {status: "200"};
+        return {status: "200" , data: res.data};
       } else {
         if (res.err) {
+          
           if (res.err.type === "validator") {
             return {status: "validator"};
+          }
+          if (res.err.type === "service") {
+            if (res.err.data.code === -2){
+              return {status : "spam"}
+            }
           }
         } else {
           return {status: "err"};

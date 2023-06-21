@@ -52,14 +52,17 @@ export default function User() {
               </div>
             )
           }
-          {dataProfile ? (
+          {dataProfile.length !== 0? (
             <div className="flex flex-wrap justify-center gap-6 p-0">
-              {dataProfile.map((item, index) => (
-                <UserContainer index={index} style={"h-24 p-6"}>
-                  <Avatar username={item.username} name={item.name} image={item.image} />
-                  <ButtonFollow id={item.id} isMyProfile={item.isMyProfile} isFollowed={item.isFollowed} />
+              {dataProfile.map((item, index) => {
+                return(
+                <UserContainer index={item.id} style={"h-24 p-6"}>
+                  <Avatar username={item.username} name={item.nameSubstr} image={item.image} />
+                  <ButtonFollow id={item.id} isMyProfile={item.isMyProfile} isFollowed={item.isFollowed} key={item.id} />
                 </UserContainer>
-              ))}
+                )
+              }
+              )}
             </div>
           ) : (
             <div className="pt-12 flex justify-center">
