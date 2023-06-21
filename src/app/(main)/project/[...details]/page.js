@@ -7,7 +7,7 @@ import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { ToastContainer,toast } from 'react-toastify';
 import { useEffect, useState, useContext } from 'react';
-import { FaEdit, FaRegHeart, FaHeart, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaRegHeart, FaHeart, FaTrash, FaTimes } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
 import Header from '@/components/main/header/Header';
