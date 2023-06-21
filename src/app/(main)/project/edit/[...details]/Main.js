@@ -1338,7 +1338,7 @@ export default function Main({ category, params }) {
                           disabled={publishLoading || draftLoading}
                           clickHandler={async() => await publishProject()}
                         >
-                          {publishLoading ? <Loading type="points-opacity" size="md" color="white" style={{ width: "62.15", height: "20.96px" }} /> : "Save Edit"}
+                          {publishLoading ? <Loading type="points-opacity" size="md" color="white" style={{ width: "62.15", height: "20.96px" }} /> : (data.published ? "Save Edit" : "Publish Draft")}
                         </CardMainButton>
                         {
                           !data.published && (
