@@ -1292,14 +1292,14 @@ export default function Main({ category }) {
                 disabled={publishLoading || draftLoading}
                 clickHandler={async() => await publishProject()}
               >
-                {publishLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Publish"}
+                {publishLoading ? <Loading type="points-opacity" size="md" color="white" style={{ width: "62.15", height: "20.96px" }} /> : "Publish"}
               </CardMainButton>
               <button 
                 disabled={publishLoading || draftLoading} 
                 className={`${font.Satoshi_c2bold} text-slate-200 px-[25px] py-2`}
                 onClick={async() => await draftProject()}
               >
-                {draftLoading ? <Loading type="points-opacity" size="lg" color="white" /> : "Save Draft"}
+                {draftLoading ? <Loading type="points-opacity" size="md" color="white" /> : "Save Draft"}
               </button>
             </div>
           </CardContainer>
