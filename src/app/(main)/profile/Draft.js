@@ -68,7 +68,6 @@ export default function Draft() {
 					<ThumbnailProject thumbnail={item.thumbnail} />
 				</div>
 				</>
-					// <ContainerProject index={index} data={item} />
 			))}
 		</div>
 	);

@@ -17,7 +17,6 @@ export default function ListContributors ({projectId}) {
 
 			if (res) {
 				if (res.status === "200") {
-            // console.log(res.data);
 						setContributor(res.data)				
 				} else if (res.status === "unauth") {
 					location.reload();
