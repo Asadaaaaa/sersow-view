@@ -447,72 +447,75 @@ export default function DetailProject({ params }) {
 												</div>
 											)
 										}
-										<hr className="w-full border-slate-700" />
-										<div className="flex gap-4 px-2 py-[5px] items-center">
-											<div>
-												{
-													dataProject.isLiked ? (
-														<FaHeart 
-															className="w-5 h-5 text-pink-600 cursor-pointer"
-															onClick={async() => await unlike(dataProject.id)}
-														/>
-													) : (
-														<FaRegHeart 
-															className="w-5 h-5 text-white cursor-pointer"
-															onClick={async() => await like(dataProject.id)}
-														/>
-													)
-												}
-											</div>
-											<div className={`${font.Satoshi_b2bold} text-white select-none`}>{dataProject.totalLikes + " Likes"}</div>
-										</div>
-										<div className="flex flex-col gap-6">
-												<div className="flex flex-col gap-4 ">
-													<h1 id="comment" className={`${font.Satoshi_h5bold} text-white`} >Comments</h1>
-													{
-														dataProject.myIdentity && (
-														<div className="flex flex-col items-end gap-2 ">
-															<div className="flex gap-4 items-center">
-																	<Image
-																		alt="Avatar User"
-																		className="w-10 h-10 object-cover rounded-full "
-																		src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataUser.image }
-																		width={220}
-																		height={220}
+										{
+											dataProject.published && (
+												<>
+													<hr className="w-full border-slate-700" />
+													<div className="flex gap-4 px-2 py-[5px] items-center">
+														<div>
+															{
+																dataProject.isLiked ? (
+																	<FaHeart 
+																		className="w-5 h-5 text-pink-600 cursor-pointer"
+																		onClick={async() => await unlike(dataProject.id)}
 																	/>
-																	<input 					
-																		placeholder={"Type your comments here..."} 
-																		className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
-																		maxLength={200}
-																		value={fieldComment}
-																		onChange={(e) => setFieldComment(e.target.value)}
-																	/>
-															</div>
-																	<CardPrimaryButton text={"Post Comment"} clickHandler={() => (comment(dataProject.id))} disabled={!fieldComment}/>
-														</div>
-														)
-													}
-												</div>
-											{
-												dataProject["comments"] !== null ? (
-													<>
-													{
-														commentsList.map((item, index) => {
-																return(
-																	<CommentCard
-																		data = {item}
-																		index = {index}
-																		click={() => {
-																			deleteComment(item.commentId, dataProject.id)
-																		}}
+																) : (
+																	<FaRegHeart 
+																		className="w-5 h-5 text-white cursor-pointer"
+																		onClick={async() => await like(dataProject.id)}
 																	/>
 																)
-														})
-
+															}
+														</div>
+														<div className={`${font.Satoshi_b2bold} text-white select-none`}>{dataProject.totalLikes + " Likes"}</div>
+													</div>
+													<div className="flex flex-col gap-6">
+															<div className="flex flex-col gap-4 ">
+																<h1 id="comment" className={`${font.Satoshi_h5bold} text-white`} >Comments</h1>
+																{
+																	dataProject.myIdentity && (
+																	<div className="flex flex-col items-end gap-2 ">
+																		<div className="flex gap-4 items-center">
+																				<Image
+																					alt="Avatar User"
+																					className="w-10 h-10 object-cover rounded-full "
+																					src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataUser.image }
+																					width={220}
+																					height={220}
+																				/>
+																				<input 					
+																					placeholder={"Type your comments here..."} 
+																					className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
+																					maxLength={200}
+																					value={fieldComment}
+																					onChange={(e) => setFieldComment(e.target.value)}
+																				/>
+																		</div>
+																				<CardPrimaryButton text={"Post Comment"} clickHandler={() => (comment(dataProject.id))} disabled={!fieldComment}/>
+																	</div>
+																	)
 																}
-																</>
-															): (null)
-														}
+															</div>
+																{
+																	dataProject["comments"] !== null ? (
+																	<>
+																		{
+																			commentsList.map((item, index) => {
+																				return(
+																					<CommentCard
+																						key={item.commentId}
+																						data = {item}
+																						index = {index}
+																						click={() => {
+																							deleteComment(item.commentId, dataProject.id)
+																						}}
+																					/>
+																				)
+																			})
+																		}
+																	</>
+																	): (null)
+															}
 													</div>
 												</>
 											)
