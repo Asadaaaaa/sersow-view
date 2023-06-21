@@ -64,7 +64,7 @@ export default function ListContributors ({projectId}) {
                       <UserContainer key={item.user_id} style={"pr-2"} >
                         <Avatar 
                           username={item.username}
-                          name={item.name}
+                          name={item.nameSubstr}
                           image={item.image}
                         />
                         <ButtonFollow 

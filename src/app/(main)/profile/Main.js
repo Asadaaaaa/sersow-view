@@ -248,7 +248,7 @@ export default function Main({ username }) {
                       </button>
                     </div>
                   </div>
-                  <div>
+                  <div className='max-w-[190px] break-words'>
                     <h3 className={`${font.Satoshi_b2bold} text-white`}>{dataProfile.name}</h3>
                     <div className="flex justify-between">
                       <h5 className={`${font.Satoshi_c2regular} text-slate-400`}>{"@" + dataProfile.username}</h5>
@@ -339,7 +339,7 @@ export default function Main({ username }) {
                                       dataUser.map((item, index) => (
                                         <UserContainer index={item.id} 
                                                        style={"pr-2"} >
-                                          <Avatar username={item.username}
+                                          <Avatar username={item.nameSubstr}
                                                   name={item.name}
                                                   image={item.image}
                                           />
