@@ -1,35 +1,36 @@
 "use client";
 
+import Link from 'next/link';
 import Image from 'next/image';
-import { ToastContainer,toast } from 'react-toastify';
+import { getCookie } from 'cookies-next';
 import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
-import { getCookie } from 'cookies-next';
-import { useEffect, useState, useContext, useRef } from 'react';
-import { FaEdit, FaRegHeart, FaHeart } from 'react-icons/fa';
+import { ToastContainer,toast } from 'react-toastify';
+import { useEffect, useState, useContext } from 'react';
+import { FaEdit, FaRegHeart, FaHeart, FaTrash } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
 import Header from '@/components/main/header/Header';
 import BgGradient from '@/components/main/BgGradient';
 import { IsLogin } from '@/components/main/LoginContext';
 import styles from '@/components/main/project/project.module.css';
+import CardRedButton from '@/components/main/settings/CardRedButton';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 
 import Like from '@/api/activity/project/like';
 import Unlike from '@/api/activity/project/unlike';
 import Comment from '@/api/activity/project/comment';
 import DetailsProject from '@/api/project/details-project';
-// import Input from '@/components/main/settings/Input';
-import Link from 'next/link';
+import DeleteProject from '@/api/project/delete-project';
 
 export default function DetailProject({ params }) {
 
 	const { isLogin } = useContext(IsLogin);
 	const router = useRouter();
-	const commentRef = useRef(null);
 
 	const [dataProject, setDataProject] = useState(null);
 	const [dataUser, setDataUser] = useState(null);
+	const [deleteLoading, setDeleteLoading] = useState(false);
 	const [fieldComment, setFieldComment] =useState("");
 	const [commentsList, setcommentsList] = useState(null);
 
@@ -121,6 +122,58 @@ export default function DetailProject({ params }) {
 		}
 	}
 
+	async function deleteProject(id) {
+
+		setDeleteLoading(true);
+
+		const res = await DeleteProject(id, getCookie("auth"));
+
+		if (res.status === "200") {
+			if (res) {
+				if (res.status === "200") {
+					toast.success("Success to Delete Project", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+
+					router.push("/profile");
+				} else if (res.status === "unauth") {
+					location.reload();
+				} else {
+					toast.error("Failed, Server error", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+				}
+			} else {
+				toast.error("Failed, Server error", {
+					position: "top-center",
+					autoClose: 2500,
+					hideProgressBar: true,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+					theme: "colored",
+				});
+			}
+		}
+
+		setDeleteLoading(false);
+	}
+
 	const scrollToSection = (id) => {
 		const element = document.getElementById(id);
 		element.scrollIntoView({ behavior: 'smooth', block: "center"})
@@ -207,14 +260,32 @@ export default function DetailProject({ params }) {
 											{
 												dataProject.isMyProject && (
 													<div>
-														<Link href={"/project/edit/" + dataProject.id}>
-															<CardPrimaryButton>
+														<div className="flex items-center">
+															<Link href={"/project/edit/" + dataProject.id}>
+																<CardPrimaryButton>
+																	<div className="flex gap-2">
+																		<FaEdit className="w-4 h-4 text-white" />
+																		<h2>{dataProject.published ? "Edit Project" : "Edit Draft"}</h2>
+																	</div>
+																</CardPrimaryButton>
+															</Link>
+															<CardRedButton
+																clickHandler={() => deleteProject(dataProject.id)}
+															>
 																<div className="flex gap-2">
-																	<FaEdit className="w-4 h-4 text-white" />
-																	<h2>{dataProject.published ? "Edit Project" : "Edit Draft"}</h2>
+																{
+																	deleteLoading ? (
+																		<Loading type="points-opacity" size="md" color="white" style={{ width: "106.09", height: "17.99px" }} />
+																	) : (
+																		<>
+																			<FaTrash className="w-4 h-4 text-white" />
+																			<h2>{ dataProject.published ? "Delete Project" : "Delete Draft" }</h2>
+																		</>
+																	)
+																}
 																</div>
-															</CardPrimaryButton>
-														</Link>
+															</CardRedButton>
+														</div>
 													</div>
 												)
 											}
