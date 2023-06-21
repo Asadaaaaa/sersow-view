@@ -54,14 +54,14 @@ export default function ListContributors ({projectId}) {
   },[])
 
   return(
-    <div className={` ${styles.listContributorScrollbar} max-h-[400px] overflow-y-auto`}>
+    <div className={` ${styles.listContributorScrollbar} max-h-[400px] overflow-y-auto overflow-x-hidden`}>
       <div className={` flex flex-col items-center gap-6 p-0 `}>
         <div className={`flex flex-col gap-3 max-w-fit `}>
             {
               contributor !== null ? (
                   contributor.map((item, index) => {
                     return(
-                      <UserContainer key={index} style={"pr-2"} >
+                      <UserContainer key={item.user_id} style={"pr-2"} >
                         <Avatar 
                           username={item.username}
                           name={item.name}
