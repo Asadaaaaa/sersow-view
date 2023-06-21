@@ -55,7 +55,7 @@ export default function Draft() {
 	return !dataProject ? (<div className="flex justify-center"><Loading /></div>) : (
 		<div className="flex flex-col gap-6 items-center text-white">
 			{dataProject.map((item, index) => (
-				// <Link href={"project/edit/" + item.id}>
+				<Link href={"/project/" + item.id}>
 					<div className="p-6 bg-slate-900 rounded-lg w-96 " key={index}>
 						<div className="flex items-center my-4 gap-2">
 							<p className={`${font.Satoshi_h5bold}`}>{item.title}</p>
@@ -99,7 +99,7 @@ export default function Draft() {
 							)}
 						</div>
 					</div>
-				// </Link>
+				</Link>
 			))}
 		</div>
 	);

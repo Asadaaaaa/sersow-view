@@ -237,12 +237,14 @@ export default function DetailProject({ params }) {
 											{
 												dataProject.isMyProject && (
 													<div>
-														<CardPrimaryButton>
-															<div className="flex gap-2">
-																<FaEdit className="w-4 h-4 text-white" />
-																<h2>Edit Project</h2>
-															</div>
-														</CardPrimaryButton>
+														<Link href={"/project/edit/" + dataProject.id}>
+															<CardPrimaryButton>
+																<div className="flex gap-2">
+																	<FaEdit className="w-4 h-4 text-white" />
+																	<h2>{dataProject.published ? "Edit Project" : "Edit Draft"}</h2>
+																</div>
+															</CardPrimaryButton>
+														</Link>
 													</div>
 												)
 											}
@@ -289,7 +291,7 @@ export default function DetailProject({ params }) {
 														{
 															dataProject.thumbnail && (
 																<Image
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url} 
+																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url+ "?key=" + Date.now()} 
 																	alt="sersow project preview"
 																	width={512}
 																	height={288}
@@ -302,7 +304,7 @@ export default function DetailProject({ params }) {
 															dataProject.preview.map((item, index) => (
 																<Image 
 																	key={index}
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item} 
+																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item+ "?key=" + Date.now()} 
 																	alt="sersow project preview"
 																	width={512}
 																	height={288}
@@ -379,7 +381,7 @@ export default function DetailProject({ params }) {
 											)
 										}
 										<div className="flex flex-col gap-1">
-											<h1 className={`${font.Satoshi_c2medium} text-white`}>Published on</h1>
+											<h1 className={`${font.Satoshi_c2medium} text-white`}>{dataProject.published ? "Published in" : "Created in"}</h1>
 											<div>
 												<p className={`${font.Satoshi_c2medium} text-slate-400`}>{formatTimestamp(dataProject.published_datetime)}</p>
 											</div>
@@ -507,11 +509,14 @@ export default function DetailProject({ params }) {
 																)
 														})
 
-													}
-													</>
-												): (null)
-											}
-										</div>
+																}
+																</>
+															): (null)
+														}
+													</div>
+												</>
+											)
+										}
 									</div>
 								) : (
 									<Loading />
