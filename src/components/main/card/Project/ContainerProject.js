@@ -8,11 +8,9 @@ import DescriptionProject from "@/components/main/card/Project/DescriptionProjec
 export default function ContainerProject({index, data, refs=null}){
     return(
         <div className="p-6 bg-slate-900 rounded-lg w-96" key={index} ref={refs}>
-            <OwnerProject 
+            <OwnerProject
 							id={data.id} 
-							owner_username={data.owner_username}
-							owner_image={data.owner_image}
-							owner_name={data.owner_name}
+							owner={data.owner} 
 							title={data.title}
 							isMyProject={data.isMyProject} 
 							contributors={data.contributors}

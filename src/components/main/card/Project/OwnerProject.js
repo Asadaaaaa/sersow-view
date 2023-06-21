@@ -10,7 +10,7 @@ import ListContributors from "@/components/main/card/Project/ListContributors";
 
 
 
-export default function OwnerProject({ id, owner_username, owner_image, owner_name, title ,isMyProject, contributors=null}) {
+export default function OwnerProject({ id, owner, title ,isMyProject, contributors=null}) {
   const [toogle, setToogle] = useState(false);
   const [isTridotsOpen, setIsTridotsOpen] = useState(false);
   let counter = 1;
@@ -19,22 +19,22 @@ export default function OwnerProject({ id, owner_username, owner_image, owner_na
       {
         contributors === null ? (
         <Link
-          href={`/profile/${owner_username}`}
+          href={`/profile/${owner.username}`}
           className="flex items-center gap-4 "
         >
           <Image
             alt="Profile Image"
-            src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + owner_image }
+            src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + owner.image }
             width={120}
             height={120}
             className="rounded-full w-12 h-12 object-cover"
           />
           <div className="flex flex-col justify-center w-32 h-10">
             <h3 className={`${font.Satoshi_c2regular} text-white`}>
-              {owner_name}
+              {owner.nameSubstr}
             </h3>
             <p className={`${font.Satoshi_c1medium} text-slate-400`}>
-              @{owner_username}
+              @{owner.username}
             </p>
           </div>
         </Link>
@@ -44,7 +44,7 @@ export default function OwnerProject({ id, owner_username, owner_image, owner_na
             <div className={`flex -space-x-5 items-center`} >
               <Image
                 alt="Profile Image"
-                src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + owner_image }
+                src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + owner.image }
                 width={120}
                 height={120}
                 className="rounded-full w-12 h-12 object-cover z-10"
@@ -113,8 +113,8 @@ export default function OwnerProject({ id, owner_username, owner_image, owner_na
         </Popover.Trigger>
         <Popover.Content css={{ overflow: "hidden" }}>
           <OptionsCard
-            id={id}
-            username={owner_username}
+            id={owner.id}
+            username={owner.username}
             isMyProject={isMyProject}
             title={title}
             colaborator={contributors === null ? false : true}

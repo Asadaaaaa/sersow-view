@@ -57,7 +57,7 @@ export default function User() {
               {dataProfile.map((item, index) => {
                 return(
                 <UserContainer index={item.id} style={"h-24 p-6"}>
-                  <Avatar username={item.username} name={item.name} image={item.image} />
+                  <Avatar username={item.username} name={item.nameSubstr} image={item.image} />
                   <ButtonFollow id={item.id} isMyProfile={item.isMyProfile} isFollowed={item.isFollowed} key={item.id} />
                 </UserContainer>
                 )
