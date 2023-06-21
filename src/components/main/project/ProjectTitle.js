@@ -9,6 +9,6 @@ export default function ProjectTitle() {
 	const path = pathname.split("/");
 
 	return (
-		<h1 className={`${font.Satoshi_h5bold} text-white`}>{ path.length === 3 ? "Details Project" : "Untilted Project" }</h1>
+		<h1 className={`${font.Satoshi_h5bold} text-white`}>{ path.length === 3 ? "Project Details" : "Untilted Project" }</h1>
 	);
 }
