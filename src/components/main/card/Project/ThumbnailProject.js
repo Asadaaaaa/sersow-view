@@ -5,6 +5,7 @@ export default function ThumbnailProject({thumbnail}) {
     <div className="flex justify-center items-center">
       {thumbnail !== null ? (
         <Image
+          alt="Thumbnail Project"
           src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + thumbnail["data"] }
           width={1020}
           height={1020}

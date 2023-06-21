@@ -7,6 +7,7 @@ export default function TitleProject({ id, logo, title}) {
     <Link href={`/project/${id}`} className="flex items-center my-4 gap-2">
       {logo !== null ? (
         <Image
+          alt="Logo Project"
           src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + logo }
           width={220}
           height={220}
