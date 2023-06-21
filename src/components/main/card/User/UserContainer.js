@@ -1,7 +1,6 @@
-export default function UserContainer({ children, index, style }) {
-  //flex justify-between items-center w-[400px] gap-4 pr-2 bg-slate-900 rounded-lg  
+export default function UserContainer({ children, style, index }) {
   return (                
-      <div className={`flex justify-between items-center w-[400px] gap-4 bg-slate-900 rounded-lg ${style} `}key={index}>
+      <div key={index} className={`flex justify-between items-center w-[400px] gap-4 bg-slate-900 rounded-lg ${style} `}>
         {children}
       </div>
     );

@@ -1,12 +1,12 @@
 // import { useState } from "react";
 import React from "react";
 import { toast } from "react-toastify";
-import { FaUserPlus, FaLink, FaEdit } from "react-icons/fa";
+import { FaUserPlus, FaLink, FaEdit, FaUsers } from "react-icons/fa";
 
 import font from "@/app/font.module.css";
 import Link from "next/link";
 
-export const OptionsCard = ({ id, username,title ,isMyProject }) => {
+export const OptionsCard = ({ id, username,title ,isMyProject, colaborator=false , Click}) => {
   const copylink = () => {
     toast.success("Link Copied!", {
       position: "top-center",
@@ -45,13 +45,18 @@ export const OptionsCard = ({ id, username,title ,isMyProject }) => {
             <p>@{username}</p>
           </Link>
         )}
-        <div
-          className="flex items-center gap gap-2 py-2 px-4 cursor-pointer"
-          onClick={copylink}
-        >
+        <div className="flex items-center gap gap-2 py-2 px-4 cursor-pointer" onClick={copylink} >
           <FaLink className="w-5 h-4" />
           <p> Copy profile link</p>
         </div>
+        {
+          colaborator && (
+            <div className="flex items-center gap gap-2 py-2 px-4 cursor-pointer" onClick={Click} >
+              <FaUsers className="w-5 h-4" />
+              <p> See contributors</p>
+            </div>
+          )
+        }
       </div>
     </div>
   );

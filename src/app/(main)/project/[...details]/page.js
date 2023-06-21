@@ -20,15 +20,19 @@ import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
 import Like from '@/api/activity/project/like';
 import Unlike from '@/api/activity/project/unlike';
 import Comment from '@/api/activity/project/comment';
-import DetailsProject from '@/api/project/details-project';
 import DeleteProject from '@/api/project/delete-project';
+import DetailsProject from '@/api/project/details-project';
+import DeleteComment from '@/api/activity/project/deleteComment';
+import CommentCard from '@/components/main/card/Project/CommentCard';
+import ListContributors from '@/components/main/card/Project/ListContributors';
 
 export default function DetailProject({ params }) {
 
-	const { isLogin } = useContext(IsLogin);
 	const router = useRouter();
+	const { isLogin } = useContext(IsLogin);
 
 	const [dataProject, setDataProject] = useState(null);
+  const [toogle, setToogle] = useState(false);
 	const [dataUser, setDataUser] = useState(null);
 	const [deleteLoading, setDeleteLoading] = useState(false);
 	const [fieldComment, setFieldComment] =useState("");
@@ -47,12 +51,12 @@ export default function DetailProject({ params }) {
 			const res = await Comment(projectId, fieldComment ,getCookie("auth"));
 			if(res){
 				if (res.status === "200") {
+					console.log(res.data)
 					setFieldComment("");
-					setcommentsList([{...dataUser, comment:fieldComment }, ...commentsList])
+					setcommentsList([{...dataUser, comment:fieldComment, isMyComment:true, commentId:res.data.commentId}, ...commentsList])
 				} else if (res.status === "unauth") {
 					router.push("login");
 				} else if (res.status === "spam") {
-					// console.log("test");
 					toast.error("Failed, Comment Spam Detected", {
 						position: "top-center",
 						autoClose: 2500,
@@ -67,6 +71,33 @@ export default function DetailProject({ params }) {
 			}
 		}
   }
+
+	async function deleteComment(commentId, projectId) {
+		if (isLogin) {
+			const res = await DeleteComment(commentId, projectId ,getCookie("auth"));
+			
+			if (res) {
+				if (res.status === "200") {
+					setcommentsList((val) => val.filter((comment) => comment.commentId !== commentId));
+				} else if (res.status === "unauth") {
+					location.reload();
+				} else {
+					toast.error("Failed, Server error", {
+						position: "top-center",
+						autoClose: 2500,
+						hideProgressBar: true,
+						closeOnClick: true,
+						pauseOnHover: true,
+						draggable: true,
+						progress: undefined,
+						theme: "colored",
+					});
+				}
+			}
+		} else {
+			router.push("login");
+		}
+	}
 
 	async function like(id) {
 		if (isLogin) {
@@ -226,7 +257,7 @@ export default function DetailProject({ params }) {
 		};
 
 		detailsProject();
-	}, [])
+	}, []);
 
   return (
 		<>
@@ -242,21 +273,23 @@ export default function DetailProject({ params }) {
 								 dataProject ? (
 									<div className="w-full flex flex-col gap-6 max-w-[824px] bg-slate-900 rounded-xl p-6">
 										<div className="flex justify-between items-center pb-3 border-slate-700 border-b-[1px]">
-											<div className="flex gap-4 items-center">
-												<div>
-													<Image 
-														alt="sersow profile photo"
-														src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.owner_image}
-														width={96} 
-														height={96} 
-														className="w-12 h-12 rounded-full object-cover"
-													/>
+											<Link href={`/profile/${dataProject.owner_username}`}>
+												<div className="flex gap-4 items-center">
+													<div>
+														<Image 
+															alt="sersow profile photo"
+															src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.owner_image}
+															width={96} 
+															height={96} 
+															className="w-12 h-12 rounded-full object-cover"
+														/>
+													</div>
+													<div className="flex flex-col">
+														<h1 className={`${font.Satoshi_c1medium} text-white`}>{dataProject.owner_name}</h1>
+														<h1 className={`${font.Satoshi_c2regular} text-slate-300`}>{"@" + dataProject.owner_username}</h1>
+													</div>
 												</div>
-												<div className="flex flex-col">
-													<h1 className={`${font.Satoshi_c1medium} text-white`}>{dataProject.owner_name}</h1>
-													<h1 className={`${font.Satoshi_c2regular} text-slate-300`}>{"@" + dataProject.owner_username}</h1>
-												</div>
-											</div>
+											</Link>
 											{
 												dataProject.isMyProject && (
 													<div>
@@ -363,6 +396,64 @@ export default function DetailProject({ params }) {
 												<p className={`${font.Satoshi_c1medium} text-slate-400`}>{dataProject.description}</p>
 											</div>
 										</div>
+										{
+											dataProject.contributors === null ? (<></>) : (
+												<>
+												<div className="flex flex-col gap-2 max-w-fit">
+													<div className="flex items-end gap-3">
+														<h1 className={`${font.Satoshi_h5bold} text-white`}>Contibutors</h1>
+														<span className={`${font.Satoshi_c1medium} text-slate-400`}>{dataProject.contributors.length}</span>
+													</div>
+													<div className="flex flex-wrap max-w-[450px] items-center cursor-pointer gap-3" onClick={() => setToogle(true)}>
+														<>
+														{
+															dataProject.contributors.map((item,index) => {
+																if(index > 10) return(<></>)
+																return(
+																	<Image
+																		key={index} 
+																		alt="sersow profile photo"
+																		src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item}
+																		width={96} 
+																		height={96} 
+																		className={`inline-block rounded-full w-10 h-10 object-cover`}
+																	/>
+																)
+															})
+														}
+														{
+															dataProject.contributors.length > 11 &&(
+																<div className={`${font.Satoshi_c1medium} text-white`}>
+																	+{(dataProject.contributors.length) - 11}
+																</div>
+															)
+														}
+														</>
+
+													</div>
+												</div>	
+												</>
+											)
+										}
+										{
+											toogle &&(
+												<>
+												<div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/50 border-solid border-slate-700 border-r-[1px]">
+													<div className="flex flex-col p-6 gap-4 bg-slate-900  rounded-xl border-slate-700 border-[1px]">
+														<div className="flex justify-between items-start pb-3 border-b-slate-700 border-b-2 gap-3">
+																<div className={`${font.Satoshi_b2bold} text-white cursor-pointer`}>Project Contributors</div>
+																<div className="cursor-pointer pt-1" onClick={() => setToogle(false)}>
+																	<FaTimes className="w-4 h-4 text-white" />
+																</div>
+														</div>
+															{
+																<ListContributors projectId={dataProject.id}/>	
+															}
+													</div>
+												</div>
+												</>
+											)
+										}
 										<div className="flex flex-col gap-1">
 											<h1 className={`${font.Satoshi_c2medium} text-white`}>{dataProject.published ? "Published in" : "Created in"}</h1>
 											<div>
@@ -479,51 +570,26 @@ export default function DetailProject({ params }) {
 																	)
 																}
 															</div>
-														{
-															dataProject["comments"] !== null ? (
-																<>
 																{
-																	commentsList.map((item, index) => {
-																		return(
-																			<>
-																					<div className="flex flex-col gap-2">
-																						<div className="flex gap-4 items-start">
-																						<Image
-																								alt="Avatar User"
-																								className="mt-4 w-10 h-10 object-cover rounded-full "
-																								src={ process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item.image }
-																								width={220}
-																								height={220}
-																							/>
-																						<div className="flex flex-col w-full p-4 gap-2 bg-slate-800 rounded-r-xl rounded-bl-xl">
-																							<div className="flex gap-2 items-start align-top">
-																								<Link href={`/profile/${item.username}`} >
-																									<h3 className={`${font.Satoshi_c1medium} text-white`}>{item.name}</h3>
-																									<p className={`${font.Satoshi_c1medium} text-slate-400`}>@{item.username}</p>
-																								</Link>
-																								<h3 className={`${font.Satoshi_c1medium} text-slate-500`}>
-																									{
-																										item.gender === 1 ? (
-																											"(He/him)"
-																										) : item.gender === 2 ? (
-																											"(She/her)"
-																										) : ("")
-																									}
-																								</h3>
-																							</div>
-																							<p className={`${font.Satoshi_c1medium} text-slate-200`}>{item.comment}</p>
-																						</div>
-																						</div>
-																					</div>
-																			</>
-
-																		)
-																	})
-
-																}
-																</>
-															): (null)
-														}
+																	dataProject["comments"] !== null ? (
+																	<>
+																		{
+																			commentsList.map((item, index) => {
+																				return(
+																					<CommentCard
+																						key={item.commentId}
+																						data = {item}
+																						index = {index}
+																						click={() => {
+																							deleteComment(item.commentId, dataProject.id)
+																						}}
+																					/>
+																				)
+																			})
+																		}
+																	</>
+																	): (null)
+															}
 													</div>
 												</>
 											)

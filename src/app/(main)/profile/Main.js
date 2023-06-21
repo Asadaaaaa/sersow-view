@@ -337,7 +337,7 @@ export default function Main({ username }) {
                                   <>
                                     {  
                                       dataUser.map((item, index) => (
-                                        <UserContainer index={index} 
+                                        <UserContainer index={item.id} 
                                                        style={"pr-2"} >
                                           <Avatar username={item.username}
                                                   name={item.name}
