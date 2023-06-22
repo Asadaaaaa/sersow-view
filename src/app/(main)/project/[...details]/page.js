@@ -402,9 +402,9 @@ export default function DetailProject({ params }) {
 											dataProject.contributors === null ? (<></>) : (
 												<>
 												<div className="flex flex-col gap-2 max-w-fit">
-													<div className="flex items-end gap-3">
+													<div className="flex items-center gap-3">
 														<h1 className={`${font.Satoshi_h5bold} text-white`}>Contibutors</h1>
-														<span className={`${font.Satoshi_c1medium} text-slate-400`}>{dataProject.contributors.length}</span>
+														<span className={`${font.Satoshi_c1medium} text-slate-400`}>({dataProject.contributors.length})</span>
 													</div>
 													<div className="flex flex-wrap max-w-[450px] items-center cursor-pointer gap-3" onClick={() => setToogle(true)}>
 														<>
