@@ -304,8 +304,9 @@ export default function Main({ username }) {
                     <div className="flex items-center gap-1">
      
                         <div className={`${font.Satoshi_c2regular} text-slate-400 cursor-pointer`} 
-                          onClick={() => {setListCard(true)
-                                          setListFollow(true);
+                          onClick={() => {
+                            setListCard(true)
+                            setListFollow(true);
                           }}>
                           <span className={`${font.Satoshi_c2medium} text-white`}>{dataProfile.total_follower}</span>
                           {" "}followers
@@ -337,15 +338,20 @@ export default function Main({ username }) {
                                   <>
                                     {  
                                       dataUser.map((item, index) => (
-                                        <UserContainer index={item.id} 
-                                                       style={"pr-2"} >
-                                          <Avatar username={item.nameSubstr}
-                                                  name={item.name}
-                                                  image={item.image}
+                                        <UserContainer 
+                                          index={item.id} 
+                                          style={"pr-2"} 
+                                        >
+                                          <Avatar 
+                                            username={item.username}
+                                            name={item.nameSubstr}
+                                            image={item.image}
                                           />
-                                          <ButtonFollow id={item.id}
-                                                        isMyProfile={item.isMyProfile}
-                                                        isFollowed={item.isFollowed}/>
+                                          <ButtonFollow 
+                                            id={item.id}
+                                            isMyProfile={item.isMyProfile}
+                                            isFollowed={item.isFollowed}
+                                          />
                                         </UserContainer>
                                       ))
                                     }
