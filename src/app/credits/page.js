@@ -20,21 +20,21 @@ export default function Credits() {
       {
         image: Azka,
         color: "rgb(46, 16, 101)",
-        url: "https://stg.sersow.otech.id/profile/zka",
+        url: "/profile/zka",
         jobdesk: "Tech Manager",
         nama: "Azka Ahmad"
       },
       {
         image: Mikey,
         color: "rgb(69, 10, 10)",
-        url: "https://stg.sersow.otech.id/profile/asada",
+        url: "/profile/asada",
         jobdesk: "Tech Lead",
         nama: "Mikail Asada"
       },
       {
         image: Adit,
         color: "rgb(80, 7, 36)",
-        url: "https://stg.sersow.otech.id/profile/dit_aspd",
+        url: "/profile/dit_aspd",
         jobdesk: "Tech Design",
         nama: "Aditya Syawal"
       }
@@ -43,35 +43,35 @@ export default function Credits() {
       {
         image: Lele,
         color: "rgb(26 46 5)",
-        url: "./#",
+        url: "/profile/_innakad",
         jobdesk: "Front-end",
         nama: "Innaka Dylee"
       },
       {
         image: Fza,
         color: "rgb(74 4 78)",
-        url: "./#",
+        url: "/profile/fildzaanf",
         jobdesk: "UI/UX & Front-end",
         nama: "Hanisah Fildza"
       },
       {
         image: Talim,
         color: "rgb(8 47 73)",
-        url: "./#",
+        url: "/profile/liem",
         jobdesk: "Front-end & Back-end",
         nama: "Muhamad Talim"
       },
       {
         image: Afwa,
         color: "rgb(23 37 84)",
-        url: "./#",
+        url: "/profile/fuafuw",
         jobdesk: "Database Designer & Back-end",
         nama: "Afwa Afini"
       },
       {
         image: Rafi,
         color: "rgb(67 20 7)",
-        url: "./#",
+        url: "/profile/Fii",
         jobdesk: "Front-end",
         nama: "Rafi Fajrul"
       }
