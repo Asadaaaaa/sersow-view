@@ -38,7 +38,7 @@ export default function Main({ username }) {
   const [dataUser, setDataUser] = useState([]);
   const [isFollowed, setIsFollowed] = useState(false);
   const [dataProfile, setDataProfile] = useState(null);
-  const urlProfile = "https://stg.sersow.otech.id/profile/" + username;
+  const urlProfile = "https://beta.sersow.otech.id/profile/" + username;
 
   function formatTimestamp(timestamp) {
     const date = new Date(timestamp);

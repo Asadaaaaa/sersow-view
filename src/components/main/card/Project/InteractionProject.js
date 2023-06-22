@@ -53,7 +53,7 @@ export default function InteractionProjcet({ id, isLiked}) {
       theme: "colored",
     });
     navigator.clipboard.writeText(
-      `https://stg.sersow.otech.id/project/${id}`
+      `https://beta.sersow.otech.id/project/${id}`
     );
   };
 
