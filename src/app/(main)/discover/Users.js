@@ -15,16 +15,16 @@ export default function User() {
   const { userContent } = useContext(ContentFilter);
 
   const [dataProfile, setDataProfile] = useState([]);
+  const [loadingPage, setLoadingPage] = useState(true);
 
   async function getUserTrends() {
     const res = await UserTrends(getCookie("auth"));
 
     if (res.status === "200") {
       setDataProfile(res.data);
+      setLoadingPage(false);
     } else if (res.status === "unauth") {
       location.reload();
-    } else if (res.status === "notfound") {
-      router.push("user-not-found");
     }
   }
 
@@ -43,33 +43,39 @@ export default function User() {
   return (
     <div className="flex justify-center h-full">
       <div className="flex w-full h-full pt-24">
-        <div className="flex flex-col w-full h-full px-20 py-8">
-          {
-            !userContent && (
-              <div className="flex items-center gap-2 p-4">
-                <FaChartLine fill="white" />
-                <p className={`${font.Satoshi_b2medium} text-white`}>TRENDS</p>
-              </div>
-            )
-          }
-          {dataProfile.length !== 0? (
-            <div className="flex flex-wrap justify-center gap-6 p-0">
-              {dataProfile.map((item, index) => {
-                return(
-                <UserContainer index={item.id} style={"h-24 p-6"}>
-                  <Avatar username={item.username} name={item.nameSubstr} image={item.image} />
-                  <ButtonFollow id={item.id} isMyProfile={item.isMyProfile} isFollowed={item.isFollowed} key={item.id} />
-                </UserContainer>
-                )
-              }
-              )}
-            </div>
-          ) : (
-            <div className="pt-12 flex justify-center">
+        {
+          loadingPage ? (
+            <div className="w-full pt-12 flex justify-center">
               <Loading />
             </div>
-          )}
-        </div>
+          ) : dataProfile.length !== 0 ? (
+            <div className="flex flex-col w-full h-full px-20 py-8">
+              {
+                !userContent && (
+                  <div className="flex items-center gap-2 p-4">
+                    <FaChartLine fill="white" />
+                    <p className={`${font.Satoshi_b2medium} text-white`}>TRENDS</p>
+                  </div>
+                )
+              }
+              <div className="flex flex-wrap justify-center gap-6 p-0">
+                {dataProfile.map((item, index) => {
+                  return(
+                  <UserContainer index={item.id} style={"h-24 p-6"}>
+                    <Avatar username={item.username} name={item.nameSubstr} image={item.image} />
+                    <ButtonFollow id={item.id} isMyProfile={item.isMyProfile} isFollowed={item.isFollowed} key={item.id} />
+                  </UserContainer>
+                  )
+                }
+                )}
+              </div>
+            </div>
+          ) : (
+            <div className="w-full pt-12 flex justify-center">
+              <h1 className={`${font.Satoshi_h2medium} text-white`}>User Not Found!</h1>
+            </div>
+          )
+        }
       </div>
     </div>
   );
