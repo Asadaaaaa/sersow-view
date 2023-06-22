@@ -294,7 +294,9 @@ export default function DetailProject({ params }) {
 													<div>
 														<div className="flex items-center">
 															<Link href={"/project/edit/" + dataProject.id}>
-																<CardPrimaryButton>
+																<CardPrimaryButton
+																	disabled={deleteLoading}
+																>
 																	<div className="flex gap-2">
 																		<FaEdit className="w-4 h-4 text-white" />
 																		<h2>{dataProject.published ? "Edit Project" : "Edit Draft"}</h2>
@@ -302,6 +304,7 @@ export default function DetailProject({ params }) {
 																</CardPrimaryButton>
 															</Link>
 															<CardRedButton
+																disabled={deleteLoading}
 																clickHandler={() => deleteProject(dataProject.id)}
 															>
 																<div className="flex gap-2">
