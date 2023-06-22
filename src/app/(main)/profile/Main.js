@@ -93,7 +93,7 @@ export default function Main({ username }) {
         } else if (res.status === "unauth") {
           location.reload();
         } else if (res.status === "notfound") {
-          router.push("user-not-found");
+          setNotFound(true);
         }
       }
     }
@@ -105,7 +105,7 @@ export default function Main({ username }) {
         } else if (res.status === "unauth") {
           location.reload();
         } else if (res.status === "notfound") {
-          router.push("user-not-found");
+          setNotFound(true);
         }
       }
     }
