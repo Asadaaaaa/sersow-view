@@ -625,7 +625,7 @@ export default function DetailProject({ params }) {
 																				/>
 																				<input 					
 																					placeholder={"Type your comments here..."} 
-																					className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
+																					className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] border-slate-700 hover:border-slate-500 bg-transparent outline-none focus:border-white rounded-lg `} 
 																					maxLength={200}
 																					value={fieldComment}
 																					onChange={(e) => setFieldComment(e.target.value)}
