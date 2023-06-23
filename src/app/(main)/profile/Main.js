@@ -418,7 +418,7 @@ export default function Main({ username }) {
                           className={"py-2 px-4 cursor-pointer " + (page === 2 ? "text-cyan-400" : "text-slate-400")}
                           onClick={() => setPage(2)}
                         >
-                          Draft
+                          Drafts
                         </div>
                       )
                     }
