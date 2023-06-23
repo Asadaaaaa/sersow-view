@@ -13,7 +13,7 @@ export default function ProjectTitle() {
 	if (path.length === 2) {
 		title = "Untilted Project";
 	} else if (path.length === 3) {
-		title = "Details Project";
+		title = "Project Details";
 	} else if (path.length === 4) {
 		title = "Edit Project";
 	}
