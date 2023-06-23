@@ -32,7 +32,7 @@ export default function Main({ username }) {
   const { isLogin } = useContext(IsLogin);
   const [ListCard, setListCard] = useState(false);
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [listFollow, setListFollow] = useState(null);
   const [dataUser, setDataUser] = useState([]);
   const [isFollowed, setIsFollowed] = useState(false);
@@ -400,52 +400,51 @@ export default function Main({ username }) {
                 </div>
                 <div className="w-[560px] h-full">
                   <div className={`${font.Satoshi_b2bold} pb-2 flex gap-2 border-solid border-slate-700 border-b-[1px]`}>
+                    <div 
+                      className={"py-2 px-4 cursor-pointer " + (page === 0 ? "text-cyan-400" : "text-slate-400")}
+                      onClick={() => setPage(0)}
+                    >
+                      Projects
+                    </div>
+                    <div 
+                      className={"py-2 px-4 cursor-pointer " + (page === 1 ? "text-cyan-400" : "text-slate-400")}
+                      onClick={() => setPage(1)}
+                    >
+                      Collabs
+                    </div>
                     {
                       (dataProfile && dataProfile.isMyProfile) && (
                         <div 
-                          className={"py-2 px-4 cursor-pointer " + (page === 0 ? "text-cyan-400" : "text-slate-400")}
-                          onClick={() => setPage(0)}
+                          className={"py-2 px-4 cursor-pointer " + (page === 2 ? "text-cyan-400" : "text-slate-400")}
+                          onClick={() => setPage(2)}
                         >
                           Draft
                         </div>
                       )
                     }
-                    <div 
-                      className={"py-2 px-4 cursor-pointer " + (page === 1 ? "text-cyan-400" : "text-slate-400")}
-                      onClick={() => setPage(1)}
-                    >
-                      Projects
-                    </div>
-                    <div 
-                      className={"py-2 px-4 cursor-pointer " + (page === 2 ? "text-cyan-400" : "text-slate-400")}
-                      onClick={() => setPage(2)}
-                    >
-                      Collabs
-                    </div>
                   </div>
                   <div className={`${styles.profileScrollbar} pt-6 overflow-y-auto h-full`}>
                     {
                       dataProfile !== null ? (
                         <>
-                        {
-                        page === 0 && (
-                          <Draft />
-                        ) 
-                      } 
-                      {
-                        page === 1 && (
-                          <Projects userId={dataProfile.id}/>
-                        )
-                      }
-                      {
-                        page === 2 && (
-                          <Collabs userId={dataProfile.id} />
-                        )
-                      }</>
+                          {
+                            page === 0 && (
+                              <Projects userId={dataProfile.id}/>
+                            )
+                          }
+                          {
+                            page === 1 && (
+                              <Collabs userId={dataProfile.id} />
+                            )
+                          }
+                          {
+                            page === 2 && (
+                              <Draft />
+                            ) 
+                          } 
+                        </>
                       ) : null
                     }
-                      
-                    
                   </div>
                 </div>
               </>
