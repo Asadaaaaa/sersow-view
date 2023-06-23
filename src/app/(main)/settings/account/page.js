@@ -619,7 +619,7 @@ export default function Account() {
           </CardContainer>
           {
             (usernamePopup || emailPopup || emailVerifPopup) && (
-              <div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/50 border-solid border-slate-700 border-r-[1px]">
+              <div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/90 border-solid border-slate-700 border-r-[1px]">
                 <PopupContainer>
                   {
                     usernamePopup && (

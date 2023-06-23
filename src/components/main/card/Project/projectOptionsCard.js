@@ -18,7 +18,7 @@ export const OptionsCard = ({ id, username,title ,isMyProject, colaborator=false
       theme: "colored",
     });
     navigator.clipboard.writeText(
-      `https://stg.sersow.otech.id/profile/${username}`
+      `https://beta.sersow.otech.id/profile/${username}`
     );
   };
   return (

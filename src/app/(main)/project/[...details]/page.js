@@ -7,12 +7,13 @@ import { Loading } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import { ToastContainer,toast } from 'react-toastify';
 import { useEffect, useState, useContext } from 'react';
-import { FaEdit, FaRegHeart, FaHeart, FaTrash, FaTimes } from 'react-icons/fa';
+import { FaEdit, FaRegHeart, FaHeart, FaTrash, FaTrashAlt, FaTimes, FaExclamationTriangle } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
 import Header from '@/components/main/header/Header';
 import BgGradient from '@/components/main/BgGradient';
 import { IsLogin } from '@/components/main/LoginContext';
+import CardTitle from '@/components/main/settings/CardTitle';
 import styles from '@/components/main/project/project.module.css';
 import CardRedButton from '@/components/main/settings/CardRedButton';
 import CardPrimaryButton from '@/components/main/settings/CardPrimaryButton';
@@ -24,6 +25,7 @@ import DeleteProject from '@/api/project/delete-project';
 import DetailsProject from '@/api/project/details-project';
 import DeleteComment from '@/api/activity/project/deleteComment';
 import CommentCard from '@/components/main/card/Project/CommentCard';
+import PopupContainer from '@/components/main/settings/PopupContainer';
 import ListContributors from '@/components/main/card/Project/ListContributors';
 
 export default function DetailProject({ params }) {
@@ -35,6 +37,7 @@ export default function DetailProject({ params }) {
   const [toogle, setToogle] = useState(false);
 	const [dataUser, setDataUser] = useState(null);
 	const [deleteLoading, setDeleteLoading] = useState(false);
+	const [deleteConfirmationPopup, setDeleteConfirmationPopup] = useState(false);
 	const [fieldComment, setFieldComment] =useState("");
 	const [commentsList, setcommentsList] = useState(null);
 
@@ -294,7 +297,9 @@ export default function DetailProject({ params }) {
 													<div>
 														<div className="flex items-center">
 															<Link href={"/project/edit/" + dataProject.id}>
-																<CardPrimaryButton>
+																<CardPrimaryButton
+																	disabled={deleteLoading}
+																>
 																	<div className="flex gap-2">
 																		<FaEdit className="w-4 h-4 text-white" />
 																		<h2>{dataProject.published ? "Edit Project" : "Edit Draft"}</h2>
@@ -302,7 +307,8 @@ export default function DetailProject({ params }) {
 																</CardPrimaryButton>
 															</Link>
 															<CardRedButton
-																clickHandler={() => deleteProject(dataProject.id)}
+																disabled={deleteLoading}
+																clickHandler={() => setDeleteConfirmationPopup(true)}
 															>
 																<div className="flex gap-2">
 																{
@@ -317,6 +323,66 @@ export default function DetailProject({ params }) {
 																}
 																</div>
 															</CardRedButton>
+															{
+																deleteConfirmationPopup && (
+																	<div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/90 border-solid border-slate-700 border-r-[1px]">
+																		<PopupContainer>
+																			<CardTitle 
+																				title={dataProject.title} 
+																				closable={true} 
+																				closeHandler={() => {
+																					setDeleteConfirmationPopup(false);
+																				}} 
+																			/>
+																			<div className="flex flex-col items-center gap-2">
+																				<div>
+																					<FaExclamationTriangle className="text-amber-400 w-6 h-6" />
+																				</div>
+																				<div className={`${font.Satoshi_b2bold} text-slate-400`}>
+																					<h4>This is a marvelous project.</h4>
+																					<h4>Are you sure want to delete it?</h4>
+																				</div>
+																			</div>
+																			<div className="flex">
+																				<div className="py-1 px-2">
+																					<button
+																						disabled={deleteLoading}
+																						className="py-3 px-6 bg-gradient-to-b from-rose-500 to to-rose-600 rounded-xl"
+																						onClick={async() => {
+																							await deleteProject(dataProject.id);
+																							setDeleteConfirmationPopup(false)
+																						}}
+																					>
+																						<div className="flex items-center justify-center gap-2 w-36">
+																							{
+																								deleteLoading ? (
+																									<Loading type="points-opacity" size="md" color="white" style={{ width: "106.09", height: "17.99px" }} />
+																								) : (
+																									<>
+																										<div><FaTrashAlt className="text-white w-5 h-5" /></div>
+																										<h3 className={`${font.Satoshi_b2bold} text-white`}>Drop it</h3>
+																									</>
+																								)
+																							}
+																						</div>
+																					</button>
+																				</div>
+																				<div className="py-1 px-2">
+																					<button 
+																						disabled={deleteLoading}
+																						className="py-3 px-6 border-solid border-[1px] border-slate-300 rounded-xl"
+																						onClick={() => setDeleteConfirmationPopup(false)}
+																					>
+																						<div className="flex items-center justify-center w-36">
+																							<h3 className={`${font.Satoshi_b2bold} text-white`}>No, I reconsider</h3>
+																						</div>
+																					</button>
+																				</div>
+																			</div>
+																		</PopupContainer>
+																	</div>
+																)
+															}
 														</div>
 													</div>
 												)
@@ -399,9 +465,9 @@ export default function DetailProject({ params }) {
 											dataProject.contributors === null ? (<></>) : (
 												<>
 												<div className="flex flex-col gap-2 max-w-fit">
-													<div className="flex items-end gap-3">
+													<div className="flex items-center gap-3">
 														<h1 className={`${font.Satoshi_h5bold} text-white`}>Contibutors</h1>
-														<span className={`${font.Satoshi_c1medium} text-slate-400`}>{dataProject.contributors.length}</span>
+														<span className={`${font.Satoshi_c1medium} text-slate-400`}>({dataProject.contributors.length})</span>
 													</div>
 													<div className="flex flex-wrap max-w-[450px] items-center cursor-pointer gap-3" onClick={() => setToogle(true)}>
 														<>
@@ -437,7 +503,7 @@ export default function DetailProject({ params }) {
 										{
 											toogle &&(
 												<>
-												<div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/50 border-solid border-slate-700 border-r-[1px]">
+												<div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/90 border-solid border-slate-700 border-r-[1px]">
 													<div className="flex flex-col p-6 gap-4 bg-slate-900  rounded-xl border-slate-700 border-[1px]">
 														<div className="flex justify-between items-start pb-3 border-b-slate-700 border-b-2 gap-3">
 																<div className={`${font.Satoshi_b2bold} text-white cursor-pointer`}>Project Contributors</div>
@@ -559,7 +625,7 @@ export default function DetailProject({ params }) {
 																				/>
 																				<input 					
 																					placeholder={"Type your comments here..."} 
-																					className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] bg-transparent outline-none focus:border-white rounded-lg `} 
+																					className={`${font.Satoshi_c1regular} w-[715px] py-3 px-6 border-solid text-white border-[1px] border-slate-700 hover:border-slate-500 bg-transparent outline-none focus:border-white rounded-lg `} 
 																					maxLength={200}
 																					value={fieldComment}
 																					onChange={(e) => setFieldComment(e.target.value)}
