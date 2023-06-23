@@ -423,7 +423,7 @@ export default function Main({ username }) {
                       )
                     }
                   </div>
-                  <div className={`${styles.profileScrollbar} pt-6 overflow-y-auto h-full`}>
+                  <div className={`${styles.profileScrollbar} py-6 overflow-y-auto h-full`}>
                     {
                       dataProfile !== null ? (
                         <>
