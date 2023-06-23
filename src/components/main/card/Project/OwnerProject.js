@@ -85,7 +85,7 @@ export default function OwnerProject({ id, owner, title ,isMyProject, contributo
             {
             toogle && (
                 <>
-                <div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/50 border-solid border-slate-700 border-r-[1px]">
+                <div className="absolute top-0 left-0 z-20 w-full h-screen flex justify-center items-center bg-slate-950/90 border-solid border-slate-700 border-r-[1px]">
                   <div className="flex flex-col p-6 gap-4 bg-slate-900  rounded-xl border-slate-700 border-[1px]">
                     <div className="flex justify-between items-start pb-3 border-b-slate-700 border-b-2">
                         <div className={`${font.Satoshi_b2bold} text-white cursor-pointer`}>Project Contributors</div>
