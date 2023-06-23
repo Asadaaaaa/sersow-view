@@ -25,7 +25,7 @@ export default function Projects({ userId }) {
   return (
     <div className="flex flex-col justify-center px-12 gap-12 text-white">
       <div className="flex flex-col w-full h-full gap-6 ">
-        {dataProject ? (
+        {dataProject.length !== 0 ? (
           <div className="flex flex-wrap gap-6 items-start">
             {dataProject.map((item, index) => {
               return (
@@ -34,7 +34,7 @@ export default function Projects({ userId }) {
             })}
           </div>
         ) : (
-          <div className="pt-12 flex justify-center">
+          <div className="flex justify-center">
             <Loading />
           </div>
         )}
