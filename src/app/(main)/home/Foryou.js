@@ -50,6 +50,8 @@ export default function Foryou() {
             return;
           } 
           setdataProject([...dataProject, ...res.data]);
+        } else if (res.status === "unauth") {
+          location.reload();
         }
       }
     }

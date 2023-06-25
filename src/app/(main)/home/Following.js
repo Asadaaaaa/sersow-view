@@ -45,11 +45,13 @@ export default function Following() {
 
       if (res) {
         if (res.status === "200") {
-          if(res.data.length === 0) {
+          if (res.data.length === 0) {
             setIsLoadMore(false);
             return;
           }
           setdataProject([...dataProject,...res.data]);
+        } else if (res.status === "unauth") {
+          location.reload();
         }
       }
     }
