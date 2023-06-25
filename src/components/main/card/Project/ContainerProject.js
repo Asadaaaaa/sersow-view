@@ -20,7 +20,7 @@ export default function ContainerProject({ index, data, refs=null }){
 				logo={data.logo}
 				title={data.title}
 			/>
-			<CategoryProject categories={data["categories"]} />                  
+			<CategoryProject categories={data.categories} />                  
 			<DescriptionProject description={data.description} />
 			<ThumbnailProject thumbnail={data.thumbnail} />
 			<InteractionProjcet 
