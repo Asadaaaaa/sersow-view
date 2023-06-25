@@ -17,8 +17,8 @@ export default async function MainLayout(props) {
   const [isLogin, setIsLogin] = useState(null);
   
   useEffect(() => {
-    async function getNewToken(auth, refreshToken) {
-      const res = await RefreshToken(auth, refreshToken);
+    async function getNewToken(auth, refreshAuth) {
+      const res = await RefreshToken(auth, refreshAuth);
     
       if (res.status === "200") {
         setCookie("auth", res.data.token);
