@@ -10,7 +10,7 @@ export default function ForgotPassword() {
   return (
     <main>
 			<Header register={true} login={false} />
-      <div className="bg-slate-950 relative overflow-hidden py-28 min-h-[calc(100vh-145.39px)]">
+      <div className="bg-slate-950 relative overflow-hidden py-20 md:py-28 min-h-[620px] md:min-h-[calc(100vh-145.39px)]">
         <BgGradient />
         <div className="flex flex-col gap-16 items-center relative z-[2]">
 					<Form />

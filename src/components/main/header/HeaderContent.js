@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
+import ProjectTitle from '../project/ProjectTitle';
 import Searchbar from '@/components/main/header/Searchbar';
 import BackButton from '@/components/main/profile/BackButton';
 import HomeToggleFilter from '@/components/main/home/ToggleFilter';
@@ -14,14 +15,14 @@ export default function HeaderContent({ isLogin }) {
   const page = rootPageName.charAt(0).toUpperCase() + rootPageName.slice(1);
 
   return (
-    <div className="flex gap-12 items-center">
+    <div className="flex gap-6 md:gap-12 items-center">
       {
         (page === "Home" && isLogin) && (
           <HomeToggleFilter />
         )
       }
       {
-        (page === "Profile") && (
+        (page === "Profile" || page === "Project") && (
           <BackButton />
         )
       }
@@ -31,14 +32,17 @@ export default function HeaderContent({ isLogin }) {
         )
       }
       {
-        (page !== "Settings") && (
-          <Searchbar />
+        (page === "Discover") && (
+          <>
+            <Searchbar />
+            <DiscoverToggleFilter />
+          </>
         )
       }
       {
-        page === "Discover" && (
-          <DiscoverToggleFilter />
-        )
+        (page === "Project") && (
+          <ProjectTitle />
+        )  
       }
     </div>
   );

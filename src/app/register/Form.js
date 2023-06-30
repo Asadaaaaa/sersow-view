@@ -48,8 +48,8 @@ export default function Form () {
 	};
 
 	return (
-		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
-			<div className="flex flex-col gap-4 items-center">
+		<form className="bg-[rgba(2,6,23,0.5)] px-6 sm:px-16 md:px-28 py-6 sm:py-8 md:py-12 border-solid border-2 border-slate-700 rounded-[40px] sm:rounded-[50px] backdrop-blur-[2px]">
+			<div className="flex flex-col gap-5 md:gap-4 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Create new account</h1>
 				<Input 
 					type={"text"} 
@@ -140,7 +140,7 @@ export default function Form () {
 						</div>
 					</div>
 				</div>
-				<div className="w-full flex justify-between">
+				<div className="w-full px-3 md:px-0 flex justify-between">
 					<h6 className={`${font.Satoshi_b2regular} text-white`}>Gender</h6>
 					<div className="flex gap-4">
 						<div className="flex gap-2 items-center">
@@ -174,11 +174,11 @@ export default function Form () {
 					</div>
 				</div>
 				{warningText && (
-					<div className="w-full max-w-[350px]">
+					<div className="w-auto max-w-[250px] md:max-w-[350px]">
 						<p className={`${font.Satoshi_b2regular} text-red-500`}>{warningText}</p>
 					</div>
 				)}
-				<div className="w-full flex gap-2 items-center">
+				<div className="w-full px-3 md:px-0 flex gap-2 items-center">
 					<input 
 						type="checkbox" 
 						id="tac" 

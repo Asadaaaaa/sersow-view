@@ -1,7 +1,7 @@
 "use client";
 
 import { toast } from 'react-toastify';
-import { getCookie, deleteCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { useState, useContext, useEffect } from 'react';
 import { FaExclamationTriangle, FaInfoCircle } from 'react-icons/fa';
 
@@ -101,9 +101,6 @@ export default function Account() {
           location.reload();
         }, 500);
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "notchange") {
         toast.warning("New username must be different from old username", {
@@ -187,9 +184,6 @@ export default function Account() {
         setEmailPopup(false);
         setEmailVerifPopup(true);
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "verified") {
         toast.error("Email Already Verified", {
@@ -289,9 +283,6 @@ export default function Account() {
           location.reload();
         }, 500);
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "wrong") {
         setDataError({ ...dataError, emailVerif: true});
@@ -361,9 +352,6 @@ export default function Account() {
           theme: "colored",
         });
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "verified") {
         toast.error("Email Already Verified", {
@@ -535,7 +523,7 @@ export default function Account() {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="w-[456px] h-full pt-24">
+      <div className="w-[350px] md:w-[456px] h-full pt-24">
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Username"} />
@@ -616,7 +604,7 @@ export default function Account() {
               />
             </div>
             {passwordWarningText && (
-                <div className="w-full max-w-[408px]">
+                <div className="w-full max-w-[302px] md:max-w-[408px]">
                   <p className={`${font.Satoshi_b2regular} text-red-500`}>{passwordWarningText}</p>
                 </div>
               )}

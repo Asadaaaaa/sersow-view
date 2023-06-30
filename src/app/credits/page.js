@@ -3,14 +3,14 @@ import Image from 'next/image';
 import font from '../font.module.css';
 import Header from '@/components/static/Header';
 import Footer from '@/components/static/Footer';
-import Fza from '../../../public/images/Credit/fza.svg';
-import Afwa from '../../../public/images/Credit/fwa.svg';
-import Azka from '../../../public/images/Credit/zka.svg';
-import Adit from '../../../public/images/Credit/dit.svg';
-import Lele from '../../../public/images/Credit/lee.svg';
-import Mikey from '../../../public/images/Credit/mik.svg';
-import Rafi from '../../../public/images/Credit/jefri.svg';
-import Talim from '../../../public/images/Credit/tlim.svg';
+import Fza from '../../../public/images/Credit/fza.jpeg';
+import Afwa from '../../../public/images/Credit/fwa.jpeg';
+import Azka from '../../../public/images/Credit/zka.jpeg';
+import Adit from '../../../public/images/Credit/dit.jpeg';
+import Lele from '../../../public/images/Credit/lee.jpeg';
+import Mikey from '../../../public/images/Credit/mik.jpeg';
+import Rafi from '../../../public/images/Credit/jefri.jpeg';
+import Talim from '../../../public/images/Credit/tlim.jpeg';
 import BgGradient from '../../../public/images/Credit/CreditGradient1.svg';
 
 export default function Credits() {
@@ -20,21 +20,21 @@ export default function Credits() {
       {
         image: Azka,
         color: "rgb(46, 16, 101)",
-        url: "./#",
+        url: "https://stg.sersow.otech.id/profile/zka",
         jobdesk: "Tech Manager",
         nama: "Azka Ahmad"
       },
       {
         image: Mikey,
         color: "rgb(69, 10, 10)",
-        url: "./#",
+        url: "https://stg.sersow.otech.id/profile/asada",
         jobdesk: "Tech Lead",
         nama: "Mikail Asada"
       },
       {
         image: Adit,
         color: "rgb(80, 7, 36)",
-        url: "./#",
+        url: "https://stg.sersow.otech.id/profile/dit_aspd",
         jobdesk: "Tech Design",
         nama: "Aditya Syawal"
       }
@@ -80,14 +80,14 @@ export default function Credits() {
 
   return (
     <main>
-      <Header />
-      <div className="flex flex-col content-center text-white bg-slate-950 w-full pt-6 pb-12 min-h-[calc(100vh-160.3px)]">
+      <div className="flex flex-col overflow-x-hidden items-center content-center text-white bg-slate-950 w-full pb-24 min-h-[calc(100vh-160.3px)]">
+        <Header />
         <div>
-          <Image src={BgGradient} className="absolute float-right right-0 mix-blend-hard-light w-3/6 -mt-8 select-none" draggable="false" />
+          <Image src={BgGradient} className="absolute float-right right-0 mix-blend-hard-light w-[900px] top-0 select-none" draggable="false" />
         </div>
-        <p className={`${font.Clash_display_h1bold} mx-auto mt-20 mb-16 pb-4 select-none`} draggable="false">Introducing our savvy mastermind</p>
+        <p className={`${font.Clash_display_h1bold} flex mx-auto mt-20 mb-16 pb-4 text-center select-none`} draggable="false">Introducing our savvy mastermind</p>
         {dataDev.map((row, index) => (
-          <div key={"row" + index} className="mx-auto flex gap-6 mb-12 select-none" draggable="false">
+          <div key={"row" + index} className="mx-auto flex flex-col sm:flex-row flex-wrap justify-center px-2 gap-6 mb-12 select-none" draggable="false">
           {row.map((items, index) => (
             <div key={"card" + index} className="group">
               <div className="relative w-48 rounded-[0.65rem] overflow-hidden text-white">
@@ -104,7 +104,6 @@ export default function Credits() {
           ))}
           </div>
         ))}
-        <br />    
       </div>
       <Footer />
     </main>

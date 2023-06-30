@@ -39,7 +39,7 @@ export default function Faqs() {
   ]
 
   return (
-    <div className="p-24" id="faqs">
+    <div className="md:px-24 sm:px-6 ss:px-4 md:py-24 sm:py-12 ss:py-8" id="faqs">
       <h4 className={`${font.Clash_display_d4bold} text-white text-center mb-12`}>FAQS</h4>
       <div>
         {content.map((item, index) => (

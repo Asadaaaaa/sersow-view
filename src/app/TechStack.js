@@ -13,10 +13,10 @@ export default function TechStack({ styles }) {
   return (
     <div className="bg-[radial-gradient(100%_100%_at_50%_0%,#083344_0%,#020617_100%)] border-solid border-t-[1px] border-t-cyan-400 py-12 relative">
       <div className="absolute w-full flex justify-between top-0">
-        <div className="w-60 h-[410px] bg-gradient-to-r from-slate-950 to-slate-950/0 -translate-y-[1px]"></div>
-        <div className="w-60 h-[410px] bg-gradient-to-l from-slate-950 to-slate-950/0 -translate-y-[1px]"></div>
+        <div className="w-60 h-[410px] bg-gradient-to-r from-slate-950 to-slate-950/0 -translate-y-[1px] ss:from-slate-950/30"></div>
+        <div className="w-60 h-[410px] bg-gradient-to-l from-slate-950 to-slate-950/0 -translate-y-[1px] ss:from-slate-950/30"></div>
       </div>
-      <div className="flex flex-col items-center xl:gap-12 lg:gap-10 md:gap-8 sm:gap-8 ss:gap-2">
+      <div className="flex flex-col items-center xl:gap-12 lg:gap-10 md:gap-8 sm:gap-8 ss:gap-6">
         <div>
           <h4 className={`${font.Clash_display_d4medium} text-white text-center`}>One Platform</h4>
           <h4 className={`${font.Clash_display_h4medium} text-slate-400 text-center mt-1`}>Run with a tech stack</h4>

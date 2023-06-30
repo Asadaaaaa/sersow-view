@@ -32,14 +32,14 @@ export default function NotFound() {
     <main>
       <Header />
       <div>
-        <div className="bg-slate-950 flex -mb-[122.91px] min-h-[calc(100vh-220.3px)]">
+        <div className=" w-full bg-cover overflow-x-hidden bg-slate-950 flex  -mb-[130.91px] min-h-[860px] md:min-h-[960px] lg:min-h-[calc(100vh-220.3px)]">
           <div className="relative w-full mb-4">
-            <Image src={RGradient} className="mix-blend-plus-lighter float-right z-[0]" />
-            <Image src={LGradient} className="mix-blend-hard-light mt-24 z-[1]" />
+            <Image src={RGradient} className="mix-blend-plus-lighter float-right z-[-2] w-56 md:w-[28rem] lg:w-auto" />
+            <Image src={LGradient} className="mix-blend-hard-light float-left ss:mt-64 md:mt-72 lg:mt-24 z-[-1] w-56 md:w-[28rem] lg:w-auto" />
           </div>
           <div className="absolute w-full py-24 mt-2">
-            <div className="flex flex-col gap-y-16 -gap-x-8  items-center z-[2]">
-              <h1 className={`${font.Clash_display_d1bold} text-white flex items-center text-center pl-20`}><span className='text-cyan-500 absolute -translate-x-24'>4</span> <Image src={IconNol}/> <span className=' absolute translate-x-40'>4</span></h1>
+            <div className="flex flex-col gap-y-16 -gap-x-8 text-center justify-center items-center z-[3]">
+              <h1 className={`${font.Clash_display_d1bold} text-white flex items-center text-center`}><span className='text-cyan-500 absolute -translate-x-16 md:-translate-x-16'>4</span> <Image src={IconNol} className="w-44 md:w-full translate-x-4 md:translate-x-4"/> <span className=' absolute translate-x-32 md:translate-x-44'>4</span></h1>
               <div className="flex flex-col gap-4 item-center relative z-[3]">
                 <h2 className={`${font.Clash_display_h1medium} text-center text-white`}>{title}</h2>
                 <p className={`${font.Clash_display_h5medium} text-center text-gray-500`}>{description}</p>

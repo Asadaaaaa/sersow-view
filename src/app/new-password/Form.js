@@ -35,10 +35,10 @@ export default function Form () {
 	const passwordPattern = /^\S+$/;
 
 	return (
-		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-2 sm:px-12 md:px-28 py-12 sm:py-8 md:py-12 border-solid border-2 border-slate-700 rounded-[40px] sm:rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-12 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Set a new password</h1>
-        <div className="flex flex-col gap-4 items-center w-[350px]">
+        <div className="flex flex-col gap-4 items-center w-[270px] md:w-[350px]">
           <h6 className={`${font.Satoshi_b2regular} text-white text-center`}>Your new password must be different from previous used pasword</h6>
           <div className="relative">
             <Input 
@@ -110,7 +110,7 @@ export default function Form () {
           <button 
             type="submit"
             disabled={loading}
-            className={`${font.Satoshi_b3bold} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+            className={`${font.Satoshi_b3bold} w-auto px-28 md:px-[150px] py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
             onClick={async(e) => {
               e.preventDefault();
 

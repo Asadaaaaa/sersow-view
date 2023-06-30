@@ -26,10 +26,10 @@ export default function Form () {
   const emailPattern = /^[A-Za-z0-9._%+-]+@(upi\.edu|gmail\.com)$/
 
 	return (
-		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
-			<div className="flex flex-col gap-12 items-center">
-				<h1 className={`${font.Satoshi_h3bold} text-white`}>Forgot your password ?</h1>
-        <div className="flex flex-col gap-4 items-center w-[350px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-2 sm:px-12 md:px-28 py-12 sm:py-8 md:py-12 border-solid border-2 border-slate-700 rounded-[40px] sm:rounded-[50px] backdrop-blur-[2px]">
+			<div className="flex flex-col flex-wrap gap-4 md:gap-12 text-center items-center">
+				<h1 className={`${font.Satoshi_h3bold} text-white`}>Forgot password?</h1>
+        <div className="flex flex-col gap-4 items-center w-[270px] md:w-[350px]">
           <h6 className={`${font.Satoshi_b2regular} text-white text-center`}>Enter your email and we'll send you a link to get back into your account</h6>
           <Input 
             type={"text"} 
@@ -45,12 +45,12 @@ export default function Form () {
             }}
           />
           {warningText && (
-            <div className="w-full max-w-[350px] pt-2">
+            <div className="w-full max-w-[270px] md:max-w-[350px] pt-2">
               <p className={`${font.Satoshi_b2regular} text-red-500`}>{warningText}</p>
             </div>
           )}
           {success && (
-            <div className="w-full max-w-[350px] pt-2">
+            <div className="w-full max-w-[270px] md:max-w-[350px] pt-2">
               <p className={`${font.Satoshi_b2regular} text-emerald-500`}>Link sent, if your email matches an existing account we will send a password reset email within a few minutes. If you have not received an email check your spam folder or resend</p>
             </div>
           )}
@@ -60,7 +60,7 @@ export default function Form () {
             <button 
               type="submit"
               disabled={loading}
-              className={`${font.Satoshi_b2medium} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+              className={`${font.Satoshi_b2medium} w-auto px-28 md:px-[150px] py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
               onClick={async(e) => {
                 e.preventDefault();
 

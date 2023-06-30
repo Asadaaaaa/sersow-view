@@ -5,7 +5,7 @@ import font from './font.module.css';
 export default function Credits() {
   return (
     <div className="w-full bg-slate-950">
-      <div id="credits" className="py-24 flex flex-col w-full items-center text-center gap-12">
+      <div id="credits" className="py-24 flex flex-col w-full items-center text-center gap-12 ss:py-12">
         <h4 className={`${font.Clash_display_d4bold} text-white`}>Meet the masterminds</h4>
         <div className="px-2 py-1">
           <Link href="/credits">

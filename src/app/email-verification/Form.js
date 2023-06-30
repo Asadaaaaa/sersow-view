@@ -51,7 +51,7 @@ export default function Form () {
 	}, [timer]);
 
 	return (
-		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-24 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-2 sm:px-12 md:px-28 py-24 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-4 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Email Verification</h1>
 				<h6 className={`${font.Satoshi_b2regular} text-white`}>Open your email and find the verification code</h6>

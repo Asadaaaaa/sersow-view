@@ -26,7 +26,7 @@ export default function NewPassword() {
   return loadingScreen ? (<LoadingScreen />) : (
     <main>
 			<Header register={true} login={true} />
-      <div className="bg-slate-950 relative overflow-hidden py-16 xl:py-28 min-h-[calc(100vh-145.39px)]">
+      <div className="bg-slate-950 relative overflow-hidden py-16 md:py-28 min-h-[620px] md:min-h-[calc(100vh-145.39px)]">
         <BgGradient />
         <div className="flex flex-col gap-16 items-center relative z-[2]">
 					<Form />

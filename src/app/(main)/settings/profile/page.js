@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import { useContext, useRef, useState } from 'react';
-import { getCookie, deleteCookie } from 'cookies-next';
+import { getCookie } from 'cookies-next';
 import { FaCloudUploadAlt, FaSyncAlt, FaTrashAlt } from 'react-icons/fa';
 
 import font from '@/app/font.module.css';
@@ -22,7 +22,7 @@ export default function Profile() {
 
   const { dataProfile } = useContext(DataProfile);
   
-  const [image, setImage] = useState(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image);
+  const [image, setImage] = useState(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProfile.image + "?key=" + Date.now());
   const uploadAvatarRef = useRef(null);
 
   const [data, setData] = useState({
@@ -91,9 +91,6 @@ export default function Profile() {
           theme: "colored",
         });
       } else if (res.status === "unauth") {
-        deleteCookie("auth");
-        deleteCookie("refreshAuth");
-  
         location.reload();
       } else if (res.status === "type") {
         toast.error("Avatar type not supported", {
@@ -155,11 +152,10 @@ export default function Profile() {
 
   return (
     <div className="flex justify-center h-full">
-      <div className="w-[456px] h-full pt-24">
+      <div className="w-[350px] md:w-[456px] h-full pt-24">
         <div className="flex flex-col gap-6 py-12">
           <CardContainer>
             <CardTitle title={"Avatar"} subtitle={"Unleash your good looking avatar or just use our amazing default avatar."} />
-            <CardSubtitle text={<span>Just <s>drag and drop</s> your avatar or manually choose it</span>} />
             <div className="flex gap-4 items-center">
               {
                 image ? (
@@ -168,7 +164,7 @@ export default function Profile() {
                     src={image} 
                     width={96} 
                     height={96} 
-                    className="w-24 h-24 border-solid border-slate-700 border-[1px] rounded-full object-cover"
+                    className="w-16 h-16 md:w-24 md:h-24 border-solid border-slate-700 border-[1px] rounded-full object-cover"
                   />
                 ) : (
                   <div className="w-24 h-24 border-solid border-slate-700 border-[1px] rounded-full"></div>
@@ -203,7 +199,7 @@ export default function Profile() {
                           toast.error("Error: File is too big!", {
                             position: "top-center",
                             autoClose: 2500,
-                            hideProgressBar: false,
+                            hideProgressBar: true,
                             closeOnClick: true,
                             pauseOnHover: true,
                             draggable: true,
@@ -277,7 +273,7 @@ export default function Profile() {
                 <CardSubtitle text={"(max. 160 characters)"} />
               </div>
               <Textarea
-                type={"text"} 
+                minRows={1}
                 placeholder={"e.g., A master of the digital realm"} 
                 maxLength={160}
                 value={data.bio} 
@@ -290,7 +286,7 @@ export default function Profile() {
               />
             </div>
             {warningText && (
-              <div className="w-full max-w-[408px]">
+              <div className="w-full max-w-[302px] md:max-w-[408px]">
                 <p className={`${font.Satoshi_b2regular} text-red-500`}>{warningText}</p>
               </div>
             )}

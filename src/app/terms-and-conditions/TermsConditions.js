@@ -3,10 +3,10 @@ import font from "../font.module.css";
 export default function TermsConditions() {
   return (
     <div className="flex justify-center text-white">
-      <div className="mx-60 my-10 border-2 border-slate-700 rounded-xl ">
-        <div className="px-24 ">
+      <div className="mx-5 sm:mx-12 md:mx-16 lg:mx-36 xl:mx-60 my-6 md:my-10 border-2 border-slate-700 rounded-xl ">
+        <div className="px-6 md:px-16 lg:px-24 ">
           <p
-            className={`${font.Clash_display_h5medium} mt-12 pb-4 border-b-2 border-slate-700`}
+            className={`${font.Clash_display_h5medium} mt-6 md:mt-8 lg:mt-12 pb-4 border-b-2 border-slate-700`}
           >
             Terms and Conditions
           </p>
