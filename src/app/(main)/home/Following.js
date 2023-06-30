@@ -1,9 +1,12 @@
-import { getCookie } from "cookies-next";
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Loading } from "@nextui-org/react";
+import { getCookie } from 'cookies-next';
+import { Loading } from '@nextui-org/react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
-import getFollowing from "@/api/project/following";
-import ContainerProject from "@/components/main/card/Project/ContainerProject";
+import ContainerProject from '@/components/main/card/Project/ContainerProject';
+
+import { getNewToken } from '@/handlers/refreshAuth';
+
+import getFollowing from '@/api/project/following';
 
 export default function Following() {
   const [dataProject, setdataProject] = useState([]);
@@ -12,32 +15,36 @@ export default function Following() {
   const [isLoadMore, setIsLoadMore] = useState(true);
   const [offSet, setOffSet] = useState(1);
 
+  const observer = useRef();
 
-  const observer = useRef()
   const lastProjectRef = useCallback(node => {
-    if (isLoadMore === false) return
-    if (observer.current) observer.current.disconnect()
+    if (isLoadMore === false) return;
+    if (observer.current) observer.current.disconnect();
+
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting ) {
         setOffSet(offSet => offSet + 1)
       }
-    })
-    if (node) observer.current.observe(node)
-  }, [isLoadMore])
+    });
+
+    if (node) observer.current.observe(node);
+  }, [isLoadMore]);
 
   useEffect(() => {
     const ProjectOdd = [];
     const ProjectEven = [];
+
     dataProject.map((item, index) => {
       index % 2 !== 0 ? (
         ProjectOdd.push(item)
       ) : (
         ProjectEven.push(item)
       )
-    })
-    setdataProjectOdd([...ProjectOdd])
-    setdataProjectEven([...ProjectEven])
-  }, [dataProject])
+    });
+
+    setdataProjectOdd([...ProjectOdd]);
+    setdataProjectEven([...ProjectEven]);
+  }, [dataProject]);
 
   useEffect(() => {
     async function fetchData() {
@@ -52,6 +59,8 @@ export default function Following() {
           setdataProject([...dataProject,...res.data]);
         } else if (res.status === "unauth") {
           location.reload();
+        } else if (res.status === "expired") {
+          getNewToken(fetchData);
         }
       }
     }
@@ -64,16 +73,20 @@ export default function Following() {
         {
           dataProject.length === 0 ? (<div className="flex pt-7 justify-center"><Loading /></div>) : (
             <>
-          <div className="flex flex-col gap-6 items-start">
-              {dataProjectEven.map((item, index) => (
-              <ContainerProject index={index} data={item} refs={dataProject.length % 2 === 0 && dataProjectEven.length === index + 1 ? lastProjectRef : {}}/>
-              ))}
-            </div>
-            <div className="flex flex-col gap-6 items-start">
-              {dataProjectOdd.map((item, index) => (
-                <ContainerProject index={index} data={item} refs={dataProject.length % 2 !== 0 && dataProjectEven.length === index + 1 ? lastProjectRef : {}}/>
-              ))}
-            </div>
+              <div className="flex flex-col gap-6 items-start">
+                {
+                  dataProjectEven.map((item, index) => (
+                    <ContainerProject index={index} data={item} refs={dataProject.length % 2 === 0 && dataProjectEven.length === index + 1 ? lastProjectRef : {}}/>
+                  ))
+                }
+              </div>
+              <div className="flex flex-col gap-6 items-start">
+                {
+                  dataProjectOdd.map((item, index) => (
+                    <ContainerProject index={index} data={item} refs={dataProject.length % 2 !== 0 && dataProjectEven.length === index + 1 ? lastProjectRef : {}}/>
+                  ))
+                }
+              </div>
             </>
             )
           }

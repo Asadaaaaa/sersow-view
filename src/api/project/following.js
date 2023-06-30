@@ -20,7 +20,11 @@ export default async function getFollowing( auth = null, offset) {
       } else {
         if (res.err) {
           if (res.err.type === "token") {
-            return { status: "unauth" };
+            if (res.err.data.code === -3 ) {
+              return { status: "expired" };
+            } else {
+              return { status: "unauth" };
+            }
           } else if (res.err.type === "service") {
             return { status: "notfound" };
           }
