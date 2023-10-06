@@ -6,8 +6,8 @@
     "dev": "next dev",
     "turbo": "next dev --turbo",
     "build": "next build",
-    "start": "next start -p 3100",
-    "stage": "next start -p 3101",
+    "start": "next start -p 6100",
+    "stage": "next start -p 6101",
     "lint": "next lint"
   },
   "dependencies": {
