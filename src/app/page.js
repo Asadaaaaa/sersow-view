@@ -1,16 +1,29 @@
-import Image from 'next/image'
-import { Lexend_Deca } from 'next/font/google'
-import styles from './page.module.css'
+import Faqs from "./Faqs";
+import Join from "./Join";
+import Main from "./Main";
+import Quote from "./Quote";
+import Header from "./Header";
+import Credits from "./Credits";
+import Featured from "./Featured";
+import Discover from "./Discover";
+import TechStack from "./TechStack";
+import Footer from "@/components/static/Footer";
 
-const lexen = Lexend_Deca({ subsets: ['latin'] })
+import styles from "./root.module.css";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <h1>Sersow</h1>
-        <p className={lexen.className}>Sersow is a project showcase app for uploading and showcasing their project work, interact with others, seek ideas and find collaborators or teams.</p>
-      </div>
+    <main className="overflow-x-hidden bg-slate-950">
+      <Header />
+      <Main />
+      <Featured styles={styles} />
+      <Discover />
+      <Join />
+      <Quote />
+      <TechStack styles={styles} />
+      <Credits />
+      <Faqs />
+      <Footer transparent={false} />
     </main>
-  )
+  );
 }

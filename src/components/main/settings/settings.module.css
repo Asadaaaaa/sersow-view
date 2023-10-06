@@ -1,0 +1,13 @@
+.settingsContent::-webkit-scrollbar {
+  width: 5px;
+  background-color: transparent;
+}
+
+.settingsContent::-webkit-scrollbar-track {
+  margin-top: 96px;
+}
+
+.settingsContent::-webkit-scrollbar-thumb {
+  background-color: #64748b;
+  border-radius: 4px;
+}

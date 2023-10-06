@@ -16,9 +16,9 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            cd sersow/staging/sersow-view
-            git fetch
+            cd app/sersow/web/staging
+            git reset --hard HEAD
             git pull origin staging
             npm i
             npm run build
-            pm2 restart stg-sersow-view
+            pm2 restart sersow-web-staging

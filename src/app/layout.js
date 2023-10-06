@@ -1,4 +1,5 @@
-import './globals.css'
+import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: 'Sersow',
@@ -8,7 +9,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html>
-      <body>{children}<p>test</p></body>
+      <body className='overflow-x-hidden'>{children}</body>
     </html>
   )
 }

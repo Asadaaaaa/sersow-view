@@ -1,0 +1,36 @@
+.featuredGallery::-webkit-scrollbar {
+  display: none;
+}
+
+.techstackGallery::-webkit-scrollbar {
+  display: none;
+}
+
+.techstack {
+  animation: runningtext linear 10s infinite;
+}
+
+@keyframes runningtext {
+  0% {
+      left: 0;
+  }
+  100% {
+      left: -2045px;
+  }
+}
+
+.skeletonLoader {
+  animation: skeleton linear 4s infinite;
+}
+
+@keyframes skeleton {
+  from {
+    background-color: rgb(226 232 240);
+  }
+  50% {
+    background-color: rgb(100 116 139);
+  }
+  to {
+    background-color: rgb(226 232 240);
+  }
+}
