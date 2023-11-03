@@ -39,8 +39,8 @@ export default function Faqs() {
   ]
 
   return (
-    <div className="p-24" id="faqs">
-      <h4 className={`${font.Clash_display_d4bold} text-white text-center mb-12`}>FAQS</h4>
+    <div className="md:p-24 px-4 pb-16" id="faqs">
+      <h4 className={`${font.Clash_display_d4bold} text-white text-center md:mb-12 mb-6`}>FAQS</h4>
       <div>
         {content.map((item, index) => (
           <div key={index}>
@@ -51,9 +51,14 @@ export default function Faqs() {
               </div>
             </div>
             {activeIndices.includes(index) && (
-              <div className={`${font.Satoshi_b1regular} text-slate-400 px-8 pb-8 select-none`}>
-                {item.desc}
-              </div>
+              <>
+                <div className={`${font.Satoshi_b1regular} text-slate-400 px-8 pb-8 select-none hidden md:block`}>
+                  {item.desc}
+                </div>
+                <div className={`${font.Satoshi_b4regular} text-slate-400 px-8 pb-8 select-none block md:hidden`}>
+                  {item.desc}
+                </div>
+              </>
             )}
             <hr />
           </div>
