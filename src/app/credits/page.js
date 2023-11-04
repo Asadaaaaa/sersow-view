@@ -85,9 +85,10 @@ export default function Credits() {
         <div>
           <Image src={BgGradient} className="absolute float-right right-0 mix-blend-hard-light w-3/6 -mt-8 select-none" draggable="false" />
         </div>
-        <p className={`${font.Clash_display_h1bold} mx-auto mt-20 mb-16 pb-4 select-none`} draggable="false">Introducing our savvy mastermind</p>
+        <p className={`${font.Clash_display_h1bold} hidden md:block mx-auto mt-20 mb-16 pb-4 select-none`} draggable="false">Introducing our savvy mastermind</p>
+        <p className={`${font.Clash_display_h2bold} block md:hidden mx-auto mt-20 mb-16 pb-4 select-none text-center`} draggable="false">Introducing our savvy mastermind</p>
         {dataDev.map((row, index) => (
-          <div key={"row" + index} className="mx-auto flex gap-6 mb-12 select-none" draggable="false">
+          <div key={"row" + index} className="mx-auto flex flex-col md:flex-row gap-6 mb-12 select-none" draggable="false">
           {row.map((items, index) => (
             <div key={"card" + index} className="group">
               <div className="relative w-48 rounded-[0.65rem] overflow-hidden text-white">
