@@ -26,9 +26,10 @@ export default function Form () {
   const emailPattern = /^[A-Za-z0-9._%+-]+@(upi\.edu|gmail\.com)$/
 
 	return (
-		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-6 sm:px-16 md:px-28 py-8 md:py-12 border-solid border-2 border-slate-700 rounded-[20px] sm:rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-12 items-center">
-				<h1 className={`${font.Satoshi_h3bold} text-white`}>Forgot your password ?</h1>
+				<h1 className={`${font.Satoshi_h3bold} text-white hidden md:block`}>Forgot your password ?</h1>
+				<h1 className={`${font.Satoshi_h4bold} text-white block md:hidden`}>Forgot your password ?</h1>
         <div className="flex flex-col gap-4 items-center w-[350px]">
           <h6 className={`${font.Satoshi_b2regular} text-white text-center`}>Enter your email and we'll send you a link to get back into your account</h6>
           <Input 
@@ -60,7 +61,67 @@ export default function Form () {
             <button 
               type="submit"
               disabled={loading}
-              className={`${font.Satoshi_b2medium} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+              className={`${font.Satoshi_b2medium} hidden md:block w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+              onClick={async(e) => {
+                e.preventDefault();
+
+                setLoading(true);
+                
+                if (email === "") {
+                  setEmailError(true);
+                  setWarningText("Please enter your email");
+  
+                  setLoading(false);
+  
+                  return;
+                }
+
+                if (!emailPattern.test(email)) {
+									setEmailError(true);
+									setWarningText("Please enter a valid email");
+
+									setLoading(false);
+
+									return;
+								}
+
+                const res = await reqForgotPassword(email);
+
+                if (res.status === "200") {
+                  toast.success("Email sent", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+
+                  setSuccess(true);
+                } else if (res.status === "validator") {
+                  toast.error("Something Wrong With Your Input", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                  });
+                }
+
+                setLoading(false);
+              }}
+            >
+              {loading ? <Loading type="points-opacity" size="lg" color="white" /> : "Get Link"}
+            </button>
+            <button 
+              type="submit"
+              disabled={loading}
+              className={`${font.Satoshi_b1medium} block md:hidden w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
               onClick={async(e) => {
                 e.preventDefault();
 

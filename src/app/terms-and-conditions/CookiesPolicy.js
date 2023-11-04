@@ -3,11 +3,12 @@ import font from "../font.module.css";
 export default function CookiesPolicy() {
   return (
     <div className="flex justify-center text-white">
-      <div className="mx-60 mb-12 border-2 border-slate-700 rounded-xl ">
-        <div className="px-24 py-12 text-justify">
-          <p
-            className={`${font.Clash_display_h5medium} border-b-2 border-slate-700  pb-4`}
-          >
+      <div className="mx-4 md:mx-60 mb-12 border-2 border-slate-700 rounded-xl ">
+        <div className="px-4 md:px-24 py-6 md:py-12 text-justify">
+          <p className={`${font.Clash_display_h5medium} hidden md:block border-b-2 border-slate-700 pb-4`}>
+            Cookies policy
+          </p>
+          <p className={`${font.Clash_display_h6medium} block md:hidden border-b-2 border-slate-700 pb-4`}>
             Cookies policy
           </p>
           <div className={`${font.Satoshi_c1medium} text-slate-400`}>

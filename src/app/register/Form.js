@@ -48,8 +48,8 @@ export default function Form () {
 	};
 
 	return (
-		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
-			<div className="flex flex-col gap-4 items-center">
+		<form className="bg-[rgba(2,6,23,0.5)] px-6 sm:px-16 md:px-28 py-8 md:py-12 border-solid border-2 border-slate-700 rounded-[20px] sm:rounded-[50px] backdrop-blur-[2px]">
+			<div className="flex flex-col gap-5 md:gap-4 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Create new account</h1>
 				<Input 
 					type={"text"} 
@@ -140,7 +140,7 @@ export default function Form () {
 						</div>
 					</div>
 				</div>
-				<div className="w-full flex justify-between">
+				<div className="w-full px-3 md:px-0 flex justify-between">
 					<h6 className={`${font.Satoshi_b2regular} text-white`}>Gender</h6>
 					<div className="flex gap-4">
 						<div className="flex gap-2 items-center">
@@ -174,11 +174,11 @@ export default function Form () {
 					</div>
 				</div>
 				{warningText && (
-					<div className="w-full max-w-[350px]">
+					<div className="w-auto max-w-[250px] md:max-w-[350px]">
 						<p className={`${font.Satoshi_b2regular} text-red-500`}>{warningText}</p>
 					</div>
 				)}
-				<div className="w-full flex gap-2 items-center">
+				<div className="w-full px-3 md:px-0 flex gap-2 items-center">
 					<input 
 						type="checkbox" 
 						id="tac" 
@@ -193,134 +193,262 @@ export default function Form () {
 					<label htmlFor="tac" className={`${font.Satoshi_b2regular} text-white`}>I agree to the{" "}<Link target="_blank" href="/terms-and-conditions" className="text-cyan-500">terms and conditions</Link></label>
 				</div>
 				<div className="w-full px-2 py-1">
-						<button 
-							type="submit"
-							disabled={loading}
-							className={`${font.Satoshi_b2medium} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
-							onClick={async(e) => {
-								e.preventDefault();
+					<button 
+						type="submit"
+						disabled={loading}
+						className={`${font.Satoshi_b2medium} hidden md:block w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+						onClick={async(e) => {
+							e.preventDefault();
 
-								setLoading(true);
+							setLoading(true);
 
-								if (data.name === "") {
-									setDataError({ ...dataError, name: true});
-									setWarningText("Name can't be empty");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (!dataPattern.name.test(data.name)) {
-									setDataError({ ...dataError, name: true});
-									setWarningText("Input consists of alphabetic characters only, with words separated by a single space and no consecutive spaces.");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (data.emailUpi === "") {
-									setDataError({ ...dataError, emailUpi: true});
-									setWarningText("Email can't be empty");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (!dataPattern.emailUpi.test(data.emailUpi)) {
-									setDataError({ ...dataError, emailUpi: true});
-									setWarningText("Input should only contain alphanumeric characters, dots (.), underscores (_), percent (%), plus (+), or hyphens (-) without the domain (@upi.edu).");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (data.password === "") {
-									setDataError({ ...dataError, password: true});
-									setWarningText("Password can't be empty");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (data.password.length < 6) {
-									setDataError({ ...dataError, password: true});
-									setWarningText("Minimum length for password is 6 characters");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (!dataPattern.password.test(data.password)) {
-									setDataError({ ...dataError, password: true, confirmPassword: true});
-									setWarningText("Input should consist of a single sequence of non-whitespace characters.");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (data.password !== data.confirmPassword) {
-									setDataError({ ...dataError, password: true, confirmPassword: true});
-									setWarningText("Passwords can't be different");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (data.gender === "") {
-									setDataError({ ...dataError, gender: true});
-									setWarningText("Sersow is only for normal person, so choose a gender");
-
-									setLoading(false);
-
-									return;
-								}
-
-								if (!data.tac) {
-									setDataError({ ...dataError, tac: true});
-									setWarningText("I know you won't read the Terms and Conditions, just check it");
-
-									setLoading(false);
-
-									return;
-								}
-
-								const res = await register(data.name, data.emailUpi + "@upi.edu", data.gender, data.password);
-
-								if (res.status === "200") {
-									setCookie("regAuth", res.data.token, {
-										expires: new Date(new Date().getTime() + 10800000),
-									});
-
-									router.push("email-verification");
-								} else if (res.status === "validator") {
-									toast.error("Something Wrong With Your Input", {
-										position: "top-center",
-										autoClose: 3000,
-										hideProgressBar: true,
-										closeOnClick: true,
-										pauseOnHover: true,
-										draggable: true,
-										progress: undefined,
-										theme: "colored",
-									});								
-								} else if (res.status === "-1") {
-									setDataError({ ...dataError, emailUpi: true });
-									setWarningText("Email already registered");
-								}
+							if (data.name === "") {
+								setDataError({ ...dataError, name: true});
+								setWarningText("Name can't be empty");
 
 								setLoading(false);
-							}}
-						>
-							{loading ? <Loading type="points-opacity" size="lg" color="white" /> : "Register"}
-						</button>
+
+								return;
+							}
+
+							if (!dataPattern.name.test(data.name)) {
+								setDataError({ ...dataError, name: true});
+								setWarningText("Input consists of alphabetic characters only, with words separated by a single space and no consecutive spaces.");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.emailUpi === "") {
+								setDataError({ ...dataError, emailUpi: true});
+								setWarningText("Email can't be empty");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (!dataPattern.emailUpi.test(data.emailUpi)) {
+								setDataError({ ...dataError, emailUpi: true});
+								setWarningText("Input should only contain alphanumeric characters, dots (.), underscores (_), percent (%), plus (+), or hyphens (-) without the domain (@upi.edu).");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.password === "") {
+								setDataError({ ...dataError, password: true});
+								setWarningText("Password can't be empty");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.password.length < 6) {
+								setDataError({ ...dataError, password: true});
+								setWarningText("Minimum length for password is 6 characters");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (!dataPattern.password.test(data.password)) {
+								setDataError({ ...dataError, password: true, confirmPassword: true});
+								setWarningText("Input should consist of a single sequence of non-whitespace characters.");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.password !== data.confirmPassword) {
+								setDataError({ ...dataError, password: true, confirmPassword: true});
+								setWarningText("Passwords can't be different");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.gender === "") {
+								setDataError({ ...dataError, gender: true});
+								setWarningText("Sersow is only for normal person, so choose a gender");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (!data.tac) {
+								setDataError({ ...dataError, tac: true});
+								setWarningText("I know you won't read the Terms and Conditions, just check it");
+
+								setLoading(false);
+
+								return;
+							}
+
+							const res = await register(data.name, data.emailUpi + "@upi.edu", data.gender, data.password);
+
+							if (res.status === "200") {
+								setCookie("regAuth", res.data.token, {
+									expires: new Date(new Date().getTime() + 10800000),
+								});
+
+								router.push("email-verification");
+							} else if (res.status === "validator") {
+								toast.error("Something Wrong With Your Input", {
+									position: "top-center",
+									autoClose: 3000,
+									hideProgressBar: true,
+									closeOnClick: true,
+									pauseOnHover: true,
+									draggable: true,
+									progress: undefined,
+									theme: "colored",
+								});								
+							} else if (res.status === "-1") {
+								setDataError({ ...dataError, emailUpi: true });
+								setWarningText("Email already registered");
+							}
+
+							setLoading(false);
+						}}
+					>
+						{loading ? <Loading type="points-opacity" size="lg" color="white" /> : "Register"}
+					</button>
+					<button 
+						type="submit"
+						disabled={loading}
+						className={`${font.Satoshi_b1medium} block md:hidden w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+						onClick={async(e) => {
+							e.preventDefault();
+
+							setLoading(true);
+
+							if (data.name === "") {
+								setDataError({ ...dataError, name: true});
+								setWarningText("Name can't be empty");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (!dataPattern.name.test(data.name)) {
+								setDataError({ ...dataError, name: true});
+								setWarningText("Input consists of alphabetic characters only, with words separated by a single space and no consecutive spaces.");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.emailUpi === "") {
+								setDataError({ ...dataError, emailUpi: true});
+								setWarningText("Email can't be empty");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (!dataPattern.emailUpi.test(data.emailUpi)) {
+								setDataError({ ...dataError, emailUpi: true});
+								setWarningText("Input should only contain alphanumeric characters, dots (.), underscores (_), percent (%), plus (+), or hyphens (-) without the domain (@upi.edu).");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.password === "") {
+								setDataError({ ...dataError, password: true});
+								setWarningText("Password can't be empty");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.password.length < 6) {
+								setDataError({ ...dataError, password: true});
+								setWarningText("Minimum length for password is 6 characters");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (!dataPattern.password.test(data.password)) {
+								setDataError({ ...dataError, password: true, confirmPassword: true});
+								setWarningText("Input should consist of a single sequence of non-whitespace characters.");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.password !== data.confirmPassword) {
+								setDataError({ ...dataError, password: true, confirmPassword: true});
+								setWarningText("Passwords can't be different");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (data.gender === "") {
+								setDataError({ ...dataError, gender: true});
+								setWarningText("Sersow is only for normal person, so choose a gender");
+
+								setLoading(false);
+
+								return;
+							}
+
+							if (!data.tac) {
+								setDataError({ ...dataError, tac: true});
+								setWarningText("I know you won't read the Terms and Conditions, just check it");
+
+								setLoading(false);
+
+								return;
+							}
+
+							const res = await register(data.name, data.emailUpi + "@upi.edu", data.gender, data.password);
+
+							if (res.status === "200") {
+								setCookie("regAuth", res.data.token, {
+									expires: new Date(new Date().getTime() + 10800000),
+								});
+
+								router.push("email-verification");
+							} else if (res.status === "validator") {
+								toast.error("Something Wrong With Your Input", {
+									position: "top-center",
+									autoClose: 3000,
+									hideProgressBar: true,
+									closeOnClick: true,
+									pauseOnHover: true,
+									draggable: true,
+									progress: undefined,
+									theme: "colored",
+								});								
+							} else if (res.status === "-1") {
+								setDataError({ ...dataError, emailUpi: true });
+								setWarningText("Email already registered");
+							}
+
+							setLoading(false);
+						}}
+					>
+						{loading ? <Loading type="points-opacity" size="lg" color="white" /> : "Register"}
+					</button>
 				</div>
 				<div>
 					<h4 className={`${font.Satoshi_b2regular} text-white`}>Already have an account ?{" "}<Link href="/login" className="text-cyan-500">Login</Link></h4>
