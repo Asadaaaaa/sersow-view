@@ -3,14 +3,14 @@ import font from "../font.module.css";
 export default function TermsConditions() {
   return (
     <div className="flex justify-center text-white">
-      <div className="mx-60 my-10 border-2 border-slate-700 rounded-xl ">
-        <div className="px-24 ">
-          <p
-            className={`${font.Clash_display_h5medium} mt-12 pb-4 border-b-2 border-slate-700`}
-          >
+      <div className="mx-4 md:mx-60 my-10 border-2 border-slate-700 rounded-xl">
+        <div className="px-4 md:px-24 py-6 md:py-12">
+          <p className={`${font.Clash_display_h5medium} hidden md:block pb-4 border-b-2 border-slate-700`}>
             Terms and Conditions
           </p>
-
+          <p className={`${font.Clash_display_h6medium} block md:hidden pb-4 border-b-2 border-slate-700`}>
+            Terms and Conditions
+          </p>
           <div className={`${font.Satoshi_c1medium} text-justify `}>
             <p className="py-4">Last Updated: April 4th 2023</p>
             <p className="text-slate-400 ">
@@ -86,7 +86,7 @@ export default function TermsConditions() {
               </li>
             </ol>
 
-            <p className="pb-12 text-slate-400">
+            <p className="text-slate-400">
               By using the Sersow, users agree to these terms and conditions.
             </p>
           </div>

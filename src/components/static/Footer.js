@@ -14,8 +14,9 @@ export default function Footer({ transparent }) {
         <div className="flex">
           <div className="flex xl:gap-2 lg:gap-2 md:gap-2 sm:gap-2 ss:gap- items-center">
             <Link href="/credits">
-              <button className="flex items-center h-fit xl:px-9 lg:px-9 md:px-9 sm:px-9 ss:px-4 xl:py-3 lg:py-3 md:py-3 sm:py-2 ss:py-1  border-solid rounded-xl bg-gradient-to-b from-[#22D3EE] to-[#0EA5E9] transition ease-out delay-100 hover:to-[#22D3EE] hover:shadow-[0px_0px_12px_.5px_#22d3ee] active:shadow-[0_0_0_0] active:scale-[.92] active:from-[rgb(6 182 212)] active:to-[rgb(6 182 212)] active:delay-150">
-                <h4 className={`${font.Satoshi_b2bold} text-white`}>Credits</h4>
+              <button className="flex items-center h-fit md:px-9 ss:px-4 md:py-3 ss:py-2 border-solid rounded-xl bg-gradient-to-b from-[#22D3EE] to-[#0EA5E9] transition ease-out delay-100 hover:to-[#22D3EE] hover:shadow-[0px_0px_12px_.5px_#22d3ee] active:shadow-[0_0_0_0] active:scale-[.92] active:from-[rgb(6 182 212)] active:to-[rgb(6 182 212)] active:delay-150">
+                <h4 className={`${font.Satoshi_b2bold} text-white hidden md:block`}>Credits</h4>
+                <h4 className={`${font.Satoshi_c2bold} text-white block md:hidden`}>Credits</h4>
               </button>
             </Link>
           </div>

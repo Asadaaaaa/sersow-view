@@ -1,11 +1,11 @@
-export default async function RefreshToken(refreshAuth) {
+export default async function RefreshToken(auth, refreshAuth) {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/refresh-token", {
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/auth/refresh-token?refreshToken=" + refreshAuth, {
       method: 'GET',
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json',
-        'refreshToken': refreshAuth,
+        'Authorization': auth,
       }
     }).then((res) => res.json());
     
