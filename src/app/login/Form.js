@@ -40,7 +40,7 @@ export default function Form () {
 	}, [])
 
 	return (
-		<form className="bg-[rgba(2,6,23,0.5)] px-28 py-12 border-solid border-2 border-slate-700 rounded-[50px] backdrop-blur-[2px]">
+		<form className="bg-[rgba(2,6,23,0.5)] px-6 sm:px-16 md:px-28 py-8 md:py-12 border-solid border-2 border-slate-700 rounded-[20px] sm:rounded-[50px] backdrop-blur-[2px]">
 			<div className="flex flex-col gap-4 items-center">
 				<h1 className={`${font.Satoshi_h3bold} text-white`}>Login</h1>
 				<Input 
@@ -100,7 +100,53 @@ export default function Form () {
 					<button 
 						type="submit"
 						disabled={loading}
-						className={`${font.Satoshi_b2medium} w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+						className={`${font.Satoshi_b2medium} hidden md:block w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
+						onClick={async(e) => {
+							e.preventDefault();
+
+							setLoading(true);
+							
+							if (data.identity === "" || data.password === "" || data.password.length < 6) {
+								setDataError({ ...dataError, identity: true, password: true});
+								setWarningText("Username or password is wrong");
+
+								setLoading(false);
+
+								return;
+							}
+
+							const res = await login(data.identity, data.password);
+
+							if (res.status === "200") {
+								setCookie("auth", res.data.token);
+								setCookie("refreshAuth", res.data.refreshToken);
+
+								router.push("home");
+							} else if (res.status === "validator") {
+								toast.error("Something Wrong With Your Input", {
+									position: "top-center",
+									autoClose: 3000,
+									hideProgressBar: true,
+									closeOnClick: true,
+									pauseOnHover: true,
+									draggable: true,
+									progress: undefined,
+									theme: "colored",
+								});								
+							} else if (res.status === "-1") {
+								setDataError({ ...dataError, identity: true, password: true});
+								setWarningText("Username or password is wrong");
+							}
+
+							setLoading(false);
+						}}
+					>
+						{loading ? <Loading type="points-opacity" size="lg" color="white" /> : "Login"}
+					</button>
+					<button 
+						type="submit"
+						disabled={loading}
+						className={`${font.Satoshi_b1medium} block md:hidden w-full px-6 py-3 text-center text-white rounded-xl bg-gradient-to-b from-cyan-500 to-blue-500 hover:drop-shadow-[0px_0px_4px_rgba(34,211,238,0.4)] transition-all`}
 						onClick={async(e) => {
 							e.preventDefault();
 
