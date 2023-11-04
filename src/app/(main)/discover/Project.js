@@ -52,7 +52,7 @@ export default function Project() {
         )
       })
     }else{
-      const categoryDataProject = dataProject.filter((item) => item.categories.map((val) => val.id).includes(filterCategory.id));
+      const categoryDataProject = dataProject.filter((item) => item.categories ? item.categories.map((val) => val.id).includes(filterCategory.id) : null);
       
       categoryDataProject.map((val, index) => {
         index % 2 !== 0 ? (
