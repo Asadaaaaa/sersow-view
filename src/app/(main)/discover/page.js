@@ -25,7 +25,7 @@ export default function Discover() {
       <Header />
       <div className="w-full relative h-screen">
         <BgGradient />
-        <div className={`${styles.settingsContent} w-full max-w-[calc(100vw-120px)] md:max-w-[calc(100vw-268px)] lg:max-w-[calc(100vw-328px)] xl:max-w-[1016px] overflow-y-auto h-screen`}>
+        <div className={`${styles.settingsContent} w-full max-w-[calc(100vw-120px)] md:max-w-[calc(100vw-268px)] lg:max-w-[calc(100vw-328px)] xl:max-w-[1016px] pb-10 overflow-y-auto h-screen`}>
           {
             contentFilter === 0 ? (
               <Project />
