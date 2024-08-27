@@ -34,6 +34,7 @@ export default function DetailProject({ params }) {
 	const { isLogin } = useContext(IsLogin);
 
 	const [dataProject, setDataProject] = useState(null);
+	const [nsfwWarning, setNsfwWarning] = useState(false);
   const [toogle, setToogle] = useState(false);
 	const [dataUser, setDataUser] = useState(null);
 	const [deleteLoading, setDeleteLoading] = useState(false);
@@ -226,6 +227,7 @@ export default function DetailProject({ params }) {
 			if (res) {
 				if (res.status === "200") {
 					setDataProject(res.data);
+					setNsfwWarning(res.data.flagged_nsfw);
 					setDataUser(res.data.myIdentity);
 					setcommentsList(res.data.comments);					
 				} else if (res.status === "unauth") {
@@ -423,38 +425,58 @@ export default function DetailProject({ params }) {
 												</div>
 											)
 										}
-										{
-											(dataProject.preview || dataProject.thumbnail)  &&  (
-												<div className={`${styles.detailImages} w-full flex overflow-x-auto`}>
-													<div className="w-fit flex gap-6">
-														{
-															dataProject.thumbnail && (
-																<Image
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url+ "?key=" + Date.now()} 
-																	alt="sersow project preview"
-																	width={512}
-																	height={288}
-																	className="w-[512px] h-[288px] object-cover rounded-lg"
-																/>
-															)
-														}
-														{
-															dataProject.preview && 
-															dataProject.preview.map((item, index) => (
-																<Image 
-																	key={index}
-																	src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item+ "?key=" + Date.now()} 
-																	alt="sersow project preview"
-																	width={512}
-																	height={288}
-																	className="w-[512px] h-[288px] object-cover rounded-lg"
-																/>
-															))
-														}
+										<div className="relative">
+											{
+												(dataProject.preview || dataProject.thumbnail) && (
+													<div className={`${styles.detailImages} w-full flex overflow-x-auto`}>
+														<div className="w-fit flex gap-6">
+															{
+																dataProject.thumbnail && (
+																	<Image
+																		src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + dataProject.thumbnail.url+ "?key=" + Date.now()} 
+																		alt="sersow project preview"
+																		width={512}
+																		height={288}
+																		className="w-[512px] h-[288px] object-cover rounded-lg"
+																	/>
+																)
+															}
+															{
+																dataProject.preview && 
+																dataProject.preview.map((item, index) => (
+																	<Image 
+																		key={index}
+																		src={process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + item+ "?key=" + Date.now()} 
+																		alt="sersow project preview"
+																		width={512}
+																		height={288}
+																		className="w-[512px] h-[288px] object-cover rounded-lg"
+																	/>
+																))
+															}
+														</div>
 													</div>
-												</div>
-								 			)
-										}
+												)
+											}
+											{
+												nsfwWarning && (
+													<div className="absolute top-0 left-0 z-10 w-full h-full flex justify-center items-center bg-slate-950/95 border-solid border-slate-700">
+														<div className="flex flex-col p-6 gap-4 bg-slate-900  rounded-xl border-slate-700 border-[1px]">
+															<div className="flex justify-between items-start pb-3 border-b-slate-700 border-b-2 gap-3">
+																<div className={`${font.Satoshi_b2bold} text-white`}>NSFW Warning</div>
+																<div className="cursor-pointer pt-1" onClick={() => setNsfwWarning(false)}>
+																	<FaTimes className="w-4 h-4 text-white" />
+																</div>
+															</div>
+															<div className="flex flex-col gap-2">
+																<div className={`${font.Satoshi_c2medium} text-white`}>This project contains NSFW content.</div>
+																<div className={`${font.Satoshi_c2medium} text-white`}>Please be aware that the content may not be suitable for all audiences.</div>
+															</div>
+														</div>
+													</div>
+												)
+											}
+										</div>
 										<div className="flex flex-col gap-2">
 											<h1 className={`${font.Satoshi_h5bold} text-white`}>Description</h1>
 											<div>
