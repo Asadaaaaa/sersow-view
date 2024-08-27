@@ -29,7 +29,7 @@ export default function ThumbnailProject({thumbnail}) {
               <div className="absolute top-0 left-0 z-10 w-full h-full p-4 flex justify-center items-center bg-slate-950/95 border-solid border-slate-700">
                 <div className="flex flex-col p-6 gap-4 bg-slate-900  rounded-xl border-slate-700 border-[1px]">
                   <div className="flex justify-between items-start pb-3 border-b-slate-700 border-b-2 gap-3">
-                    <div className={`${font.Satoshi_b2bold} text-white`}>NSFW Warning</div>
+                    <div className={`${font.Satoshi_b2bold} text-white`}>NSFW Warning by Fluxync</div>
                     <div className="cursor-pointer pt-1" onClick={() => setNsfwWarning(false)}>
                       <FaTimes className="w-4 h-4 text-white" />
                     </div>
