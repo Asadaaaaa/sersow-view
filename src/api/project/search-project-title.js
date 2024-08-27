@@ -1,6 +1,6 @@
 export default async function SearchProjectTitle(title, auth) {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/project/search/title/" + title, {
+    const res = await fetch(process.env.NEXT_PUBLIC_HOST + "/" + process.env.NEXT_PUBLIC_VERSION + "/project/search?text=" + title, {
       method: 'GET',
       headers: {
         'Accept': '*/*',
